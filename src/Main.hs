@@ -5,8 +5,14 @@ module Main where
 import GenericMappings
 import GHC.Generics
 import Data.Text
+import Data.Aeson
+import Typescript.Generate
+import Data.Maybe
 
-data SampleType = AConstructor Int deriving (Generic, TypescriptType)
+data SampleType = AConstructor Int Text deriving (Generic, TypescriptType, ToJSON)
+
+sample :: SampleType
+sample = AConstructor 3 "Meow"
 
 data ARecord =
   ARecord
@@ -16,7 +22,4 @@ data ARecord =
 
 main :: IO ()
 main = do
-  putStrLn $ show $ toTypescriptType (3 :: Int)
-  putStrLn $ show $ toTypescriptType (AConstructor 3)
-  putStrLn $ show $ toTypescriptType (ARecord 3 "Meow")
-  putStrLn "hello world"
+  putStrLn $ fromMaybe "" $ (unpack . toTypescript) <$> toTypescriptType (ARecord 3 "Meow")

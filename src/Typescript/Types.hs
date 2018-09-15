@@ -5,7 +5,6 @@ import Data.Text
 data TSType =
     TSPrimitiveType TSPrimitive
   | TSInterface Text [TSField]
-  | TSTypeAlias Text TSType
    deriving (Show)
 
 
