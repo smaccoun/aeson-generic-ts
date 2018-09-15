@@ -1,0 +1,5 @@
+#!/bin/sh
+
+brittany --write-mode=inplace src/*.hs
+stack build --fast
+stack exec aeson-generic-ts 
