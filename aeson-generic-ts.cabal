@@ -1,0 +1,34 @@
+-- This file has been generated from package.yaml by hpack version 0.20.0.
+--
+-- see: https://github.com/sol/hpack
+--
+-- hash: 80fea8b5e8eced9e2c0438b53401517e9acf3b8db655ce3688e47b942d7adc98
+
+name:           aeson-generic-ts
+version:        0.1.0.0
+category:       Web
+homepage:       https://github.com/smaccoun/aeson-generic-ts#readme
+author:         Steven MacCoun
+maintainer:     theraccoun@gmail.com
+copyright:      2018 Steven MacCoun
+license:        BSD3
+license-file:   LICENSE
+build-type:     Simple
+cabal-version:  >= 1.10
+
+extra-source-files:
+    README.md
+
+executable aeson-generic-ts
+  main-is: Main.hs
+  hs-source-dirs:
+      src
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving KindSignatures MultiParamTypeClasses OverloadedStrings PolyKinds QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TypeApplications TypeFamilies TypeOperators UndecidableInstances
+  build-depends:
+      base >=4.7 && <5
+    , text
+  other-modules:
+      GenericMappings
+      Typescript.Types
+      Paths_aeson_generic_ts
+  default-language: Haskell2010

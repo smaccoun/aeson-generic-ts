@@ -1,0 +1,44 @@
+name:                aeson-generic-ts
+version:             0.1.0.0
+#synopsis:
+#description:
+homepage:            https://github.com/smaccoun/aeson-generic-ts#readme
+license:             BSD3
+author:              Steven MacCoun
+maintainer:          theraccoun@gmail.com
+copyright:           2018 Steven MacCoun
+category:            Web
+extra-source-files:
+- README.md
+
+dependencies:
+  - base >= 4.7 && < 5
+  - text
+
+default-extensions:
+- ConstraintKinds
+- DataKinds
+- DeriveGeneric
+- FlexibleContexts
+- FlexibleInstances
+- GADTs
+- GeneralizedNewtypeDeriving
+- KindSignatures
+- MultiParamTypeClasses
+- OverloadedStrings
+- PolyKinds
+- QuasiQuotes
+- RankNTypes
+- RecordWildCards
+- ScopedTypeVariables
+- StandaloneDeriving
+- TemplateHaskell
+- TypeApplications
+- TypeFamilies
+- TypeOperators
+- UndecidableInstances
+
+executables:
+  aeson-generic-ts:
+    source-dirs:      src
+    main:             Main.hs

@@ -1,0 +1,4 @@
+resolver: lts-11.14
+
+ghc-options:
+  aeson-generic-ts: -Wall -Werror -O0 -fwarn-tabs -fno-warn-orphans
