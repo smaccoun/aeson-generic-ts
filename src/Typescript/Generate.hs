@@ -12,7 +12,7 @@ instance GenerateTypescript TSType where
   toTypescript (TSInterface iName fields') =
     "interface " <> iName <> " { \n"
       <> toTypescript fields'
-      <> " \n }"
+      <> "}"
 
 instance GenerateTypescript TSField where
   toTypescript (TSField (FieldName fieldName') fieldType') =
