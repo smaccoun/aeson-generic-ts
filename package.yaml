@@ -43,3 +43,12 @@ executables:
   aeson-generic-ts:
     source-dirs:      src
     main:             Main.hs
+
+tests:
+  aeson-generic-ts-test:
+    main:                Main.hs
+    source-dirs:
+      - test
+      - src
+    dependencies:
+    - hspec

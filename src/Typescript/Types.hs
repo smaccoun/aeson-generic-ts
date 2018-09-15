@@ -5,12 +5,12 @@ import Data.Text
 data TSType =
     TSPrimitiveType TSPrimitive
   | TSInterface Text [TSField]
-   deriving (Show)
+   deriving (Eq, Show)
 
 
-newtype FieldName = FieldName Text deriving (Show)
-data TSField = TSField FieldName TSType deriving (Show)
+newtype FieldName = FieldName Text deriving (Eq, Show)
+data TSField = TSField FieldName TSType deriving (Eq, Show)
 
 data TSPrimitive =
     TSNumber
-  | TSString deriving (Show)
+  | TSString deriving (Eq, Show)
