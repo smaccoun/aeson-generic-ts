@@ -11,6 +11,7 @@ class GenerateTypescript a where
 
 instance GenerateTypescript TSType where
   toTypescript (TSPrimitiveType tsPrim) = toTypescript tsPrim
+  toTypescript (TSCollectionType tsCollection) = toTypescript tsCollection
   toTypescript (TSInterface iName fields') =
       ("interface " <> iName <> " { \n"
       <> toTypescript fields'
@@ -26,6 +27,7 @@ instance GenerateTypescript TSField where
           case fieldType' of
               TSPrimitiveType primitive -> toTypescript primitive
               TSInterface iName _       -> iName
+              TSCollectionType tCollection       -> toTypescript tCollection
 
 instance GenerateTypescript [TSField] where
   toTypescript []     = ""
@@ -35,6 +37,9 @@ instance GenerateTypescript TSPrimitive where
   toTypescript TSNumber           = "number"
   toTypescript TSString           = "string"
   toTypescript (TSOption tsType') = toTypescript tsType' <> " | null "
+
+instance GenerateTypescript TSCollection where
+  toTypescript (TSArray tsType') = "Array<" <> toTypescript tsType' <> ">"
 
 data GenMany = forall a . TypescriptType a => GenMany a
 
