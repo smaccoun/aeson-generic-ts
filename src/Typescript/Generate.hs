@@ -38,7 +38,7 @@ instance GenerateTypescript [TSField] where
 instance GenerateTypescript TSPrimitive where
   toTypescript TSNumber           = "number"
   toTypescript TSString           = "string"
-  
+  toTypescript TSBoolean          = "boolean"
 
 instance GenerateTypescript TSCollection where
   toTypescript (TSArray tsType') = "Array<" <> toTypescript tsType' <> ">"

@@ -20,4 +20,5 @@ data TSCollection =
 data TSPrimitive =
     TSNumber
   | TSString
+  | TSBoolean
     deriving (Eq, Show)

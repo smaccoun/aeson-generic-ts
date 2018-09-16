@@ -65,5 +65,8 @@ instance TypescriptType Text where
 instance TypescriptType String where
   toTypescriptType _ = Just $ TSPrimitiveType TSString
 
+instance TypescriptType Bool where
+  toTypescriptType _ = Just $ TSPrimitiveType TSBoolean
+
 instance TypescriptType a => TypescriptType [a] where
   toTypescriptType _ = (TSCollectionType . TSArray) <$> toTypescriptType (Proxy :: Proxy a)

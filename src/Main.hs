@@ -9,9 +9,10 @@ import           GHC.Generics
 import           Typescript.Generate
 
 data User = User
-    {name :: PersonName
-    ,age  :: Int
-    ,placesLived :: [Text]
+    {name         :: PersonName
+    ,age          :: Int
+    ,placesLived  :: [Text]
+    ,isRegistered :: Bool
     } deriving (Generic, TypescriptType)
 
 data PersonName =
