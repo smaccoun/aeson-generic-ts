@@ -9,8 +9,12 @@ data TSType =
 
 
 newtype FieldName = FieldName Text deriving (Eq, Show)
-data TSField = TSField FieldName TSType deriving (Eq, Show)
+data TSField = TSField IsRequired FieldName TSType deriving (Eq, Show)
+
+data IsRequired = Required | Optional deriving (Eq, Show)
 
 data TSPrimitive =
     TSNumber
-  | TSString deriving (Eq, Show)
+  | TSString
+  | TSOption TSType
+    deriving (Eq, Show)

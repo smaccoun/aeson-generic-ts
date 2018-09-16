@@ -2,22 +2,24 @@
 
 module Main where
 
-import GenericMappings
-import GHC.Generics
-import Data.Text
-import Typescript.Generate
-import Data.Maybe
+import           Data.Maybe
+import           Data.Text
+import           GenericMappings
+import           GHC.Generics
+import           Typescript.Generate
 
-data ARecord =
-  ARecord
-    {firstField :: Int
-    ,aStringField :: Text
+data User = User
+    {name :: Text
+    ,age  :: Int
     } deriving (Generic, TypescriptType)
 
-sample :: ARecord
-sample = ARecord 3 "Meow"
+sampleUser :: User
+sampleUser = User "Jane Smith" 45
 
 main :: IO ()
 main = do
-  putStrLn $ fromMaybe "" $ (unpack . toTypescript) <$> toTypescriptType sample
-  putStrLn $ show $ toTypescriptType sample
+  putStrLn
+    $   fromMaybe ""
+    $   (unpack . toTypescript)
+    <$> toTypescriptType sampleUser
+  putStrLn $ show $ toTypescriptType sampleUser

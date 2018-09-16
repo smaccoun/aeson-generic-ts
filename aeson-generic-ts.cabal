@@ -1,8 +1,8 @@
--- This file has been generated from package.yaml by hpack version 0.20.0.
+-- This file has been generated from package.yaml by hpack version 0.28.2.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: b7174a1379f6c40f457fc185aba6d984f71eb212c50bbb0ccb46c785b919bf3a
+-- hash: d35680238852f1494e012f3638dac80ed14d2073085f442d5816a738bb8869c0
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -15,7 +15,6 @@ license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
 cabal-version:  >= 1.10
-
 extra-source-files:
     README.md
 
@@ -50,6 +49,7 @@ test-suite aeson-generic-ts-test
   other-modules:
       Spec
       GenericMappings
+      Main
       Typescript.Generate
       Typescript.Types
       Paths_aeson_generic_ts

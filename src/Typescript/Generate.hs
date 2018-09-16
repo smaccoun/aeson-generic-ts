@@ -15,7 +15,7 @@ instance GenerateTypescript TSType where
       <> "}"
 
 instance GenerateTypescript TSField where
-  toTypescript (TSField (FieldName fieldName') fieldType') =
+  toTypescript (TSField _ (FieldName fieldName') fieldType') =
     fieldName' <> " : " <> toTypescript fieldType'
 
 instance GenerateTypescript [TSField] where
@@ -25,6 +25,7 @@ instance GenerateTypescript [TSField] where
 instance GenerateTypescript TSPrimitive where
   toTypescript TSNumber = "number"
   toTypescript TSString = "string"
+  toTypescript (TSOption tsType') = toTypescript tsType' <> " | null "
 
 
 genTypescript :: (GenerateTypescript a) => [a] -> Text

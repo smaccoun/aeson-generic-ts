@@ -8,14 +8,14 @@ import           GenericMappings
 import           GHC.Generics
 import           Typescript.Generate
 
-data User =
-  User
+data User = User
     {name :: Text
     ,age  :: Int
+    ,mbMiddle :: Maybe Text
     } deriving (Generic, TypescriptType)
 
 sampleUser :: User
-sampleUser = User "Jane Smith" 45
+sampleUser = User "Jane Smith" 45 Nothing
 
 main :: IO ()
 main = do

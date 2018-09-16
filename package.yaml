@@ -51,4 +51,4 @@ tests:
       - test
       - src
     dependencies:
-    - hspec
+      - hspec
