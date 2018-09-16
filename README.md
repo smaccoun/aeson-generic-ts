@@ -5,18 +5,30 @@ Encoding of Haskell types to generic typescript types
 Given this haskell type:
 
 ```
-data User =
-  User
-    {name         :: Text
-    ,age          :: Int
+data User = User
+    {name :: PersonName
+    ,age  :: Int
     } deriving (Generic, TypescriptType)
+
+data PersonName =
+  PersonName
+   {firstName     :: Text
+   ,middleInitial :: Maybe Text
+   ,lastName      :: Text
+   } deriving (Generic, TypescriptType)
+
 ```
 
-Becomes this typescript type
+Generates the following typescript types
 
 ```
 interface User {
-   name : string
+   name : PersonName
    age : number
+}
+interface PersonName {
+   firstName : string
+   middleInitial : string | null
+   lastName : string
 }
 ```

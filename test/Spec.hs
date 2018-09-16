@@ -24,8 +24,8 @@ aesonGenericTSSpec = do
       $          toTypescriptType sample
       `shouldBe` (Just $ TSInterface
                    "ARecord"
-                   [ TSField Required (FieldName "firstField") (TSPrimitiveType TSNumber)
-                   , TSField Required (FieldName "aStringField")
+                   [ TSField (FieldName "firstField") (TSPrimitiveType TSNumber)
+                   , TSField (FieldName "aStringField")
                              (TSPrimitiveType TSString)
                    ]
                  )

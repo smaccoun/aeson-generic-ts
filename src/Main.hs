@@ -2,25 +2,30 @@
 
 module Main where
 
-import           Data.Maybe
+
+import           Data.Proxy
 import           Data.Text
 import           GenericMappings
 import           GHC.Generics
 import           Typescript.Generate
 
 data User = User
-    {name :: Text
+    {name :: PersonName
     ,age  :: Int
-    ,mbMiddle :: Maybe Text
     } deriving (Generic, TypescriptType)
 
+data PersonName =
+  PersonName
+   {firstName     :: Text
+   ,middleInitial :: Maybe Text
+   ,lastName      :: Text
+   } deriving (Generic, TypescriptType)
+
 sampleUser :: User
-sampleUser = User "Jane Smith" 45 Nothing
+sampleUser = User (PersonName "Jane" Nothing "Smithg") 45
 
 main :: IO ()
 main = do
-  putStrLn
-    $   fromMaybe ""
-    $   (unpack . toTypescript)
-    <$> toTypescriptType sampleUser
+  putStrLn $ unpack $ printTS (Proxy :: Proxy User)
+  putStrLn $ unpack $ printTS (Proxy :: Proxy PersonName)
   putStrLn $ show $ toTypescriptType sampleUser
