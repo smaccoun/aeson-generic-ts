@@ -15,7 +15,7 @@ instance GenerateTypescript TSType where
       <> "}"
 
 instance GenerateTypescript TSField where
-  toTypescript (TSField _ (FieldName fieldName') fieldType') =
+  toTypescript (TSField (FieldName fieldName') fieldType') =
     fieldName' <> " : " <> toTypescript fieldType'
 
 instance GenerateTypescript [TSField] where

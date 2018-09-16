@@ -36,7 +36,7 @@ instance (Selector s, GenericTypescriptType f) => GenericTSFields (S1 s f) where
     case selName d of
       "" -> Nothing
       name ->
-        (gTSRep (unM1 d)) >>= (\t -> Just [TSField Required (FieldName $ pack name) t])
+        (gTSRep (unM1 d)) >>= (\t -> Just [TSField (FieldName $ pack name) t])
 
 instance (GenericTSFields f, GenericTSFields g)
   => GenericTSFields (f :*: g) where
