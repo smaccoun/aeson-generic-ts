@@ -6,6 +6,7 @@ data TSType =
     TSPrimitiveType TSPrimitive
   | TSInterface Text [TSField]
   | TSCollectionType TSCollection
+  | TSOption TSType
    deriving (Eq, Show)
 
 
@@ -19,5 +20,4 @@ data TSCollection =
 data TSPrimitive =
     TSNumber
   | TSString
-  | TSOption TSType
     deriving (Eq, Show)
