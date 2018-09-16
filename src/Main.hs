@@ -21,11 +21,14 @@ data PersonName =
    ,lastName      :: Text
    } deriving (Generic, TypescriptType)
 
-sampleUser :: User
-sampleUser = User (PersonName "Jane" Nothing "Smithg") 45
-
 main :: IO ()
 main = do
   putStrLn $ unpack $ printTS (Proxy :: Proxy User)
   putStrLn $ unpack $ printTS (Proxy :: Proxy PersonName)
-  putStrLn $ show $ toTypescriptType sampleUser
+  putStrLn $ unpack $ genTypescript allTypes
+  putStrLn $ show $ toTypescriptType (Proxy :: Proxy User)
+  where
+    allTypes =
+      [(GenMany (undefined :: User))
+      ,(GenMany (undefined :: PersonName))
+      ]

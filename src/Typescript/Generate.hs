@@ -17,32 +17,6 @@ instance GenerateTypescript TSType where
       <> "}"
       )
 
-printTS :: (TypescriptType a) => a -> Text
-printTS tsType' =
-        fromMaybe ""
-    $   toTypescript
-    <$> toTypescriptType tsType'
-
-
-
---data InterfaceFieldTraverse =
---  InterfaceFieldTraverse
---    {_typeNameToPrint       :: Text
---    ,_mbAnotherTypeToPrint  :: (Maybe TSType)
---    }
---
---traverseFields :: [TSField] -> InterfaceFieldTraverse
---traverseFields fields' =
---  fmap travField fields'
---  where
---    travField (TSField fieldName tType) =
---      InterfaceFieldTraverse fieldName
---         $ case tType of
---             TSInterface n fs -> Just $ TSInterface n fs
---             _ -> Nothing
---
---genInterface (TSInterface iName fields') =
-
 
 instance GenerateTypescript TSField where
   toTypescript (TSField (FieldName fieldName') fieldType') =
@@ -62,8 +36,15 @@ instance GenerateTypescript TSPrimitive where
   toTypescript TSString           = "string"
   toTypescript (TSOption tsType') = toTypescript tsType' <> " | null "
 
+data GenMany = forall a . TypescriptType a => GenMany a
 
-genTypescript :: (GenerateTypescript a) => [a] -> Text
+genTypescript :: [GenMany] -> Text
 genTypescript [] = ""
-genTypescript (x:xs) =
-   (toTypescript x) <> "\n" <> genTypescript xs
+genTypescript ((GenMany x):xs) =
+   (printTS x) <> "\n" <> genTypescript xs
+
+printTS :: (TypescriptType a) => a -> Text
+printTS tsType' =
+        fromMaybe ""
+    $   toTypescript
+    <$> toTypescriptType tsType'
