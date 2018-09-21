@@ -7,6 +7,7 @@ data TSType =
   | TSInterface Text [TSField]
   | TSCollectionType TSCollection
   | TSOption TSType
+  | TSAny
    deriving (Eq, Show)
 
 

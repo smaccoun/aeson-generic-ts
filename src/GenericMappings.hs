@@ -45,7 +45,6 @@ instance (GenericTSFields f, GenericTSFields g)
       <$> toTypescriptFields (undefined :: f p)
       <*> toTypescriptFields (undefined :: g p)
 
-
 instance TypescriptType a => GenericTypescriptType (Rec0 a) where
   gTSRep _ = toTypescriptType (Proxy :: Proxy a)
 

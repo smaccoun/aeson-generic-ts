@@ -18,6 +18,7 @@ instance GenerateTypescript TSType where
       <> toTypescript fields'
       <> "}"
       )
+  toTypescript TSAny = "any"
 
 
 instance GenerateTypescript TSField where
@@ -30,6 +31,7 @@ instance GenerateTypescript TSField where
               TSInterface iName _       -> iName
               TSCollectionType tCollection       -> toTypescript tCollection
               TSOption tsOption -> toTypescript tsOption
+              TSAny -> "any"
 
 instance GenerateTypescript [TSField] where
   toTypescript []     = ""
