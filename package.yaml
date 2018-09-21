@@ -11,6 +11,7 @@ category:            Web
 extra-source-files:
 - README.md
 
+
 dependencies:
   - base >= 4.7 && < 5
   - text
@@ -43,6 +44,9 @@ executables:
   aeson-generic-ts:
     source-dirs:      src
     main:             Main.hs
+
+library:
+  source-dirs: src
 
 tests:
   aeson-generic-ts-test:
