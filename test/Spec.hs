@@ -5,8 +5,8 @@ module Spec where
 import           Data.Text
 import           GenericMappings
 import           GHC.Generics
+import           Internal.Types
 import           Test.Hspec
-import           Typescript.Types
 
 data ARecord =
   ARecord
@@ -29,4 +29,5 @@ aesonGenericTSSpec = do
                              (TSPrimitiveType TSString)
                    ]
                  )
+
 

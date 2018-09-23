@@ -1,4 +1,4 @@
-module Typescript.Types where
+module Internal.Types where
 
 import Data.Text
 

@@ -8,7 +8,7 @@
 module GenericMappings where
 
 import GHC.Generics
-import Typescript.Types
+import Internal.Types
 import Data.Text
 import Data.Proxy
 

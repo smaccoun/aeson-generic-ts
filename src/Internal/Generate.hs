@@ -1,10 +1,10 @@
-module Typescript.Generate where
+module Internal.Generate where
 
 import           Data.Maybe
 import           Data.Monoid      ((<>))
 import           Data.Text
 import           GenericMappings
-import           Typescript.Types
+import           Internal.Types
 
 class GenerateTypescript a where
   toTypescript :: a -> Text

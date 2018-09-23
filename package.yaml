@@ -40,11 +40,6 @@ default-extensions:
 - TypeOperators
 - UndecidableInstances
 
-executables:
-  aeson-generic-ts:
-    source-dirs:      src
-    main:             Main.hs
-
 library:
   source-dirs: src
 

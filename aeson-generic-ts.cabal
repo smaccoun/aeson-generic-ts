@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 3f18f244cbee404fd0536d57927e8824642211a3f6f3e84e3f3ca93a0f92310d
+-- hash: 74aa3075417cf479f252a116c0b011d4dbea5f3cb2d14fdbbd953264c43aa724
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -21,9 +21,9 @@ extra-source-files:
 library
   exposed-modules:
       GenericMappings
-      Main
-      Typescript.Generate
-      Typescript.Types
+      Internal.Generate
+      Internal.Types
+      Typescript
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -33,22 +33,6 @@ library
       aeson
     , base >=4.7 && <5
     , text
-  default-language: Haskell2010
-
-executable aeson-generic-ts
-  main-is: Main.hs
-  hs-source-dirs:
-      src
-  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving KindSignatures MultiParamTypeClasses OverloadedStrings PolyKinds QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TypeApplications TypeFamilies TypeOperators UndecidableInstances
-  build-depends:
-      aeson
-    , base >=4.7 && <5
-    , text
-  other-modules:
-      GenericMappings
-      Typescript.Generate
-      Typescript.Types
-      Paths_aeson_generic_ts
   default-language: Haskell2010
 
 test-suite aeson-generic-ts-test
@@ -66,8 +50,8 @@ test-suite aeson-generic-ts-test
   other-modules:
       Spec
       GenericMappings
-      Main
-      Typescript.Generate
-      Typescript.Types
+      Internal.Generate
+      Internal.Types
+      Typescript
       Paths_aeson_generic_ts
   default-language: Haskell2010
