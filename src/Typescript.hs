@@ -2,8 +2,8 @@
 
 module Typescript
   (toTypescriptType
-  ,TSType(..)
   ,toTypescript
+  ,module Internal.Types
   ,TypescriptType
   )
 where
