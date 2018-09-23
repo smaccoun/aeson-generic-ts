@@ -4,6 +4,7 @@ module Typescript
   (toTypescriptType
   ,TSType(..)
   ,toTypescript
+  ,TypescriptType
   )
 where
 
