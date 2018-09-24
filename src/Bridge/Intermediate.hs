@@ -1,13 +1,13 @@
-module Internal.Types where
+module Bridge.Intermediate where
 
 import Data.Text
 
 data TSType =
     TSPrimitiveType TSPrimitive
-  | TSInterface Text [TSField]
   | TSCollectionType TSCollection
-  | TSOption TSType
   | TSAny
+  | TSOption TSType
+  | TSInterface Text [TSField]
    deriving (Eq, Show)
 
 

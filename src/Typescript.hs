@@ -3,7 +3,7 @@
 module Typescript
   (toTypescriptType
   ,toTypescript
-  ,module Internal.Types
+  ,module Bridge.Intermediate
   ,TypescriptType
   )
 where
@@ -11,5 +11,5 @@ where
 
 import           GenericMappings
 import           Internal.Generate
-import           Internal.Types
+import           Bridge.Intermediate
 

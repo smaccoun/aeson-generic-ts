@@ -8,7 +8,7 @@
 module GenericMappings where
 
 import GHC.Generics
-import Internal.Types
+import Bridge.Intermediate
 import Data.Text
 import Data.Proxy
 
