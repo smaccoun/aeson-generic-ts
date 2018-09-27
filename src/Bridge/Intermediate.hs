@@ -6,19 +6,19 @@ data BType =
     BPrimitiveType BPrimitive
   | BCollectionType BCollection
   | BOption BType
-  | BInterface Text [BField]
+  | BRecord Text [BField]
    deriving (Eq, Show)
 
 
-newtype FieldName = FieldName Text deriving (Eq, Show)
-data BField = BField FieldName BType deriving (Eq, Show)
+newtype BFieldName = BFieldName Text deriving (Eq, Show)
+data BField = BField BFieldName BType deriving (Eq, Show)
 
 data BCollection =
   BArray BType
    deriving (Eq, Show)
 
 data BPrimitive =
-    BNumber
+    BInt
   | BString
   | BBoolean
     deriving (Eq, Show)
