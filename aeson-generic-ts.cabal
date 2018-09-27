@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 705db9b2fe3d185b7af05df9ff36e7ec8a6e096c1be5cafd74872cfad94927dd
+-- hash: 03fb25a41acdb10dff80386e42bef8080592893e68356b1fbe99f12f1159762c
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -24,6 +24,7 @@ library
       GenericMappings
       Internal.Generate
       Typescript
+      Typescript.Types
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -53,5 +54,6 @@ test-suite aeson-generic-ts-test
       GenericMappings
       Internal.Generate
       Typescript
+      Typescript.Types
       Paths_aeson_generic_ts
   default-language: Haskell2010

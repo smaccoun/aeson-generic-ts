@@ -2,24 +2,23 @@ module Bridge.Intermediate where
 
 import Data.Text
 
-data TSType =
-    TSPrimitiveType TSPrimitive
-  | TSCollectionType TSCollection
-  | TSAny
-  | TSOption TSType
-  | TSInterface Text [TSField]
+data BType =
+    BPrimitiveType BPrimitive
+  | BCollectionType BCollection
+  | BOption BType
+  | BInterface Text [BField]
    deriving (Eq, Show)
 
 
 newtype FieldName = FieldName Text deriving (Eq, Show)
-data TSField = TSField FieldName TSType deriving (Eq, Show)
+data BField = BField FieldName BType deriving (Eq, Show)
 
-data TSCollection =
-  TSArray TSType
+data BCollection =
+  BArray BType
    deriving (Eq, Show)
 
-data TSPrimitive =
-    TSNumber
-  | TSString
-  | TSBoolean
+data BPrimitive =
+    BNumber
+  | BString
+  | BBoolean
     deriving (Eq, Show)

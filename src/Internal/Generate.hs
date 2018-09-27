@@ -4,7 +4,7 @@ import           Data.Maybe
 import           Data.Monoid      ((<>))
 import           Data.Text
 import           GenericMappings
-import           Bridge.Intermediate
+import           Typescript.Types
 
 class GenerateTypescript a where
   toTypescript :: a -> Text
