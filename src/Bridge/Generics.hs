@@ -20,13 +20,24 @@ class BridgeType a where
 class GenericBridgeType f where
   gBRep :: f a -> Maybe BType
 
+instance (Datatype d, GenericBridgeConstructor f) =>
+         GenericBridgeType (D1 d f) where
+  gBRep datatype =
+    BConstructed typeName <$> mbConstructor
+    where
+      typeName = (pack (datatypeName datatype))
+      mbConstructor = (toBridgeConstructor (unM1 datatype))
+
+class GenericBridgeConstructor f where
+  toBridgeConstructor :: f a -> Maybe BConstructor
+
 class GenericBFields f where
   toBridgeFields:: f a -> Maybe [BField]
 
-instance (Datatype d, Constructor c, GenericBFields f) => GenericBridgeType (M1 D d (M1 C c f)) where
-  gBRep d =
-    if conIsRecord . unM1 $ d then
-       BRecordType <$> BRecord (pack $ datatypeName d) <$> toBridgeFields (unM1 . unM1 $ d)
+instance (Constructor c, GenericBFields f) => GenericBridgeConstructor (M1 C c f) where
+  toBridgeConstructor d =
+    if conIsRecord d then
+       BRecordConstructor <$> toBridgeFields (unM1 $ d)
     else
       Nothing
 

@@ -6,10 +6,13 @@ data BType =
     BPrimitiveType BPrimitive
   | BCollectionType BCollection
   | BOption BType
-  | BRecordType BRecord
+  | BConstructed Text BConstructor
    deriving (Eq, Show)
 
-data BRecord = BRecord Text [BField] deriving (Eq, Show)
+data BConstructor =
+    BRecordConstructor [BField]
+  | UnionConstructor [BConstructor]
+    deriving (Eq, Show)
 
 newtype BFieldName = BFieldName Text deriving (Eq, Show)
 data BField = BField BFieldName BType deriving (Eq, Show)

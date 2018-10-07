@@ -14,8 +14,11 @@ bridgeTypeToTSType btype =
           TSCollectionType $ TSArray (bridgeTypeToTSType btypeInArray)
     BOption btypeInOption ->
       TSCustomType $ TSOption (bridgeTypeToTSType btypeInOption)
-    BRecordType (BRecord recordName fields) ->
-      TSInterface recordName $ bfieldToTSField <$> fields
+    BConstructed typeName c ->
+      case c of
+        (BRecordConstructor fields) ->
+            TSInterface typeName $ bfieldToTSField <$> fields
+        (UnionConstructor _) -> TSAny
 
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
