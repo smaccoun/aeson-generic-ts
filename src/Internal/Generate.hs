@@ -20,6 +20,16 @@ instance GenerateTypescript TSType where
       <> toTypescript fields'
       <> "}"
       )
+  toTypescript (TSUnion unionName tsTypes') =
+    "type" <>  unionName <> " = " <> ns
+    where
+      ns =
+         intercalate ""
+       $ fmap (\t ->
+            case t of
+              TSInterface n _ -> n
+              _ -> toTypescript t
+            ) tsTypes'
   toTypescript TSAny = "any"
 
 
@@ -31,6 +41,7 @@ instance GenerateTypescript TSField where
           case fieldType' of
               TSPrimitiveType primitive -> toTypescript primitive
               TSInterface iName _       -> iName
+              TSUnion iName _       -> iName
               TSCollectionType tCollection       -> toTypescript tCollection
               TSCustomType c ->
                 case c of

@@ -8,6 +8,7 @@ data TSType =
   | TSAny
   | TSCustomType TSCustom
   | TSInterface Text [TSField]
+  | TSUnion Text [TSType]
    deriving (Eq, Show)
 
 data TSCustom =
