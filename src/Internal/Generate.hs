@@ -12,7 +12,9 @@ class GenerateTypescript a where
 instance GenerateTypescript TSType where
   toTypescript (TSPrimitiveType tsPrim) = toTypescript tsPrim
   toTypescript (TSCollectionType tsCollection) = toTypescript tsCollection
-  toTypescript (TSOption tsType') = toTypescript tsType' <> " | null "
+  toTypescript (TSCustomType c) =
+    case c of
+      (TSOption tsType') -> toTypescript tsType' <> " | null "
   toTypescript (TSInterface iName fields') =
       ("interface " <> iName <> " { \n"
       <> toTypescript fields'
@@ -30,7 +32,9 @@ instance GenerateTypescript TSField where
               TSPrimitiveType primitive -> toTypescript primitive
               TSInterface iName _       -> iName
               TSCollectionType tCollection       -> toTypescript tCollection
-              TSOption tsOption -> toTypescript tsOption
+              TSCustomType c ->
+                case c of
+                  TSOption tsOption -> toTypescript tsOption
               TSAny -> "any"
 
 instance GenerateTypescript [TSField] where

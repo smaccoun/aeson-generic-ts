@@ -53,7 +53,7 @@ instance (TypescriptType a) => TypescriptType (Proxy a) where
 
 instance TypescriptType a => TypescriptType (Maybe a) where
   toTypescriptType _ =
-      TSOption <$> toTypescriptType (Proxy :: Proxy a)
+      TSCustomType <$> TSOption <$> toTypescriptType (Proxy :: Proxy a)
 
 instance TypescriptType Int where
   toTypescriptType _ = Just $ TSPrimitiveType TSNumber

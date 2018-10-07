@@ -1,15 +1,17 @@
 module Typescript.Types where
 
-import Data.Text
+import           Data.Text
 
 data TSType =
     TSPrimitiveType TSPrimitive
   | TSCollectionType TSCollection
   | TSAny
-  | TSOption TSType
+  | TSCustomType TSCustom
   | TSInterface Text [TSField]
    deriving (Eq, Show)
 
+data TSCustom =
+  TSOption TSType deriving (Eq, Show)
 
 newtype FieldName = FieldName Text deriving (Eq, Show)
 data TSField = TSField FieldName TSType deriving (Eq, Show)

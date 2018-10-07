@@ -13,8 +13,8 @@ bridgeTypeToTSType btype =
         BArray btypeInArray ->
           TSCollectionType $ TSArray (bridgeTypeToTSType btypeInArray)
     BOption btypeInOption ->
-      TSOption (bridgeTypeToTSType btypeInOption)
-    BRecord recordName fields ->
+      TSCustomType $ TSOption (bridgeTypeToTSType btypeInOption)
+    BRecordType (BRecord recordName fields) ->
       TSInterface recordName $ bfieldToTSField <$> fields
 
 
