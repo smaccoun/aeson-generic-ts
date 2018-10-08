@@ -42,9 +42,8 @@ aesonGenericTSSpec = do
                    ]
                  )
   describe "from_bridge" $ do
-    let complexAsTS = (bridgeTypeToTSType $ toBridgeType (Proxy :: Proxy ComplexRecord))
     it "Should match the given TStype from Bridge" $
-      complexAsTS `shouldBe` (TSInterface
+      asTS (Proxy :: Proxy ComplexRecord) `shouldBe` (TSInterface
                    "ComplexRecord"
                    [ TSField (FieldName "anIntField") (TSPrimitiveType TSNumber)
                    , TSField (FieldName "aTextField") (TSPrimitiveType TSString)
@@ -52,8 +51,8 @@ aesonGenericTSSpec = do
                    ]
                  )
 
-    it "Should output the correct string" $ do
-      toTypescript complexAsTS `shouldBe`
+    it "Should output the correct complex record" $ do
+      printFromBridge (Proxy :: Proxy ComplexRecord) `shouldBe`
         Data.Text.intercalate ""
         ["interface ComplexRecord { \n"
         ,"   anIntField : number \n"
@@ -61,4 +60,11 @@ aesonGenericTSSpec = do
         ,"   aUnion : SampleUnion \n}"
         ]
 
+    it "Should output the correct vanilla union" $ do
+       printFromBridge (Proxy :: Proxy SampleUnion) `shouldBe` "type SampleUnion = number | string"
 
+asTS :: (BridgeType a) => Proxy a -> TSType
+asTS = bridgeTypeToTSType . toBridgeType
+
+printFromBridge :: (BridgeType a) => Proxy a -> Text
+printFromBridge = toTypescript . asTS

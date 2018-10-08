@@ -21,10 +21,10 @@ instance GenerateTypescript TSType where
       <> "}"
       )
   toTypescript (TSUnion unionName tsTypes') =
-    "type" <>  unionName <> " = " <> ns
+    "type " <>  unionName <> " = " <> ns
     where
       ns =
-         intercalate ""
+         intercalate " | "
        $ fmap (\t ->
             case t of
               TSInterface n _ -> n
