@@ -53,9 +53,7 @@ instance GenerateTypescript [TSField] where
   toTypescript (x:xs) = "   " <> toTypescript x <> " \n" <> toTypescript xs
 
 instance GenerateTypescript TSPrimitive where
-  toTypescript TSNumber           = "number"
-  toTypescript TSString           = "string"
-  toTypescript TSBoolean          = "boolean"
+  toTypescript = generateTSPrimitive
 
 instance GenerateTypescript TSCollection where
   toTypescript (TSArray tsType') = "Array<" <> toTypescript tsType' <> ">"

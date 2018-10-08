@@ -1,6 +1,10 @@
-module Typescript.Types where
+module Typescript.Types
+  (module Typescript.Types
+   ,module Typescript.Primitives
+   ) where
 
 import           Data.Text
+import           Typescript.Primitives
 
 data TSType =
     TSPrimitiveType TSPrimitive
@@ -21,8 +25,3 @@ data TSCollection =
   TSArray TSType
    deriving (Eq, Show)
 
-data TSPrimitive =
-    TSNumber
-  | TSString
-  | TSBoolean
-    deriving (Eq, Show)
