@@ -20,10 +20,21 @@ bridgeTypeToTSType btype =
 bConstructedToTS :: Text -> BConstructor -> TSType
 bConstructedToTS typeName bcon =
   case bcon of
-    (BRecordConstructor fields) ->
-      TSInterface typeName $ bfieldToTSField <$> fields
+    (SingleConstructorType fields) ->
+      case fields of
+        [x] ->
+          case x of
+            OfUnTagged btype -> bridgeTypeToTSType btype
+            OfRecord bfield -> TSInterface typeName $ [bfieldToTSField bfield]
+        _:_ -> TSInterface typeName $ fmap handleSingle fields
+        _ -> TSAny
     (UnionConstructor cs) ->
       TSUnion typeName $ bConstructedToTS typeName <$> cs
+  where
+    handleSingle c =
+      case c of
+        OfRecord f -> bfieldToTSField f
+        OfUnTagged _ -> TSField (FieldName "baloney") TSAny --TODO handle this
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
 bprimToTSPrim bprim =

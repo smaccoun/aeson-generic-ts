@@ -10,8 +10,13 @@ data BType =
    deriving (Eq, Show)
 
 data BConstructor =
-    BRecordConstructor [BField]
+    SingleConstructorType [BSingleConstructorArg]
   | UnionConstructor [BConstructor]
+    deriving (Eq, Show)
+
+data BSingleConstructorArg =
+    OfRecord BField
+  | OfUnTagged BType
     deriving (Eq, Show)
 
 newtype BFieldName = BFieldName Text deriving (Eq, Show)

@@ -13,47 +13,58 @@ import Data.Text
 import Data.Proxy
 
 class BridgeType a where
-  toBridgeType :: a -> Maybe BType
-  default toBridgeType :: (Generic a, GenericBridgeType (Rep a)) => a -> Maybe BType
+  toBridgeType :: a -> BType
+  default toBridgeType :: (Generic a, GenericBridgeType (Rep a)) => a -> BType
   toBridgeType = gBRep . from
 
 class GenericBridgeType f where
-  gBRep :: f a -> Maybe BType
+  gBRep :: f a -> BType
 
 instance (Datatype d, GenericBridgeConstructor f) =>
          GenericBridgeType (D1 d f) where
   gBRep datatype =
-    BConstructed typeName <$> mbConstructor
+    BConstructed typeName constructor
     where
       typeName = (pack (datatypeName datatype))
-      mbConstructor = (toBridgeConstructor (unM1 datatype))
+      constructor = (toBridgeConstructor (unM1 datatype))
 
 class GenericBridgeConstructor f where
-  toBridgeConstructor :: f a -> Maybe BConstructor
+  toBridgeConstructor :: f a -> BConstructor
 
-class GenericBFields f where
-  toBridgeFields:: f a -> Maybe [BField]
+class GenericBSingleConstructorArg f where
+  toBridgeSingleConstructorArg :: f a -> BSingleConstructorArg
 
-instance (Constructor c, GenericBFields f) => GenericBridgeConstructor (M1 C c f) where
+class GenericBSingleConstructorArgs f where
+  toBridgeSingleConstructorArgs :: f a -> [BSingleConstructorArg]
+
+class GenericBField f where
+  toBridgeField :: f a -> BField
+
+instance (Constructor c, GenericBSingleConstructorArgs f) => GenericBridgeConstructor (M1 C c f) where
   toBridgeConstructor d =
-    if conIsRecord d then
-       BRecordConstructor <$> toBridgeFields (unM1 $ d)
-    else
-      Nothing
+      SingleConstructorType $ toBridgeSingleConstructorArgs (unM1 d)
 
-instance (Selector s, GenericBridgeType f) => GenericBFields (S1 s f) where
-  toBridgeFields d =
+instance (Selector s, GenericBridgeType f) => GenericBSingleConstructorArgs (S1 s f) where
+  toBridgeSingleConstructorArgs d =
     case selName d of
-      "" -> Nothing
+      "" -> [OfUnTagged (gBRep (unM1 d))] --TODO: Figure this out
       name ->
-        (gBRep (unM1 d)) >>= (\t -> Just [BField (BFieldName $ pack name) t])
+        [OfRecord $ BField (BFieldName $ pack name) (gBRep (unM1 d))]
 
-instance (GenericBFields f, GenericBFields g)
-  => GenericBFields (f :*: g) where
-  toBridgeFields _ =
-    mappend
-      <$> toBridgeFields (undefined :: f p)
-      <*> toBridgeFields (undefined :: g p)
+instance (GenericBSingleConstructorArgs f, GenericBSingleConstructorArgs g)
+  => GenericBSingleConstructorArgs (f :*: g) where
+  toBridgeSingleConstructorArgs _ =
+    mappend t1 t2
+    where
+      t1 = toBridgeSingleConstructorArgs (undefined :: f p)
+      t2 = toBridgeSingleConstructorArgs (undefined :: g p)
+
+instance (GenericBridgeConstructor f, GenericBridgeConstructor g) => GenericBridgeConstructor (f :+: g) where
+  toBridgeConstructor _ =
+    UnionConstructor
+      [toBridgeConstructor (undefined :: f p)
+      ,toBridgeConstructor (undefined :: g p)
+      ]
 
 instance BridgeType a => GenericBridgeType (Rec0 a) where
   gBRep _ = toBridgeType (Proxy :: Proxy a)
@@ -63,19 +74,19 @@ instance (BridgeType a) => BridgeType (Proxy a) where
 
 instance BridgeType a => BridgeType (Maybe a) where
   toBridgeType _ =
-      BOption <$> toBridgeType (Proxy :: Proxy a)
+      BOption $ toBridgeType (Proxy :: Proxy a)
 
 instance BridgeType Int where
-  toBridgeType _ = Just $ BPrimitiveType BInt
+  toBridgeType _ = BPrimitiveType BInt
 
 instance BridgeType Text where
-  toBridgeType _ = Just $ BPrimitiveType BString
+  toBridgeType _ = BPrimitiveType BString
 
 instance BridgeType String where
-  toBridgeType _ = Just $ BPrimitiveType BString
+  toBridgeType _ = BPrimitiveType BString
 
 instance BridgeType Bool where
-  toBridgeType _ = Just $ BPrimitiveType BBoolean
+  toBridgeType _ = BPrimitiveType BBoolean
 
 instance BridgeType a => BridgeType [a] where
-  toBridgeType _ = (BCollectionType . BArray) <$> toBridgeType (Proxy :: Proxy a)
+  toBridgeType _ = (BCollectionType . BArray) $ toBridgeType (Proxy :: Proxy a)
