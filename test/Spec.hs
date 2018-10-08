@@ -7,6 +7,7 @@ import           BridgeToTypescript
 import           Data.Proxy
 import           Data.Text
 import           GenericMappings
+import Data.Maybe
 import           GHC.Generics
 import           Test.Hspec
 import           Typescript.Types
@@ -64,7 +65,7 @@ aesonGenericTSSpec = do
        printFromBridge (Proxy :: Proxy SampleUnion) `shouldBe` "type SampleUnion = number | string"
 
 asTS :: (BridgeType a) => Proxy a -> TSType
-asTS = bridgeTypeToTSType . toBridgeType
+asTS = fromMaybe TSAny . bridgeTypeToTSType . toBridgeType
 
 printFromBridge :: (BridgeType a) => Proxy a -> Text
 printFromBridge = toTypescript . asTS

@@ -4,20 +4,20 @@ import           Bridge.Intermediate
 import           Data.Text           (Text)
 import           Typescript.Types
 
-bridgeTypeToTSType :: BType -> TSType
+bridgeTypeToTSType :: BType -> Maybe TSType
 bridgeTypeToTSType btype =
   case btype of
     BPrimitiveType bprim ->
-      TSPrimitiveType $ bprimToTSPrim bprim
+      Just $ TSPrimitiveType $ bprimToTSPrim bprim
     BCollectionType bcollection ->
       case bcollection of
         BArray btypeInArray ->
-          TSCollectionType $ TSArray (bridgeTypeToTSType btypeInArray)
+          TSCollectionType . TSArray <$> (bridgeTypeToTSType btypeInArray)
     BOption btypeInOption ->
-      TSCustomType $ TSOption (bridgeTypeToTSType btypeInOption)
+      TSCustomType . TSOption <$> (bridgeTypeToTSType btypeInOption)
     BConstructed typeName c -> bConstructedToTS typeName c
 
-bConstructedToTS :: Text -> BConstructor -> TSType
+bConstructedToTS :: Text -> BConstructor -> Maybe TSType
 bConstructedToTS typeName bcon =
   case bcon of
     (SingleConstructorType fields) ->
@@ -25,16 +25,17 @@ bConstructedToTS typeName bcon =
         [x] ->
           case x of
             OfUnTagged btype -> bridgeTypeToTSType btype
-            OfRecord bfield -> TSInterface typeName $ [bfieldToTSField bfield]
-        _:_ -> TSInterface typeName $ fmap handleSingle fields
-        _ -> TSAny
+            OfRecord bfield -> TSInterface typeName <$> (sequence [bfieldToTSField bfield])
+        _:_ -> TSInterface typeName <$> (mapM handleSingle fields)
+        _ -> Nothing
     (UnionConstructor cs) ->
-      TSUnion typeName $ bConstructedToTS typeName <$> cs
+      TSUnion typeName <$> (sequence $ bConstructedToTS typeName <$> cs)
   where
+    handleSingle :: BSingleConstructorArg -> Maybe TSField
     handleSingle c =
       case c of
         OfRecord f -> bfieldToTSField f
-        OfUnTagged _ -> TSField (FieldName "baloney") TSAny --TODO handle this
+        OfUnTagged _ -> Nothing
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
 bprimToTSPrim bprim =
@@ -43,6 +44,6 @@ bprimToTSPrim bprim =
     BString  -> TSString
     BBoolean -> TSBoolean
 
-bfieldToTSField :: BField -> TSField
+bfieldToTSField :: BField -> Maybe TSField
 bfieldToTSField (BField (BFieldName fieldName ) btype) =
-  TSField (Typescript.Types.FieldName fieldName) (bridgeTypeToTSType btype)
+  TSField (Typescript.Types.FieldName fieldName) <$> (bridgeTypeToTSType btype)
