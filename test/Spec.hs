@@ -10,6 +10,7 @@ import           GenericMappings
 import           GHC.Generics
 import           Test.Hspec
 import           Typescript.Types
+import Internal.Generate
 
 data ARecord =
   ARecord
@@ -40,14 +41,24 @@ aesonGenericTSSpec = do
                              (TSPrimitiveType TSString)
                    ]
                  )
+  describe "from_bridge" $ do
+    let complexAsTS = (bridgeTypeToTSType $ toBridgeType (Proxy :: Proxy ComplexRecord))
     it "Should match the given TStype from Bridge" $
-      (bridgeTypeToTSType $ toBridgeType (Proxy :: Proxy ComplexRecord))
-      `shouldBe` (TSInterface
+      complexAsTS `shouldBe` (TSInterface
                    "ComplexRecord"
                    [ TSField (FieldName "anIntField") (TSPrimitiveType TSNumber)
                    , TSField (FieldName "aTextField") (TSPrimitiveType TSString)
                    , TSField (FieldName "aUnion") (TSUnion "SampleUnion" [TSPrimitiveType TSNumber,TSPrimitiveType TSString])
                    ]
                  )
+
+    it "Should output the correct string" $ do
+      toTypescript complexAsTS `shouldBe`
+        Data.Text.intercalate ""
+        ["interface ComplexRecord { \n"
+        ,"   anIntField : number \n"
+        ,"   aTextField : string \n"
+        ,"   aUnion : SampleUnion \n}"
+        ]
 
 
