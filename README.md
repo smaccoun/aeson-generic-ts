@@ -1,6 +1,6 @@
 # aeson-generic-ts
 
-Encoding of Haskell types to generic typescript types
+Convert Haskell to Typescript in a highly configurable way with Generics 
 
 ## About
 
@@ -10,11 +10,11 @@ This project is under pretty heavy development and will be used in production on
 
 Typescript has many ways of doing the same thing, and there are lots of opinions on how to do this. For example, product types can be represented by an interface or (immutable) classes. For this reason, configurability is considered a primary design goal. Here are all of them
 
-1. High configurability means several options for how to represent various data structures
+1. Ability to customize how Haskell types are represented as TS types
 
 2. Prebaked configurations for the most common ways people like to represent TS types
 
-3. The use of well known libraries as configuration options. Two examples I will provide default implementations for are (fp-ts)[https://github.com/gcanti/fp-ts] and [unionize](https://github.com/pelotom/unionize)
+3. The use of well known libraries as configuration options. Two examples I will provide default implementations for are [fp-ts][https://github.com/gcanti/fp-ts] and [unionize](https://github.com/pelotom/unionize)
 
 4. A simple interface for providing your own custom translation
 
