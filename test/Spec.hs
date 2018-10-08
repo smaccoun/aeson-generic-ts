@@ -4,6 +4,7 @@ module Spec where
 
 import           Bridge.Generics
 import           BridgeToTypescript
+import           Data.Proxy
 import           Data.Text
 import           GenericMappings
 import           GHC.Generics
@@ -16,18 +17,12 @@ data ARecord =
     ,aStringField :: Text
     } deriving (Generic, TypescriptType)
 
-sample :: ARecord
-sample = ARecord 3 "Meow"
-
 data ComplexRecord =
   ComplexRecord
-    {anIntField   :: Int
-    ,aTextField   :: Text
-    ,aUnion       :: SampleUnion
+    {anIntField :: Int
+    ,aTextField :: Text
+    ,aUnion     :: SampleUnion
     } deriving (Generic, BridgeType)
-
-complexExample :: ComplexRecord
-complexExample = ComplexRecord 3 "meow" (FirstCon 3)
 
 data SimpleUnTagged = F Int deriving (Generic, BridgeType)
 
@@ -37,7 +32,7 @@ aesonGenericTSSpec :: Spec
 aesonGenericTSSpec = do
   describe "Record to interface " $ do
     it "Should match the given TStype"
-      $          toTypescriptType sample
+      $          toTypescriptType (Proxy :: Proxy ARecord)
       `shouldBe` (Just $ TSInterface
                    "ARecord"
                    [ TSField (FieldName "firstField") (TSPrimitiveType TSNumber)
@@ -46,11 +41,12 @@ aesonGenericTSSpec = do
                    ]
                  )
     it "Should match the given TStype from Bridge" $
-      (bridgeTypeToTSType $ toBridgeType complexExample)
+      (bridgeTypeToTSType $ toBridgeType (Proxy :: Proxy ComplexRecord))
       `shouldBe` (TSInterface
                    "ComplexRecord"
                    [ TSField (FieldName "anIntField") (TSPrimitiveType TSNumber)
                    , TSField (FieldName "aTextField") (TSPrimitiveType TSString)
+                   , TSField (FieldName "aUnion") (TSUnion "SampleUnion" [TSPrimitiveType TSNumber,TSPrimitiveType TSString])
                    ]
                  )
 
