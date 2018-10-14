@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 60114786d9360936a68178711b03e2841de8b91989d401b3148b35b50e5f80d4
+-- hash: 84983a94c3b30e32eaefb5813d47e0cd69fc892678467b1f522460c4276ac9bc
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -23,11 +23,10 @@ library
       Bridge.Generics
       Bridge.Intermediate
       BridgeToTypescript
-      GenericMappings
-      Internal.Generate
       Typescript
-      Typescript.Primitives
       Typescript.Types
+      Typescript.Typescript
+      Typescript.Vanilla
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -49,6 +48,7 @@ test-suite aeson-generic-ts-test
   build-depends:
       aeson
     , base >=4.7 && <5
+    , exceptions
     , hspec
     , text
   other-modules:
@@ -56,10 +56,9 @@ test-suite aeson-generic-ts-test
       Bridge.Generics
       Bridge.Intermediate
       BridgeToTypescript
-      GenericMappings
-      Internal.Generate
       Typescript
-      Typescript.Primitives
       Typescript.Types
+      Typescript.Typescript
+      Typescript.Vanilla
       Paths_aeson_generic_ts
   default-language: Haskell2010

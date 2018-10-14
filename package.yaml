@@ -51,3 +51,4 @@ tests:
       - src
     dependencies:
       - hspec
+      - exceptions

@@ -2,6 +2,12 @@ module Bridge.Intermediate where
 
 import Data.Text
 
+class (IsForeignType toLangType) => FromBridge toLangType where
+  toForeign :: BType -> Maybe toLangType
+
+class IsForeignType t where
+  toForeignType :: t -> Text
+
 data BType =
     BPrimitiveType BPrimitive
   | BCollectionType BCollection

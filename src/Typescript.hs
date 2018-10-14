@@ -1,15 +1,13 @@
 {-# LANGUAGE DeriveAnyClass #-}
 
 module Typescript
-  (toTypescriptType
-  ,toTypescript
-  ,module Bridge.Intermediate
-  ,TypescriptType
+  (module Bridge.Intermediate
+  ,module Typescript.Vanilla
   )
 where
 
 
-import           GenericMappings
-import           Internal.Generate
+
+import           Typescript.Vanilla
 import           Bridge.Intermediate
 
