@@ -29,23 +29,27 @@ bConstructedToTS bridgeTypeToTSType typeName bcon =
           case x of
             OfUnTagged btype -> bridgeTypeToTSType btype
             OfRecord bfield -> TSCompositeType <$> TSDataType <$> TSInterfaceRef <$> TSInterface typeName <$> (sequence [bfieldToTSField bfield])
---        _:_ -> TSInterface typeName <$> (mapM handleSingle fields)
+        _:_ -> TSCompositeType <$> TSDataType <$> TSInterfaceRef <$> TSInterface typeName <$> (mapM handleSingle fields)
         _ -> Nothing
     (UnionConstructor _) ->
       TSCustomizableType <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSType typeName <$> cs)
   where
-    bfieldToTSField :: (BField) -> Maybe (TSField Vanilla)
-    bfieldToTSField (BField (BFieldName fName) fType) = TSField (FieldName fName) <$> toForeign fType
---    handleSingle :: BSingleConstructorArg -> Maybe (TSField Vanilla)
---    handleSingle c =
---      case c of
---        OfRecord f   -> bfieldToTSField f
---        OfUnTagged _ -> Nothing
+  handleSingle :: BSingleConstructorArg -> Maybe (TSField Vanilla)
+  handleSingle c =
+    case c of
+      OfRecord f   -> bfieldToTSField f
+      OfUnTagged _ -> Nothing
 
+bfieldToTSField :: (BField) -> Maybe (TSField Vanilla)
+bfieldToTSField (BField (BFieldName fName) fType) = TSField (FieldName fName) <$> toForeign fType
 
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollection tar) = toForeignType tar
-  toForeignType (TSDataType _) = "INTERFACE"
+  toForeignType (TSDataType (TSInterfaceRef (TSInterface iName fields'))) =
+      ("interface " <> iName <> " { \n"
+      <> toForeignType fields'
+      <> "}"
+      )
 
 instance IsForeignType (TSArray Vanilla) where
   toForeignType (TSArray tsType') = "Array<" <> toForeignType tsType' <> ">"

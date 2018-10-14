@@ -14,13 +14,12 @@ import           Test.Hspec
 import           Typescript.Types
 import           Typescript.Vanilla
 
-
 data ComplexRecord =
   ComplexRecord
     {anIntField :: Int
     ,aTextField :: Text
-    ,aUnion     :: SampleUnion
-    ,aMaybeType :: Maybe Text
+--    ,aUnion     :: SampleUnion
+--    ,aMaybeType :: Maybe Text
     } deriving (Generic, BridgeType)
 
 data SimpleUnTagged = F Int deriving (Generic, BridgeType)
@@ -29,7 +28,15 @@ data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
 
 aesonGenericTSSpec :: Spec
 aesonGenericTSSpec = do
-  describe "from_bridge" $ do
+  describe "translates_to_all_primitives" $ do
+    it "works for number" $ do
+      t <- printFromBridge (Proxy :: Proxy Int)
+      t `shouldBe` "number"
+
+    it "works for number" $ do
+      t <- printFromBridge (Proxy :: Proxy [Int])
+      t `shouldBe` "Array<number>"
+
 --    it "Should match the given TStype from Bridge" $
 --      asTS (Proxy :: Proxy ComplexRecord) `shouldBe` (TSInterface
 --                   "ComplexRecord"
@@ -47,10 +54,10 @@ aesonGenericTSSpec = do
         knownSolution =
           T.intercalate ""
             ["interface ComplexRecord { \n"
-            ,"   anIntField : number \n"
-            ,"   aTextField : string \n"
-            ,"   aUnion : SampleUnion \n}"
-            ,"   aMaybeType : string | null"
+            ,"anIntField : number\n"
+            ,"aTextField : string}"
+--            ,"   aUnion : SampleUnion \n"
+--            ,"   aMaybeType : string | null}"
             ]
 
 --    it "Should output the correct vanilla union" $ do

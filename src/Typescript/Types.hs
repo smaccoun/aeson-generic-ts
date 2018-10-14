@@ -68,7 +68,7 @@ data TSField f =
 newtype FieldName = FieldName Text
 
 instance (IsForeignType (TSType f)) => IsForeignType (TSField f) where
-  toForeignType (TSField (FieldName fName) fType) = fName <> "  " <> toForeignType fType
+  toForeignType (TSField (FieldName fName) fType) = fName <> " : " <> toForeignType fType
 
 instance (IsForeignType (TSType f)) => IsForeignType [TSField f] where
   toForeignType fields = T.intercalate "\n" $ fmap toForeignType fields
