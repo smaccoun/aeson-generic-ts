@@ -1,12 +1,25 @@
+{-# LANGUAGE DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
+
 module Bridge.Intermediate where
 
 import Data.Text
+import GHC.Generics
 
 class (IsForeignType toLangType) => FromBridge toLangType where
   toForeign :: BType -> Maybe toLangType
 
 class IsForeignType t where
-  toForeignType :: t -> Text
+  toForeignType :: t -> (ForeignType t)
+
+data ForeignType t =
+  ForeignType
+    {refName     :: Text
+    ,declaration :: Text
+    } deriving (Generic, Functor)
+
+selfRefForeign :: Text -> ForeignType t
+selfRefForeign ref =
+  ForeignType ref ref
 
 data BType =
     BPrimitiveType BPrimitive

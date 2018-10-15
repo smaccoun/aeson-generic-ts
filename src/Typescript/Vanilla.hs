@@ -1,67 +1,36 @@
 module Typescript.Vanilla where
 
 import           Bridge.Intermediate
-import           BridgeToTypescript
 import           Data.Text
 import           Typescript.Types
 
 data Vanilla
 
-instance FromBridge (TSType Vanilla) where
-  toForeign btype =
-    case btype of
-      BPrimitiveType bprim ->
-        Just $ TSPrimitiveType $ bprimToTSPrim bprim
-      BCollectionType bcollection ->
-        case bcollection of
-          BArray btypeInArray ->
-            TSCompositeType . TSCollection . TSArray <$> (toForeign btypeInArray)
-      BOption btypeInOption ->
-        TSCustomizableType . TSOption <$> (toForeign btypeInOption)
-      BConstructed typeName c -> bConstructedToTS toForeign typeName c
-
-bConstructedToTS :: (BType -> Maybe (TSType Vanilla)) -> Text -> BConstructor -> Maybe (TSType Vanilla)
-bConstructedToTS bridgeTypeToTSType typeName bcon =
-  case bcon of
-    (SingleConstructorType fields) ->
-      case fields of
-        [x] ->
-          case x of
-            OfUnTagged btype -> bridgeTypeToTSType btype
-            OfRecord bfield -> TSCompositeType <$> TSDataType <$> TSInterfaceRef <$> TSInterface typeName <$> (sequence [bfieldToTSField bfield])
-        _:_ -> TSCompositeType <$> TSDataType <$> TSInterfaceRef <$> TSInterface typeName <$> (mapM handleSingle fields)
-        _ -> Nothing
-    (UnionConstructor _) ->
-      TSCustomizableType <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSType typeName <$> cs)
-  where
-  handleSingle :: BSingleConstructorArg -> Maybe (TSField Vanilla)
-  handleSingle c =
-    case c of
-      OfRecord f   -> bfieldToTSField f
-      OfUnTagged _ -> Nothing
-
-bfieldToTSField :: (BField) -> Maybe (TSField Vanilla)
-bfieldToTSField (BField (BFieldName fName) fType) = TSField (FieldName fName) <$> toForeign fType
-
 instance IsForeignType (TSComposite Vanilla) where
-  toForeignType (TSCollection tar) = toForeignType tar
-  toForeignType (TSDataType (TSInterfaceRef (TSInterface iName fields'))) =
-      ("interface " <> iName <> " { \n"
-      <> toForeignType fields'
-      <> "}"
-      )
+  toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
+  toForeignType (TSDataType (TSInterfaceRef tsInterface)) = TSDataType <$> TSInterfaceRef <$> toForeignType tsInterface
 
 instance IsForeignType (TSArray Vanilla) where
-  toForeignType (TSArray tsType') = "Array<" <> toForeignType tsType' <> ">"
+  toForeignType tsArray =
+    ForeignType
+      {refName = asDefault
+      ,declaration = asDefault
+      }
+   where
+     asDefault = defaultForeignArray tsArray
 
 instance IsForeignType (TSCustom Vanilla) where
-  toForeignType (TSOption tsType') = toForeignType tsType' <> " | null "
+  toForeignType (TSOption tsType') =
+    selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
   toForeignType (TSUnionRef unionName tsTypes') =
-    "type " <>  unionName <> " = " <> ns
+    ForeignType
+      {refName = unionName
+      ,declaration =  "type " <> (unionName) <> " = " <> ns
+      }
     where
       ns =
          intercalate " | "
-       $ fmap toForeignType tsTypes'
+       $ fmap (refName . toForeignType) tsTypes'
 
 
 --data GenMany = forall a . TypescriptType a => GenMany a

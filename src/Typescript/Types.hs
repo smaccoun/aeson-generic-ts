@@ -12,11 +12,12 @@ data TSType f =
   | TSCompositeType (TSComposite f)
   | TSCustomizableType (TSCustom f)
 
-
 instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f))  => IsForeignType (TSType f) where
-  toForeignType (TSPrimitiveType prim) = toForeignType prim
-  toForeignType (TSCompositeType composite) = toForeignType composite
-  toForeignType (TSCustomizableType tsCustom) = toForeignType tsCustom
+  toForeignType (TSPrimitiveType prim) = TSPrimitiveType <$> toForeignType prim
+  toForeignType (TSCompositeType composite) = TSCompositeType <$> toForeignType composite
+  toForeignType (TSCustomizableType tsCustom) = TSCustomizableType <$> toForeignType tsCustom
+
+
 
 
 {-
@@ -29,9 +30,9 @@ data TSPrimitive =
     deriving (Eq, Show)
 
 instance IsForeignType TSPrimitive where
-  toForeignType TSString  = "string"
-  toForeignType TSNumber  = "number"
-  toForeignType TSBoolean = "boolean"
+  toForeignType TSString  = ForeignType "string" "string"
+  toForeignType TSNumber  = ForeignType "number" "number"
+  toForeignType TSBoolean = ForeignType "boolean" "boolean"
 
 
 {-
@@ -44,7 +45,10 @@ data TSComposite f =
 data TSArray f = TSArray (TSType f)
 
 defaultForeignArray :: (IsForeignType (TSType f)) => TSArray f -> Text
-defaultForeignArray (TSArray tsType') = "Array<" <> toForeignType tsType' <> ">"
+defaultForeignArray (TSArray tsType') =
+  "Array<" <> rep <> ">"
+  where
+    rep = refName . toForeignType $ tsType'
 
 {-
   Typescript "Data types". Classes are an alternative rep to Interface
@@ -67,18 +71,22 @@ data TSField f =
 
 newtype FieldName = FieldName Text
 
-instance (IsForeignType (TSType f)) => IsForeignType (TSField f) where
-  toForeignType (TSField (FieldName fName) fType) = fName <> " : " <> toForeignType fType
+showField :: (IsForeignType (TSType f)) => TSField f -> Text
+showField (TSField (FieldName fName) fType) = fName <> " : " <> (refName . toForeignType) fType
 
-instance (IsForeignType (TSType f)) => IsForeignType [TSField f] where
-  toForeignType fields = T.intercalate "\n" $ fmap toForeignType fields
+showFields ::  (IsForeignType (TSType f)) => [TSField f] -> Text
+showFields fields = T.intercalate "\n" $ fmap showField fields
 
 instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
   toForeignType (TSInterface iName fields') =
-      ("interface " <> iName <> " { \n"
-      <> toForeignType fields'
-      <> "}"
-      )
+    ForeignType
+      {refName     = iName
+      ,declaration =
+          ("interface " <> iName <> " { \n"
+          <> showFields fields'
+          <> "}"
+          )
+      }
 
 {-
   Custom types that often have many representations
