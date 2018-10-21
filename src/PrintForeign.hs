@@ -24,11 +24,11 @@ instance Show TranslateException where
     , show t
     ]
 
-asTS :: (BridgeType a, MonadThrow m) => Proxy a -> m (TSType Vanilla)
-asTS bType =
+asTS :: (BridgeType a, MonadThrow m, FromBridge (TSType f)) => Proxy a -> f -> m (TSType f)
+asTS bType _ =
   case toForeign (toBridgeType bType) of
     Just tsType -> return tsType
     Nothing     -> throwM $ TranslateException "Could not translate type"
 
 printFromBridge :: (BridgeType a, MonadThrow m) => Proxy a -> m Text
-printFromBridge t = (declaration . toForeignType) <$> asTS t
+printFromBridge t = (declaration . toForeignType) <$> asTS t Vanilla

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 28e58ff1e82a8221de451edadc1039817011b5ae9244512ae8d8785552c5944a
+-- hash: 71de731477c76bd646db5fad992cb86e89dbed0ed1ccd5e3c1a460f57907a0e7
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -47,11 +47,13 @@ test-suite aeson-generic-ts-test
       test
       src
   default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances GADTs GeneralizedNewtypeDeriving KindSignatures MultiParamTypeClasses OverloadedStrings PolyKinds QuasiQuotes RankNTypes RecordWildCards ScopedTypeVariables StandaloneDeriving TemplateHaskell TypeApplications TypeFamilies TypeOperators UndecidableInstances
+  ghc-options: -pgmL markdown-unlit
   build-depends:
       aeson
     , base >=4.7 && <5
     , exceptions
     , hspec
+    , markdown-unlit
     , text
   other-modules:
       Spec

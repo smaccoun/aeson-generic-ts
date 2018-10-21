@@ -4,7 +4,7 @@ import           Bridge.Intermediate
 import           Data.Text
 import           Typescript.Types
 
-data Vanilla
+data Vanilla = Vanilla
 
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar

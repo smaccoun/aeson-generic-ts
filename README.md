@@ -25,6 +25,9 @@ Achieving high configurability relies on using Generics to first translate Haske
 Given this haskell type:
 
 ```haskell
+import Data.Text
+import GHC.Generics
+
 data User = User
     { name         :: PersonName
     , age          :: Int
@@ -38,7 +41,11 @@ data PersonName =
    , middleInitial :: Maybe Text
    , lastName      :: Text
    } deriving (Generic, TypescriptType)
+   
 
+printUser :: IO ()
+printUser =
+    ts <- printFromBridge (Proxy :: Proxy User)
 ```
 
 Generates the following typescript types

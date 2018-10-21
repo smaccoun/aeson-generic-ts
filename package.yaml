@@ -52,4 +52,6 @@ tests:
       - src
     dependencies:
       - hspec
-      
+      - markdown-unlit
+    ghc-options: [-pgmL markdown-unlit]
+
