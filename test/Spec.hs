@@ -4,12 +4,13 @@ module Spec where
 
 import           Bridge.Generics
 import           Data.Proxy
-import           Data.Text          (Text)
-import qualified Data.Text          as T
+import           Data.Text       (Text)
+import qualified Data.Text       as T
 import           GHC.Generics
 import           PrintForeign
 import           Test.Hspec
 import           Typescript.Vanilla
+import           FpTsSpec
 
 data SimpleRecord =
   SimpleRecord
@@ -31,7 +32,9 @@ data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
 
 aesonGenericTSSpec :: Spec
 aesonGenericTSSpec = do
-  describe "translates_to_all_primitives" $ do
+  FpTsSpec.spec
+
+  describe "vanilla_ts" $ do
     let vanilla = (Proxy :: Proxy Vanilla)
     it "works for number" $ do
       t <- printFromBridge vanilla (Proxy :: Proxy Int)
@@ -54,3 +57,4 @@ aesonGenericTSSpec = do
             ,"aMaybeType : string | null \n"
             ,"aSimpleRecord : SimpleRecord}"
             ]
+

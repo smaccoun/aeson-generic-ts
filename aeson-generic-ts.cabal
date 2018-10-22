@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 71de731477c76bd646db5fad992cb86e89dbed0ed1ccd5e3c1a460f57907a0e7
+-- hash: f1b78e4a6cfd4ba49287644fa0699ffdd55b34410bbec961a7edc4a821653d3d
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -25,6 +25,7 @@ library
       BridgeToTypescript
       PrintForeign
       Typescript
+      Typescript.FpTs
       Typescript.Types
       Typescript.Typescript
       Typescript.Vanilla
@@ -56,12 +57,14 @@ test-suite aeson-generic-ts-test
     , markdown-unlit
     , text
   other-modules:
+      FpTsSpec
       Spec
       Bridge.Generics
       Bridge.Intermediate
       BridgeToTypescript
       PrintForeign
       Typescript
+      Typescript.FpTs
       Typescript.Types
       Typescript.Typescript
       Typescript.Vanilla
