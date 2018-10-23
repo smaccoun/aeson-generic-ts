@@ -22,48 +22,45 @@ Achieving high configurability relies on using Generics to first translate Haske
 
 ## Example
 
+The best place for up to date examples is probably just to look at test, but here's a basic one
+
 Given this haskell type:
 
 ```haskell
 import Data.Text
 import GHC.Generics
 
-data User = User
-    { name         :: PersonName
-    , age          :: Int
-    , placesLived  :: [Text]
-    , isRegistered :: Bool
-    } deriving (Generic, TypescriptType)
+data ComplexRecord =
+  ComplexRecord
+    {anIntField    :: Int
+    ,aTextField    :: Text
+    ,aUnion        :: SampleUnion
+    ,aMaybeType    :: Maybe Text
+    ,aSimpleRecord :: SimpleRecord
+    } deriving (Generic, BridgeType)
 
-data PersonName =
-  PersonName
-   { firstName     :: Text
-   , middleInitial :: Maybe Text
-   , lastName      :: Text
-   } deriving (Generic, TypescriptType)
-   
+data SimpleUnTagged = F Int deriving (Generic, BridgeType)
+
+data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
+
 
 printUser :: IO ()
 printUser =
-    ts <- printFromBridge (Proxy :: Proxy User)
+    ts <- printFromBridge vanilla (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types
 
 ```typescript
 
-interface User {
-   name : PersonName
-   age : number
-   placesLived : Array<string>
-   isRegistered : boolean
+interface ComplexRecord {
+  anIntField : number
+  aTextField : string
+  aUnion : SampleUnion
+  aMaybeType : string | null
+  aSimpleRecord : SimpleRecord
 }
 
-interface PersonName {
-   firstName : string
-   middleInitial : string
-   lastName : string
-}
 ```
 
 ### Roadmap

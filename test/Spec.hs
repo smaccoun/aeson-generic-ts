@@ -45,16 +45,19 @@ aesonGenericTSSpec = do
       t `shouldBe` "Array<number>"
 
     it "Should output the correct complex record" $ do
+      putStrLn $ T.unpack knownSolution
       ts <- printFromBridge vanilla (Proxy :: Proxy ComplexRecord)
+      putStrLn $ T.unpack ts
       ts `shouldBe` knownSolution
       where
         knownSolution =
           T.intercalate ""
             ["interface ComplexRecord { \n"
-            ,"anIntField : number\n"
-            ,"aTextField : string\n"
-            ,"aUnion : SampleUnion\n"
-            ,"aMaybeType : string | null \n"
-            ,"aSimpleRecord : SimpleRecord}"
+            ,"  anIntField : number\n"
+            ,"  aTextField : string\n"
+            ,"  aUnion : SampleUnion\n"
+            ,"  aMaybeType : string | null \n"
+            ,"  aSimpleRecord : SimpleRecord"
+            ,"\n}"
             ]
 

@@ -30,9 +30,9 @@ data TSPrimitive =
     deriving (Eq, Show)
 
 instance IsForeignType TSPrimitive where
-  toForeignType TSString  = ForeignType "string" "string"
-  toForeignType TSNumber  = ForeignType "number" "number"
-  toForeignType TSBoolean = ForeignType "boolean" "boolean"
+  toForeignType TSString  = selfRefForeign "string"
+  toForeignType TSNumber  = selfRefForeign "number"
+  toForeignType TSBoolean = selfRefForeign "boolean"
 
 
 {-
@@ -75,7 +75,7 @@ showField :: (IsForeignType (TSType f)) => TSField f -> Text
 showField (TSField (FieldName fName) fType) = fName <> " : " <> (refName . toForeignType) fType
 
 showFields ::  (IsForeignType (TSType f)) => [TSField f] -> Text
-showFields fields = T.intercalate "\n" $ fmap showField fields
+showFields fields = T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
 instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
   toForeignType (TSInterface iName fields') =
@@ -84,7 +84,7 @@ instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
       ,declaration =
           ("interface " <> iName <> " { \n"
           <> showFields fields'
-          <> "}"
+          <> "\n}"
           )
       }
 
