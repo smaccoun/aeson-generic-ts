@@ -14,7 +14,7 @@ Typescript has many ways of doing the same thing, and there are lots of opinions
 
 2. Prebaked configurations for the most common ways people like to represent TS types
 
-3. The use of well known libraries as configuration options. Two examples I will provide default implementations for are [fp-ts][https://github.com/gcanti/fp-ts] and [unionize](https://github.com/pelotom/unionize)
+3. The use of well known libraries as configuration options. Two examples I will provide default implementations for are [fp-ts](https://github.com/gcanti/fp-ts) and [unionize](https://github.com/pelotom/unionize)
 
 4. A simple interface for providing your own custom translation
 
