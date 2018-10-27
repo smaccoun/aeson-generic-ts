@@ -2,7 +2,7 @@ module Internal.Typescript.Flavors.Vanilla where
 
 import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
-import           Internal.Typescript.IntermediateLang
+import           Internal.Intermediate.Typescript.Lang
 
 data Vanilla = Vanilla
 
@@ -31,17 +31,3 @@ instance IsForeignType (TSCustom Vanilla) where
       ns =
          intercalate " | "
        $ fmap (refName . toForeignType) tsTypes'
-
-
---data GenMany = forall a . TypescriptType a => GenMany a
---
---genTypescript :: [GenMany] -> Text
---genTypescript [] = ""
---genTypescript ((GenMany x):xs) =
---   (printTS x) <> "\n" <> genTypescript xs
---
---printTS :: (TypescriptType a) => a -> Text
---printTS tsType' =
---        fromMaybe ""
---    $   toTypescript
---    <$> toTypescriptType tsType'
