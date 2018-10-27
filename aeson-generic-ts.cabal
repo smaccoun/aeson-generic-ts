@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bb275ed7a100dcbac1e680b65f293d588e7d5f87e00e8146a1fa7fa0315f4b3a
+-- hash: 8d25b96e376084c7654ce84271acf0f93528ed2d84e15880f04af201cb228b87
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -27,7 +27,6 @@ library
       Internal.Output.PrintForeign
       Internal.Typescript.Flavors.FpTs
       Internal.Typescript.Flavors.Vanilla
-      Internal.Typescript.Typescript
       Typescript
   other-modules:
       Paths_aeson_generic_ts
@@ -66,7 +65,6 @@ test-suite aeson-generic-ts-test
       Internal.Output.PrintForeign
       Internal.Typescript.Flavors.FpTs
       Internal.Typescript.Flavors.Vanilla
-      Internal.Typescript.Typescript
       Typescript
       Paths_aeson_generic_ts
   default-language: Haskell2010
