@@ -1,13 +1,13 @@
 {-# LANGUAGE DeriveAnyClass #-}
 
 module Typescript
-  (module Bridge.Intermediate
-  ,module Typescript.Vanilla
+  (module Internal.Intermediate.Bridge.Lang
+  ,module Internal.Typescript.Flavors.Vanilla
   )
 where
 
 
 
-import           Typescript.Vanilla
-import           Bridge.Intermediate
+import           Internal.Typescript.Flavors.Vanilla
+import           Internal.Intermediate.Bridge.Lang
 

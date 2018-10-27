@@ -5,10 +5,10 @@
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
-module Bridge.Generics where
+module Internal.Intermediate.Bridge.Generics where
 
 import GHC.Generics
-import Bridge.Intermediate
+import Internal.Intermediate.Bridge.Lang
 import Data.Text
 import Data.Proxy
 

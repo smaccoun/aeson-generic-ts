@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: f1b78e4a6cfd4ba49287644fa0699ffdd55b34410bbec961a7edc4a821653d3d
+-- hash: c64f6b0057c7ad83e66762bbfe25ae29e22cd83b3162ef05fef9104fd4ed704f
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -20,15 +20,15 @@ extra-source-files:
 
 library
   exposed-modules:
-      Bridge.Generics
-      Bridge.Intermediate
-      BridgeToTypescript
-      PrintForeign
+      Internal.Intermediate.Bridge.Generics
+      Internal.Intermediate.Bridge.Lang
+      Internal.Output.PrintForeign
+      Internal.Typescript.BridgeToTypescript
+      Internal.Typescript.Flavors.FpTs
+      Internal.Typescript.Flavors.Vanilla
+      Internal.Typescript.IntermediateLang
+      Internal.Typescript.Typescript
       Typescript
-      Typescript.FpTs
-      Typescript.Types
-      Typescript.Typescript
-      Typescript.Vanilla
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -59,14 +59,14 @@ test-suite aeson-generic-ts-test
   other-modules:
       FpTsSpec
       Spec
-      Bridge.Generics
-      Bridge.Intermediate
-      BridgeToTypescript
-      PrintForeign
+      Internal.Intermediate.Bridge.Generics
+      Internal.Intermediate.Bridge.Lang
+      Internal.Output.PrintForeign
+      Internal.Typescript.BridgeToTypescript
+      Internal.Typescript.Flavors.FpTs
+      Internal.Typescript.Flavors.Vanilla
+      Internal.Typescript.IntermediateLang
+      Internal.Typescript.Typescript
       Typescript
-      Typescript.FpTs
-      Typescript.Types
-      Typescript.Typescript
-      Typescript.Vanilla
       Paths_aeson_generic_ts
   default-language: Haskell2010

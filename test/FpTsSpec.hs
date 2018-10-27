@@ -1,12 +1,12 @@
 module FpTsSpec where
 
-import           Bridge.Generics
+import           Internal.Intermediate.Bridge.Generics
 import           Data.Proxy
 import           Data.Text          (Text)
 import           GHC.Generics
-import           PrintForeign
+import           Internal.Output.PrintForeign
 import           Test.Hspec
-import           Typescript.FpTs
+import           Internal.Typescript.Flavors.FpTs
 
 newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 

@@ -1,6 +1,6 @@
-module Typescript.Typescript where
+module Internal.Typescript.Typescript where
 
-import           Bridge.Intermediate
+import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
 
 data TSImport =

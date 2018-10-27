@@ -1,15 +1,15 @@
 {-# LANGUAGE DeriveAnyClass #-}
 
-module PrintForeign where
+module Internal.Output.PrintForeign where
 
-import           Bridge.Generics
-import           Bridge.Intermediate
-import           BridgeToTypescript()
+import           Internal.Intermediate.Bridge.Generics
+import           Internal.Intermediate.Bridge.Lang
+import           Internal.Typescript.BridgeToTypescript()
 import           Control.Monad.Catch
 import           Data.Proxy
 import           Data.Text           (Text)
 import           Data.Typeable       (Typeable)
-import           Typescript.Types
+import           Internal.Typescript.IntermediateLang
 
 
 data TranslateException = TranslateException Text

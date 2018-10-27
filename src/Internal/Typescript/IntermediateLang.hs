@@ -1,6 +1,6 @@
-module Typescript.Types where
+module Internal.Typescript.IntermediateLang where
 
-import           Bridge.Intermediate
+import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
 import qualified Data.Text           as T
 

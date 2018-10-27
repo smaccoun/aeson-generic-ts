@@ -2,14 +2,14 @@
 
 module Spec where
 
-import           Bridge.Generics
+import           Internal.Intermediate.Bridge.Generics
 import           Data.Proxy
 import           Data.Text       (Text)
 import qualified Data.Text       as T
 import           GHC.Generics
-import           PrintForeign
+import           Internal.Output.PrintForeign
 import           Test.Hspec
-import           Typescript.Vanilla
+import           Internal.Typescript.Flavors.Vanilla
 import           FpTsSpec
 
 data SimpleRecord =

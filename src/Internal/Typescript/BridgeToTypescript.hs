@@ -1,8 +1,8 @@
-module BridgeToTypescript where
+module Internal.Typescript.BridgeToTypescript where
 
-import           Bridge.Intermediate
+import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
-import           Typescript.Types
+import           Internal.Typescript.IntermediateLang
 
 instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSType f) where
   toForeign btype =

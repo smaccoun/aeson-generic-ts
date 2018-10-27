@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
 
-module Bridge.Intermediate where
+module Internal.Intermediate.Bridge.Lang where
 
 import Data.Text
 import GHC.Generics

@@ -1,8 +1,8 @@
-module Typescript.Vanilla where
+module Internal.Typescript.Flavors.Vanilla where
 
-import           Bridge.Intermediate
+import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
-import           Typescript.Types
+import           Internal.Typescript.IntermediateLang
 
 data Vanilla = Vanilla
 
