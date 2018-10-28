@@ -1,34 +1,13 @@
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Spec where
 
-import           Internal.Intermediate.Bridge.Generics
+import           BasicExamples
 import           Data.Proxy
-import           Data.Text       (Text)
-import qualified Data.Text       as T
-import           GHC.Generics
-import           Internal.Output.PrintForeign
-import           Test.Hspec
-import           Internal.Typescript.Flavors.Vanilla
+import qualified Data.Text                             as T
 import           FpTsSpec
+import           Internal.Output.PrintForeign
+import           Internal.Typescript.Flavors.Vanilla
+import           Test.Hspec
 
-data SimpleRecord =
-  SimpleRecord
-    {f1 :: Int
-    } deriving (Generic, BridgeType)
-
-data ComplexRecord =
-  ComplexRecord
-    {anIntField    :: Int
-    ,aTextField    :: Text
-    ,aUnion        :: SampleUnion
-    ,aMaybeType    :: Maybe Text
-    ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, BridgeType)
-
-data SimpleUnTagged = F Int deriving (Generic, BridgeType)
-
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
 
 aesonGenericTSSpec :: Spec
 aesonGenericTSSpec = do

@@ -50,6 +50,7 @@ tests:
     source-dirs:
       - test
       - src
+      - data
     dependencies:
       - hspec
       - markdown-unlit

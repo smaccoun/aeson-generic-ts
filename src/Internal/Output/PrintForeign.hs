@@ -23,6 +23,7 @@ instance Show TranslateException where
     , show t
     ]
 
+{-TODO: Make this type safe so no exception needed -}
 asTS :: (BridgeType a, MonadThrow m, FromBridge (TSType f)) => Proxy f -> Proxy a -> m (TSType f)
 asTS _ bType =
   case toForeign (toBridgeType bType) of
