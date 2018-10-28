@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: fb6a985ef4f93c9c2b469d0f7f557632470f8f0380c2764fd8ffcd530c4243ce
+-- hash: 14a72111ca90d2fbbaaca08a3c5e6160455b4e7c591a642cb43f860f5e33221d
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -59,6 +59,7 @@ test-suite aeson-generic-ts-test
   other-modules:
       FpTsSpec
       Spec
+      VanillaSpec
       Internal.Intermediate.Bridge.Generics
       Internal.Intermediate.Bridge.Lang
       Internal.Intermediate.BridgeToTypescript
