@@ -24,7 +24,7 @@ Achieving high configurability relies on using Generics to first translate Haske
 
 The best place for up to date examples is probably just to look at test, but here's a basic one
 
-Given this haskell type:
+Given these haskell types:
 
 ```haskell
 import Data.Text
@@ -42,11 +42,14 @@ data ComplexRecord =
 data SimpleUnTagged = F Int deriving (Generic, BridgeType)
 
 data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
+```
 
+Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
 
+```
 printUser :: IO ()
 printUser =
-    ts <- printFromBridge vanilla (Proxy :: Proxy ComplexRecord)
+    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types
