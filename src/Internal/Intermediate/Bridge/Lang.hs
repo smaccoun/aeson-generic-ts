@@ -3,23 +3,10 @@
 module Internal.Intermediate.Bridge.Lang where
 
 import Data.Text
-import GHC.Generics
+import Internal.Output.Foreign
 
 class (IsForeignType toLangType) => FromBridge toLangType where
   toForeign :: BType -> Maybe toLangType
-
-class IsForeignType t where
-  toForeignType :: t -> (ForeignType t)
-
-data ForeignType t =
-  ForeignType
-    {refName     :: Text
-    ,declaration :: Text
-    } deriving (Generic, Functor)
-
-selfRefForeign :: Text -> ForeignType t
-selfRefForeign ref =
-  ForeignType ref ref
 
 data BType =
     BPrimitiveType BPrimitive

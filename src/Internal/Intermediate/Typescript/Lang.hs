@@ -1,8 +1,8 @@
 module Internal.Intermediate.Typescript.Lang where
 
-import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
-import qualified Data.Text           as T
+import qualified Data.Text                         as T
+import           Internal.Output.Foreign
 
 {-
    MASTER TYPE

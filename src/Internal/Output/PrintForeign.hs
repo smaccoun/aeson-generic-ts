@@ -2,14 +2,15 @@
 
 module Internal.Output.PrintForeign where
 
-import           Internal.Intermediate.Bridge.Generics
-import           Internal.Intermediate.Bridge.Lang
-import           Internal.Intermediate.BridgeToTypescript()
 import           Control.Monad.Catch
 import           Data.Proxy
-import           Data.Text           (Text)
-import           Data.Typeable       (Typeable)
+import           Data.Text                                (Text)
+import           Data.Typeable                            (Typeable)
+import           Internal.Intermediate.Bridge.Generics
+import           Internal.Intermediate.Bridge.Lang
+import           Internal.Intermediate.BridgeToTypescript ()
 import           Internal.Intermediate.Typescript.Lang
+import           Internal.Output.Foreign
 
 
 data TranslateException = TranslateException Text

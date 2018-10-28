@@ -1,8 +1,8 @@
 module Internal.Typescript.Flavors.FpTs where
 
-import           Internal.Intermediate.Bridge.Lang
 import           Data.Text
 import           Internal.Intermediate.Typescript.Lang
+import           Internal.Output.Foreign
 
 data FpTs = FpTs
 
