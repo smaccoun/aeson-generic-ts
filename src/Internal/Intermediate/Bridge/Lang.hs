@@ -3,7 +3,7 @@
 module Internal.Intermediate.Bridge.Lang where
 
 import Data.Text
-import Internal.Output.Foreign
+import Internal.Output.Foreign.Class
 
 class (IsForeignType toLangType) => FromBridge toLangType where
   toForeign :: BType -> Maybe toLangType

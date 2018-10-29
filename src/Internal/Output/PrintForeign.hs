@@ -10,7 +10,7 @@ import           Internal.Intermediate.Bridge.Generics
 import           Internal.Intermediate.Bridge.Lang
 import           Internal.Intermediate.BridgeToTypescript ()
 import           Internal.Intermediate.Typescript.Lang
-import           Internal.Output.Foreign
+import           Internal.Output.Foreign.Class
 
 
 data TranslateException = TranslateException Text

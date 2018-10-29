@@ -1,6 +1,6 @@
 {-# LANGUAGE DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
 
-module Internal.Output.Foreign where
+module Internal.Output.Foreign.Class where
 
 import Data.Text
 import GHC.Generics

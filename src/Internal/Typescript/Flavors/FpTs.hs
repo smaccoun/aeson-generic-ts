@@ -2,9 +2,10 @@ module Internal.Typescript.Flavors.FpTs where
 
 import           Data.Text
 import           Internal.Intermediate.Typescript.Lang
-import           Internal.Output.Foreign
+import           Internal.Output.Foreign.Class
+import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray)
 
-data FpTs = FpTs
+data FpTs
 
 instance IsForeignType (TSComposite FpTs) where
   toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
