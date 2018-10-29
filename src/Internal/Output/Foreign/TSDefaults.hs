@@ -1,3 +1,6 @@
+{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE UndecidableInstances #-}
+
 module Internal.Output.Foreign.TSDefaults where
 
 import           Data.Text

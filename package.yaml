@@ -24,21 +24,14 @@ default-extensions:
 - DeriveGeneric
 - FlexibleContexts
 - FlexibleInstances
-- GADTs
 - GeneralizedNewtypeDeriving
 - KindSignatures
 - MultiParamTypeClasses
 - OverloadedStrings
-- PolyKinds
-- QuasiQuotes
-- RankNTypes
 - RecordWildCards
 - ScopedTypeVariables
 - StandaloneDeriving
-- TemplateHaskell
-- TypeApplications
 - TypeFamilies
-- TypeOperators
 - UndecidableInstances
 
 library:
@@ -50,7 +43,6 @@ tests:
     source-dirs:
       - test
       - src
-      - data
     dependencies:
       - hspec
       - markdown-unlit

@@ -16,6 +16,9 @@ Convert Haskell to Typescript in a highly configurable way with Generics
 1. First Derive a generic Instance of a type:
 
 ```haskell
+{-# LANGUAGE DataKinds         #-}
+{-# LANGUAGE DeriveGeneric     #-}
+
 import           GHC.Generics
 import           Data.Text          (Text)
 
@@ -74,13 +77,13 @@ newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 printUser =
     ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
     
-// > type AnOption = null | string
+-- > type AnOption = null | string
 
 
 printUser =
     ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy ComplexRecord)
     
-// > type AnOption = Option<string>
+-- > type AnOption = Option<string>
 ```
 
 ### Defining your own flavors
