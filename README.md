@@ -9,6 +9,7 @@ Convert Haskell to Typescript in a highly configurable way with Generics
   - [Full Example](#full-example)
   - [Flavors](#flavors)
     - [Built In](#built-in-flavors)
+  - [Roadmap](#roadmap)
   
 ## Quick Start
 
@@ -55,7 +56,7 @@ Typescript has many ways of doing the same thing, and there are lots of opinions
 
 2. Prebaked configurations for the most common ways people like to represent TS types
 
-3. The use of well known libraries as configuration options. Two examples I will provide default implementations for are [fp-ts](https://github.com/gcanti/fp-ts) and [unionize](https://github.com/pelotom/unionize**
+3. The use of well known libraries as configuration options ([built-in flavors](#built-in-flavors)). Two examples I will provide default implementations for are [fp-ts](https://github.com/gcanti/fp-ts) and [unionize](https://github.com/pelotom/unionize)
 
 4. A simple interface for providing your own custom translation
 
@@ -135,10 +136,10 @@ interface ComplexRecord {
 ```
 
 
-### Roadmap
+## Roadmap
 
 1. More complete FP-TS functionality
-2. Remove intermediate bridge language
-3. Figure out a cleaner ADT interface for customizing TS
-4. I dunno, lots of stuff probably
-
+2. Unionize library flavor
+3. Remove intermediate bridge language
+4. Figure out a cleaner ADT interface for customizing TS
+5. I dunno, lots of stuff probably. Make it more production ready I guess
