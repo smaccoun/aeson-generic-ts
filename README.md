@@ -6,8 +6,9 @@ Convert Haskell to Typescript in a highly configurable way with Generics
   - [Quick Start](#quick-start)
   - [About](#begin)
   - [Design Goals](#design-goals)
-  - [Example](#example)
+  - [Full Example](#full-example)
   - [Flavors](#flavors)
+    - [Built In](#built-in-flavors)
   
 ## Quick Start
 
@@ -64,7 +65,8 @@ Achieving high configurability relies on using Generics to first translate Haske
 
 A flavor is just another name for a type that represents how you want your Typescript customized to. There are currently two supported flavors: **Vanilla** and **FpTS**. You can also write your own flavors (TODO...instructions for this)
 
-### Example:
+### Built In Flavors
+
 ```haskell
 newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 
@@ -78,10 +80,15 @@ printUser =
     ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy ComplexRecord)
     
 // > type AnOption = Option<string>
-
 ```
 
-## Example
+### Defining your own flavors
+
+TODO.....
+
+
+
+## Full Example
 
 The best place for up to date examples is probably just to look at test, but here's a basic one
 
