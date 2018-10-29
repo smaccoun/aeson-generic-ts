@@ -26,5 +26,4 @@ data ForeignType t =
     } deriving (Generic, Functor)
 
 selfRefForeign :: Text -> ForeignType t
-selfRefForeign ref =
-  ForeignType ref ref
+selfRefForeign ref = ForeignType ref ref

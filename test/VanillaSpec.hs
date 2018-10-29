@@ -25,14 +25,14 @@ spec = do
       ts <- printFromBridge vanilla (Proxy :: Proxy ComplexRecord)
       putStrLn $ T.unpack ts
       ts `shouldBe` knownSolution
-      where
-        knownSolution =
-          T.intercalate ""
-            ["interface ComplexRecord { \n"
-            ,"  anIntField : number\n"
-            ,"  aTextField : string\n"
-            ,"  aUnion : SampleUnion\n"
-            ,"  aMaybeType : string | null \n"
-            ,"  aSimpleRecord : SimpleRecord"
-            ,"\n}"
-            ]
+ where
+  knownSolution = T.intercalate
+    ""
+    [ "interface ComplexRecord { \n"
+    , "  anIntField : number\n"
+    , "  aTextField : string\n"
+    , "  aUnion : SampleUnion\n"
+    , "  aMaybeType : string | null \n"
+    , "  aSimpleRecord : SimpleRecord"
+    , "\n}"
+    ]

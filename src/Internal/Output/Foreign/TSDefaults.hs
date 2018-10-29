@@ -37,13 +37,13 @@ instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
 
 
 showField :: (IsForeignType (TSType f)) => TSField f -> Text
-showField (TSField (FieldName fName) fType) = fName <> " : " <> (refName . toForeignType) fType
+showField (TSField (FieldName fName) fType) =
+  fName <> " : " <> (refName . toForeignType) fType
 
-showFields ::  (IsForeignType (TSType f)) => [TSField f] -> Text
-showFields fields = T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
+showFields :: (IsForeignType (TSType f)) => [TSField f] -> Text
+showFields fields =
+  T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
 defaultForeignArray :: (IsForeignType (TSType f)) => TSArray f -> Text
-defaultForeignArray (TSArray tsType') =
-  "Array<" <> rep <> ">"
-  where
-    rep = refName . toForeignType $ tsType'
+defaultForeignArray (TSArray tsType') = "Array<" <> rep <> ">"
+  where rep = refName . toForeignType $ tsType'

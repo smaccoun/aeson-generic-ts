@@ -33,9 +33,12 @@ data User =
 2. Pick a [flavor](#flavors) you'd like to generate the TS with, and run the print function
 
 ```haskell
+
+-- Note here we are using the flavor Vanilla
+
 printUser :: IO ()
 printUser =
-    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 This prints the following:
@@ -49,7 +52,7 @@ interface User {
 
 ## About
 
-This project is under pretty heavy development and will be used in production once it's ready. I'd call it's current state alpha, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
+This project is under development and will be used in production once it's ready. I'd call it's current state alpha, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
 
 ## Design Goals 
 

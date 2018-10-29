@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 2638eeda61776dc60cde53a825bd7e761cd69d9c210131c0122d5a5836082385
+-- hash: 896361372b577a2777581f6af96963350b1750b5e33cc256c4474e258db63da5
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -48,6 +48,7 @@ test-suite aeson-generic-ts-test
   hs-source-dirs:
       test
       src
+      data
   default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances GeneralizedNewtypeDeriving KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
   ghc-options: -pgmL markdown-unlit
   build-depends:
@@ -71,5 +72,6 @@ test-suite aeson-generic-ts-test
       Internal.Typescript.Flavors.FpTs
       Internal.Typescript.Flavors.Vanilla
       Typescript
+      BasicExamples
       Paths_aeson_generic_ts
   default-language: Haskell2010

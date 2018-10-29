@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Typescript
   (module Internal.Intermediate.Bridge.Lang
   ,module Internal.Typescript.Flavors.Vanilla

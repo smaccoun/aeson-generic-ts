@@ -16,5 +16,4 @@ spec = do
     it "handles_a_simple_option" $ do
       ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
       ts `shouldBe` knownSolution
-      where
-        knownSolution = "Option<string>"
+  where knownSolution = "Option<string>"
