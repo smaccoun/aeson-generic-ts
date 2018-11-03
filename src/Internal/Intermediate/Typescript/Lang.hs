@@ -22,17 +22,18 @@ data TSPrimitive =
 {-
   Composite Types
 -}
+
 data TSComposite f =
     TSCollectionRef (TSCollection f)
   | TSDataType (TSData f)
   | TSOptionRef (TSOption f)
-  | TSUnionRef Text [TSIntermediate f]
-
+  | TSUnionRef (TSUnion  f)
 
 newtype TSCollection f = TSCollection (TSIntermediate f)
 
 newtype TSOption f = TSOption (TSIntermediate f)
 
+data TSUnion f = TSUnion Text [TSIntermediate f]
 
 {-
   Typescript "Data types". Classes are an alternative rep to Interface

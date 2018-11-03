@@ -49,7 +49,7 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     _ -> Nothing
   (UnionConstructor _) ->
     TSCompositeType
-      <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
+      <$> (Just $ TSUnionRef (TSUnion typeName [TSPrimitiveType TSString])) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
  where
   handleSingle
     :: IsForeignType (TSComposite f)

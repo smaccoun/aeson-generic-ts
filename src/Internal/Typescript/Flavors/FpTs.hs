@@ -1,39 +1,26 @@
 module Internal.Typescript.Flavors.FpTs where
 
-import           Data.Text
 import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
-import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray)
+import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray, defaultForeignUnion)
 
 data FpTs
 
 instance IsForeignType (TSComposite FpTs) where
-  toForeignType (TSCollectionRef tar) = TSCollectionRef <$> toForeignType tar
+  toForeignType (TSCollectionRef tsCollection) = TSCollectionRef <$> defaultForeignArray tsCollection
+  toForeignType (TSUnionRef tsUnion) = TSUnionRef <$> defaultForeignUnion tsUnion
+  toForeignType (TSOptionRef tsOption)  = TSOptionRef <$> toForeignType tsOption
   toForeignType (TSDataType tsData) = TSDataType <$> toForeignType tsData
-  toForeignType (TSOptionRef tsType') = TSOptionRef <$> toForeignType tsType'
-  toForeignType (TSUnionRef unionName tsTypes') =
-    ForeignType
-      {refName = unionName
-      ,declaration =  "type " <> unionName <> " = " <> ns
-      }
-    where
-      ns =
-          intercalate " | "
-        $ fmap (refName . toForeignType) tsTypes'
 
+instance IsForeignType (TSUnion FpTs)  where
+  toForeignType = defaultForeignUnion
 
 instance IsForeignType (TSOption FpTs) where
   toForeignType (TSOption tsType') =
     selfRefForeign $ "Option<" <> (refName . toForeignType $ tsType') <> ">"
 
 instance IsForeignType (TSCollection FpTs) where
-  toForeignType tsArray =
-    ForeignType
-      {refName = asDefault
-      ,declaration = asDefault
-      }
-   where
-     asDefault = defaultForeignArray tsArray
+  toForeignType = defaultForeignArray
 
 
 
