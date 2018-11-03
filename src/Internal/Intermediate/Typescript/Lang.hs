@@ -23,13 +23,13 @@ data TSPrimitive =
   Composite Types
 -}
 data TSComposite f =
-    TSCollection (TSArray f)
+    TSCollectionRef (TSCollection f)
   | TSDataType (TSData f)
   | TSOption (TSIntermediate f)
   | TSUnionRef Text [TSIntermediate f]
 
 
-newtype TSArray f = TSArray (TSIntermediate f)
+newtype TSCollection f = TSCollection (TSIntermediate f)
 
 
 {-

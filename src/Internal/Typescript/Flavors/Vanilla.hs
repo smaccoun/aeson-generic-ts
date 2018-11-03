@@ -8,7 +8,7 @@ import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray)
 data Vanilla
 
 instance IsForeignType (TSComposite Vanilla) where
-  toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
+  toForeignType (TSCollectionRef tar) = TSCollectionRef <$> toForeignType tar
   toForeignType (TSDataType tsData) = TSDataType <$> toForeignType tsData
   toForeignType (TSOption tsType') =
     selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
@@ -23,7 +23,7 @@ instance IsForeignType (TSComposite Vanilla) where
         $ fmap (refName . toForeignType) tsTypes'
 
 
-instance IsForeignType (TSArray Vanilla) where
+instance IsForeignType (TSCollection Vanilla) where
   toForeignType tsArray =
     ForeignType
       {refName = asDefault

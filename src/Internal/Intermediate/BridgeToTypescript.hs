@@ -14,7 +14,7 @@ instance (IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
       BCollectionType bcollection ->
         case bcollection of
           BArray btypeInArray ->
-            TSCompositeType . TSCollection . TSArray <$> toForeign btypeInArray
+            TSCompositeType . TSCollectionRef . TSCollection <$> toForeign btypeInArray
       BOption btypeInOption ->
         TSCompositeType . TSOption <$> toForeign btypeInOption
       BConstructed typeName c -> bConstructedToTS toForeign typeName c

@@ -42,6 +42,6 @@ showFields :: (IsForeignType (TSIntermediate f)) => [TSField f] -> Text
 showFields fields =
   T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
-defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSArray f -> Text
-defaultForeignArray (TSArray tsType') = "Array<" <> rep <> ">"
+defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSCollection f -> Text
+defaultForeignArray (TSCollection tsType') = "Array<" <> rep <> ">"
   where rep = refName . toForeignType $ tsType'
