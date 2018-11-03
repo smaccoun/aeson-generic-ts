@@ -25,8 +25,8 @@ instance (Datatype d, GenericBridgeConstructor f) =>
   gBRep datatype =
     BConstructed typeName constructor
     where
-      typeName = (pack (datatypeName datatype))
-      constructor = (toBridgeConstructor (unM1 datatype))
+      typeName = pack (datatypeName datatype)
+      constructor = toBridgeConstructor (unM1 datatype)
 
 class GenericBridgeConstructor f where
   toBridgeConstructor :: f a -> BConstructor

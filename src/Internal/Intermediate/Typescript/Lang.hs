@@ -28,13 +28,13 @@ data TSComposite f =
     TSCollection (TSArray f)
   | TSDataType (TSData f)
 
-data TSArray f = TSArray (TSType f)
+newtype TSArray f = TSArray (TSType f)
 
 
 {-
   Typescript "Data types". Classes are an alternative rep to Interface
 -}
-data TSData f =
+newtype TSData f =
     TSInterfaceRef (TSInterface f)
 --  | TSClassRef f
 
@@ -47,7 +47,7 @@ data TSInterface f =
 data TSField f =
   TSField
     {fieldName :: FieldName
-    ,fieldType :: (TSType f)
+    ,fieldType :: TSType f
     }
 
 newtype FieldName = FieldName Text

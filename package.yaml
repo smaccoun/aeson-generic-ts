@@ -24,7 +24,6 @@ default-extensions:
 - DeriveGeneric
 - FlexibleContexts
 - FlexibleInstances
-- GeneralizedNewtypeDeriving
 - KindSignatures
 - MultiParamTypeClasses
 - OverloadedStrings

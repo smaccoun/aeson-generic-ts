@@ -1,4 +1,4 @@
-{-# LANGUAGE DeriveGeneric, DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
+{-# LANGUAGE DeriveGeneric, DeriveFunctor, DeriveTraversable #-}
 
 module Internal.Output.Foreign.Class where
 
@@ -9,7 +9,7 @@ import GHC.Generics
   Instantiate this class for all types that will be printed out as Text.
 -}
 class IsForeignType t where
-  toForeignType :: t -> (ForeignType t)
+  toForeignType :: t -> ForeignType t
 
 {-|
   A type that represents a reference and a declaration.

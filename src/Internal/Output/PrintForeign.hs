@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveAnyClass #-}
-
 module Internal.Output.PrintForeign where
 
 import           Control.Monad.Catch
@@ -13,16 +11,13 @@ import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
 
 
-data TranslateException = TranslateException Text
+newtype TranslateException = TranslateException Text
   deriving (Typeable)
 
 instance Exception TranslateException
 
 instance Show TranslateException where
-  show (TranslateException t) = concat
-    [ "Unable to parse as "
-    , show t
-    ]
+  show (TranslateException t) = "Unable to parse as " <> show t
 
 {-TODO: Make this type safe so no exception needed -}
 asTS
@@ -39,4 +34,4 @@ printFromBridge
   => Proxy f
   -> Proxy a
   -> m Text
-printFromBridge f t = (declaration . toForeignType) <$> (asTS f) t
+printFromBridge f t = declaration . toForeignType <$> asTS f t

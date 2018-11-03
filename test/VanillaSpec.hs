@@ -7,11 +7,10 @@ import           Internal.Output.PrintForeign
 import           Internal.Typescript.Flavors.Vanilla
 import           Test.Hspec
 
-
 spec :: Spec
-spec = do
+spec =
   describe "vanilla_ts" $ do
-    let vanilla = (Proxy :: Proxy Vanilla)
+    let vanilla = Proxy :: Proxy Vanilla
     it "works for number" $ do
       t <- printFromBridge vanilla (Proxy :: Proxy Int)
       t `shouldBe` "number"

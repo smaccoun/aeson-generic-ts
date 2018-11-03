@@ -9,7 +9,7 @@ data FpTs
 
 instance IsForeignType (TSComposite FpTs) where
   toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
-  toForeignType (TSDataType (TSInterfaceRef tsInterface)) = TSDataType <$> TSInterfaceRef <$> toForeignType tsInterface
+  toForeignType (TSDataType (TSInterfaceRef tsInterface)) = TSDataType . TSInterfaceRef <$> toForeignType tsInterface
 
 instance IsForeignType (TSArray FpTs) where
   toForeignType tsArray =
@@ -26,7 +26,7 @@ instance IsForeignType (TSCustom FpTs) where
   toForeignType (TSUnionRef unionName tsTypes') =
     ForeignType
       {refName = unionName
-      ,declaration =  "type " <> (unionName) <> " = " <> ns
+      ,declaration =  "type " <> unionName <> " = " <> ns
       }
     where
       ns =

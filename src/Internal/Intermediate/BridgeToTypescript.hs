@@ -14,9 +14,9 @@ instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBrid
       BCollectionType bcollection ->
         case bcollection of
           BArray btypeInArray ->
-            TSCompositeType . TSCollection . TSArray <$> (toForeign btypeInArray)
+            TSCompositeType . TSCollection . TSArray <$> toForeign btypeInArray
       BOption btypeInOption ->
-        TSCustomizableType . TSOption <$> (toForeign btypeInOption)
+        TSCustomizableType . TSOption <$> toForeign btypeInOption
       BConstructed typeName c -> bConstructedToTS toForeign typeName c
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
@@ -41,13 +41,13 @@ bConstructedToTS bridgeTypeToTSType typeName bcon = case bcon of
           <$> TSDataType
           <$> TSInterfaceRef
           <$> TSInterface typeName
-          <$> (sequence [bfieldToTSField bfield])
+          <$> sequence [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
         <$> TSDataType
         <$> TSInterfaceRef
         <$> TSInterface typeName
-        <$> (mapM handleSingle fields)
+        <$> mapM handleSingle fields
     _ -> Nothing
   (UnionConstructor _) ->
     TSCustomizableType
@@ -63,7 +63,7 @@ bConstructedToTS bridgeTypeToTSType typeName bcon = case bcon of
 
 bfieldToTSField
   :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
-  => (BField)
+  => BField
   -> Maybe (TSField f)
 bfieldToTSField (BField (BFieldName fName) fType) =
   TSField (FieldName fName) <$> toForeign fType

@@ -1,0 +1,5 @@
+{
+    "languageServerHaskell": {
+        "hlintOn": Boolean,
+    }
+}

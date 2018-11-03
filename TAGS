@@ -1,0 +1,197 @@
+
+./Setup.hs,15
+main main1,2
+
+./test/FpTsSpec.hs,80
+module FpTsSpec FpTsSpec0,1
+newtype AnOption AnOption10,11
+spec spec12,13
+
+./test/Main.hs,37
+module Main Main2,3
+main main7,8
+
+./test/Spec.hs,65
+module Spec Spec0,1
+aesonGenericTSSpec aesonGenericTSSpec7,8
+
+./test/VanillaSpec.hs,53
+module VanillaSpec VanillaSpec0,1
+spec spec10,11
+
+./data/BasicExamples.hs,587
+module BasicExamples BasicExamples2,3
+data SimpleRecord SimpleRecord8,9
+  SimpleRecordSimpleRecord9,10
+    {f1 f110,11
+data ComplexRecord ComplexRecord13,14
+  ComplexRecordComplexRecord14,15
+    {anIntField anIntField15,16
+    ,aTextField aTextField16,17
+    ,aUnion aUnion17,18
+    ,aMaybeType aMaybeType18,19
+    ,aSimpleRecord aSimpleRecord19,20
+data SimpleUnTagged SimpleUnTagged22,23
+data SimpleUnTagged = F F22,23
+data SampleUnion SampleUnion24,25
+data SampleUnion = FirstCon FirstCon24,25
+data SampleUnion = FirstCon Int | SecondCon SecondCon24,25
+
+./src/Internal/Typescript/Flavors/FpTs.hs,389
+module Internal.Typescript.Flavors.FpTs Internal.Typescript.Flavors.FpTs0,1
+data FpTsFpTs7,8
+instance IsForeignType IsForeignType (TSComposite FpTs)9,10
+  toForeignType toForeignType10,11
+instance IsForeignType IsForeignType (TSArray FpTs)13,14
+  toForeignType toForeignType14,15
+instance IsForeignType IsForeignType (TSCustom FpTs)22,23
+  toForeignType toForeignType23,24
+
+./src/Internal/Typescript/Flavors/Vanilla.hs,410
+module Internal.Typescript.Flavors.Vanilla Internal.Typescript.Flavors.Vanilla0,1
+data VanillaVanilla7,8
+instance IsForeignType IsForeignType (TSComposite Vanilla)9,10
+  toForeignType toForeignType10,11
+instance IsForeignType IsForeignType (TSArray Vanilla)13,14
+  toForeignType toForeignType14,15
+instance IsForeignType IsForeignType (TSCustom Vanilla)22,23
+  toForeignType toForeignType23,24
+
+./src/Internal/Output/PrintForeign.hs,366
+module Internal.Output.PrintForeign Internal.Output.PrintForeign2,3
+data TranslateException TranslateException15,16
+data TranslateException = TranslateException TranslateException15,16
+instance Exception Exception TranslateException18,19
+instance Show Show TranslateException20,21
+  show show21,22
+asTS asTS32,33
+printFromBridge printFromBridge41,42
+
+./src/Internal/Output/Foreign/Class.hs,319
+module Internal.Output.Foreign.Class Internal.Output.Foreign.Class2,3
+class IsForeignType IsForeignType10,11
+  toForeignType toForeignType11,12
+data ForeignType ForeignType21,22
+  ForeignTypeForeignType22,23
+    {refName refName23,24
+    ,declaration declaration24,25
+selfRefForeign selfRefForeign27,28
+
+./src/Internal/Output/Foreign/TSDefaults.hs,536
+module Internal.Output.Foreign.TSDefaults Internal.Output.Foreign.TSDefaults3,4
+instance (I(IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => IsForeignType (TSType f)15,16
+  toForeignType toForeignType16,17
+instance IsForeignType IsForeignType TSPrimitive21,22
+  toForeignType toForeignType22,23
+instance (I(IsForeignType (TSType f)) => IsForeignType (TSInterface f)26,27
+  toForeignType toForeignType27,28
+showField showField37,38
+showFields showFields41,42
+defaultForeignArray defaultForeignArray45,46
+
+./src/Internal/Intermediate/Bridge/Generics.hs,2173
+module Internal.Intermediate.Bridge.Generics Internal.Intermediate.Bridge.Generics7,8
+class BridgeType BridgeType14,15
+  toBridgeType toBridgeType15,16
+class GenericBridgeType GenericBridgeType19,20
+  gBRep gBRep20,21
+instance (D(Datatype d, GenericBridgeConstructor f) => GenericBridgeType (D1 d f)22,23
+  gBRep gBRep24,25
+class GenericBridgeConstructor GenericBridgeConstructor30,31
+  toBridgeConstructor toBridgeConstructor31,32
+class GenericBSingleConstructorArg GenericBSingleConstructorArg33,34
+  toBridgeSingleConstructorArg toBridgeSingleConstructorArg34,35
+class GenericBSingleConstructorArgs GenericBSingleConstructorArgs36,37
+  toBridgeSingleConstructorArgs toBridgeSingleConstructorArgs37,38
+class GenericBField GenericBField39,40
+  toBridgeField toBridgeField40,41
+instance (C(Constructor c, GenericBSingleConstructorArgs f) => GenericBridgeConstructor (M1 C c f)42,43
+  toBridgeConstructor toBridgeConstructor43,44
+instance (S(Selector s, GenericBridgeType f) => GenericBSingleConstructorArgs (S1 s f)46,47
+  toBridgeSingleConstructorArgs toBridgeSingleConstructorArgs47,48
+instance (G(GenericBSingleConstructorArgs f, GenericBSingleConstructorArgs g) => GenericBSingleConstructorArgs (f :*: g)53,54
+  toBridgeSingleConstructorArgs toBridgeSingleConstructorArgs55,56
+instance (G(GenericBridgeConstructor f, GenericBridgeConstructor g) => GenericBridgeConstructor (f :+: g)61,62
+  toBridgeConstructor toBridgeConstructor62,63
+instance BridgeType BridgeType a => GenericBridgeType (Rec0 a)68,69
+  gBRep gBRep69,70
+instance (B(BridgeType a) => BridgeType (Proxy a)71,72
+  toBridgeType toBridgeType72,73
+instance BridgeType BridgeType a => BridgeType (Maybe a)74,75
+  toBridgeType toBridgeType75,76
+instance BridgeType BridgeType Int78,79
+  toBridgeType toBridgeType79,80
+instance BridgeType BridgeType Text81,82
+  toBridgeType toBridgeType82,83
+instance BridgeType BridgeType String84,85
+  toBridgeType toBridgeType85,86
+instance BridgeType BridgeType Bool87,88
+  toBridgeType toBridgeType88,89
+instance BridgeType BridgeType a => BridgeType [a]90,91
+  toBridgeType toBridgeType91,92
+
+./src/Internal/Intermediate/Bridge/Lang.hs,863
+module Internal.Intermediate.Bridge.Lang Internal.Intermediate.Bridge.Lang2,3
+class (IsForeignType toLangType) => FromBridge FromBridge7,8
+  toForeign toForeign8,9
+data BType BType10,11
+    BPrimitiveType BPrimitiveType11,12
+  | BCollectionType BCollectionType12,13
+  | BOption BOption13,14
+  | BConstructed BConstructed14,15
+data BConstructor BConstructor17,18
+    SingleConstructorType SingleConstructorType18,19
+  | UnionConstructor UnionConstructor19,20
+data BSingleConstructorArg BSingleConstructorArg22,23
+    OfRecord OfRecord23,24
+  | OfUnTagged OfUnTagged24,25
+newtype BFieldName BFieldName27,28
+data BField BField28,29
+data BField = BField BField28,29
+data BCollection BCollection30,31
+  BArray BArray31,32
+data BPrimitive BPrimitive34,35
+    BIntBInt35,36
+  | BStringBString36,37
+  | BBooleanBBoolean37,38
+
+./src/Internal/Intermediate/Typescript/Lang.hs,984
+module Internal.Intermediate.Typescript.Lang Internal.Intermediate.Typescript.Lang0,1
+data TSType TSType7,8
+    TSPrimitiveType TSPrimitiveType8,9
+  | TSCompositeType TSCompositeType9,10
+  | TSCustomizableType TSCustomizableType10,11
+data TSPrimitive TSPrimitive16,17
+    TSNumberTSNumber17,18
+  | TSStringTSString18,19
+  | TSBooleanTSBoolean19,20
+data TSComposite TSComposite26,27
+    TSCollection TSCollection27,28
+  | TSDataType TSDataType28,29
+data TSArray TSArray30,31
+data TSArray f = TSArray TSArray30,31
+data TSData TSData36,37
+    TSInterfaceRef TSInterfaceRef37,38
+data TSInterface TSInterface40,41
+  TSInterfaceTSInterface41,42
+    {interfaceName interfaceName42,43
+    ,fields fields43,44
+data TSField TSField46,47
+  TSFieldTSField47,48
+    {fieldName fieldName48,49
+    ,fieldType fieldType49,50
+newtype FieldName FieldName52,53
+data TSCustom TSCustom57,58
+    TSOption TSOption58,59
+  | TSUnionRef TSUnionRef59,60
+
+./src/Internal/Intermediate/BridgeToTypescript.hs,338
+module Internal.Intermediate.BridgeToTypescript Internal.Intermediate.BridgeToTypescript0,1
+instance (I(IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSType f)8,9
+  toForeign toForeign9,10
+bprimToTSPrim bprimToTSPrim21,22
+bConstructedToTS bConstructedToTS34,35
+bfieldToTSField bfieldToTSField67,68
+
+./src/Typescript.hs,33
+module TypescriptTypescript0,1

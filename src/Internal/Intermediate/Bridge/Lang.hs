@@ -1,5 +1,3 @@
-{-# LANGUAGE DeriveFunctor, DeriveFoldable, DeriveTraversable #-}
-
 module Internal.Intermediate.Bridge.Lang where
 
 import Data.Text
@@ -28,7 +26,7 @@ data BSingleConstructorArg =
 newtype BFieldName = BFieldName Text deriving (Eq, Show)
 data BField = BField BFieldName BType deriving (Eq, Show)
 
-data BCollection =
+newtype BCollection =
   BArray BType
    deriving (Eq, Show)
 

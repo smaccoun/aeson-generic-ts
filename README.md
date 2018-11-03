@@ -1,6 +1,6 @@
-# aeson-generic-ts
-
 [![CircleCI](https://circleci.com/gh/smaccoun/aeson-generic-ts.svg?style=svg)](https://circleci.com/gh/smaccoun/aeson-generic-ts)
+
+# aeson-generic-ts
 
 Convert Haskell to Typescript in a highly configurable way with Generics 
 

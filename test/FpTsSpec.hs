@@ -1,3 +1,5 @@
+{-# LANGUAGE GeneralizedNewtypeDeriving #-}
+
 module FpTsSpec where
 
 import           Internal.Intermediate.Bridge.Generics
@@ -11,7 +13,7 @@ import           Internal.Typescript.Flavors.FpTs
 newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 
 spec :: Spec
-spec = do
+spec =
   describe "option_type" $ do
     it "handles_a_simple_option" $ do
       ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)

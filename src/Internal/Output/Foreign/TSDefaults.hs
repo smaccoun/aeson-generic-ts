@@ -29,10 +29,9 @@ instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
     ForeignType
       {refName     = iName
       ,declaration =
-          ("interface " <> iName <> " { \n"
+             "interface " <> iName <> " { \n"
           <> showFields fields'
           <> "\n}"
-          )
       }
 
 
