@@ -88,7 +88,7 @@ newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 printAnOption =
     ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
-# > type AnOption = null | string
+--  type AnOption = null | string
 ```
 
 #### FpTs
@@ -96,7 +96,7 @@ printAnOption =
 printAnOption =
     ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
-# type AnOption = Option<string>
+-- type AnOption = Option<string>
 ```
 
 ### Defining your own flavors
