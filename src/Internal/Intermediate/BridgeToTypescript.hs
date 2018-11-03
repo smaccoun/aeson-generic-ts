@@ -6,7 +6,7 @@ import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
 import           Internal.Output.Foreign.TSDefaults    ()
 
-instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSType f) where
+instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
   toForeign btype =
     case btype of
       BPrimitiveType bprim ->
@@ -28,14 +28,14 @@ bprimToTSPrim bprim = case bprim of
 
 bConstructedToTS
   :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
-  => (BType -> Maybe (TSType f))
+  => (BType -> Maybe (TSIntermediate f))
   -> Text
   -> BConstructor
-  -> Maybe (TSType f)
-bConstructedToTS bridgeTypeToTSType typeName bcon = case bcon of
+  -> Maybe (TSIntermediate f)
+bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
   (SingleConstructorType fields) -> case fields of
     [x] -> case x of
-      OfUnTagged btype -> bridgeTypeToTSType btype
+      OfUnTagged btype -> bridgeTypeToTSIntermediate btype
       OfRecord bfield ->
         TSCompositeType
           <$> TSDataType
@@ -51,7 +51,7 @@ bConstructedToTS bridgeTypeToTSType typeName bcon = case bcon of
     _ -> Nothing
   (UnionConstructor _) ->
     TSCustomizableType
-      <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSType typeName <$> cs)
+      <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
  where
   handleSingle
     :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
