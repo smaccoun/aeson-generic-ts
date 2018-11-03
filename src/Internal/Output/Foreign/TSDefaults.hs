@@ -23,17 +23,6 @@ instance IsForeignType TSPrimitive where
   toForeignType TSNumber  = selfRefForeign "number"
   toForeignType TSBoolean = selfRefForeign "boolean"
 
-instance (IsForeignType (TSIntermediate f)) => IsForeignType (TSData f) where
-  toForeignType (TSData iName fields') =
-    ForeignType
-      {refName     = iName
-      ,declaration =
-             "interface " <> iName <> " { \n"
-          <> showFields fields'
-          <> "\n}"
-      }
-
-
 showField :: (IsForeignType (TSIntermediate f)) => TSField f -> Text
 showField (TSField (FieldName fName) fType) =
   fName <> " : " <> (refName . toForeignType) fType
@@ -60,3 +49,18 @@ defaultForeignUnion (TSUnion unionName tsTypes') =
       ns =
           intercalate " | "
         $ fmap (refName . toForeignType) tsTypes'
+
+defaultOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
+defaultOption (TSOption tsType') =
+  selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
+
+mkTSInterface :: (IsForeignType (TSIntermediate f)) => TSData f -> ForeignType
+mkTSInterface (TSData iName fields')=
+  ForeignType
+    {refName     = iName
+    ,declaration =
+            "interface " <> iName <> " { \n"
+        <> showFields fields'
+        <> "\n}"
+    }
+

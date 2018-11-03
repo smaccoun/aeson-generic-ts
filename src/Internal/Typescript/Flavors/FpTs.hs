@@ -2,7 +2,7 @@ module Internal.Typescript.Flavors.FpTs where
 
 import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
-import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray, defaultForeignUnion)
+import           Internal.Output.Foreign.TSDefaults
 
 data FpTs
 
@@ -11,7 +11,7 @@ instance IsForeignType (TSComposite FpTs) where
   toForeignType (TSUnionRef tsUnion) = defaultForeignUnion tsUnion
   toForeignType (TSOptionRef (TSOption tsType')) =
     selfRefForeign $ "Option<" <> (refName . toForeignType $ tsType') <> ">"
-  toForeignType (TSDataType tsData) = toForeignType tsData
+  toForeignType (TSDataType tsData) = mkTSInterface tsData
 
 
 
