@@ -25,11 +25,13 @@ data TSPrimitive =
 data TSComposite f =
     TSCollectionRef (TSCollection f)
   | TSDataType (TSData f)
-  | TSOption (TSIntermediate f)
+  | TSOptionRef (TSOption f)
   | TSUnionRef Text [TSIntermediate f]
 
 
 newtype TSCollection f = TSCollection (TSIntermediate f)
+
+newtype TSOption f = TSOption (TSIntermediate f)
 
 
 {-

@@ -10,8 +10,7 @@ data Vanilla
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollectionRef tar) = TSCollectionRef <$> toForeignType tar
   toForeignType (TSDataType tsData) = TSDataType <$> toForeignType tsData
-  toForeignType (TSOption tsType') =
-    selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
+  toForeignType (TSOptionRef tsType') = TSOptionRef <$> toForeignType tsType'
   toForeignType (TSUnionRef unionName tsTypes') =
     ForeignType
       {refName = unionName
@@ -22,6 +21,9 @@ instance IsForeignType (TSComposite Vanilla) where
           intercalate " | "
         $ fmap (refName . toForeignType) tsTypes'
 
+instance IsForeignType (TSOption Vanilla) where
+  toForeignType (TSOption tsType') =
+    selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
 
 instance IsForeignType (TSCollection Vanilla) where
   toForeignType tsArray =
