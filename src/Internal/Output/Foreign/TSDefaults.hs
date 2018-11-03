@@ -13,10 +13,9 @@ import           Internal.Output.Foreign.Class
   DEFAULT FOREIGN INSTANCES
 -}
 
-instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f))  => IsForeignType (TSIntermediate f) where
+instance IsForeignType (TSComposite f)  => IsForeignType (TSIntermediate f) where
   toForeignType (TSPrimitiveType prim) = TSPrimitiveType <$> toForeignType prim
   toForeignType (TSCompositeType composite) = TSCompositeType <$> toForeignType composite
-  toForeignType (TSCustomizableType tsCustom) = TSCustomizableType <$> toForeignType tsCustom
 
 
 instance IsForeignType TSPrimitive where

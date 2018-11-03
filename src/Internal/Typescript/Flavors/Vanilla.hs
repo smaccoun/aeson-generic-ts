@@ -10,17 +10,6 @@ data Vanilla
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
   toForeignType (TSDataType (TSInterfaceRef tsInterface)) = TSDataType . TSInterfaceRef <$> toForeignType tsInterface
-
-instance IsForeignType (TSArray Vanilla) where
-  toForeignType tsArray =
-    ForeignType
-      {refName = asDefault
-      ,declaration = asDefault
-      }
-   where
-     asDefault = defaultForeignArray tsArray
-
-instance IsForeignType (TSCustom Vanilla) where
   toForeignType (TSOption tsType') =
     selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
   toForeignType (TSUnionRef unionName tsTypes') =
@@ -30,5 +19,15 @@ instance IsForeignType (TSCustom Vanilla) where
       }
     where
       ns =
-         intercalate " | "
-       $ fmap (refName . toForeignType) tsTypes'
+          intercalate " | "
+        $ fmap (refName . toForeignType) tsTypes'
+
+
+instance IsForeignType (TSArray Vanilla) where
+  toForeignType tsArray =
+    ForeignType
+      {refName = asDefault
+      ,declaration = asDefault
+      }
+   where
+     asDefault = defaultForeignArray tsArray

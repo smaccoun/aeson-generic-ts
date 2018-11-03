@@ -8,8 +8,6 @@ import           Data.Text
 data TSIntermediate f =
     TSPrimitiveType TSPrimitive
   | TSCompositeType (TSComposite f)
-  | TSCustomizableType (TSCustom f)
-
 
 {-
   Typescript Primitives. Have a default rep
@@ -27,6 +25,9 @@ data TSPrimitive =
 data TSComposite f =
     TSCollection (TSArray f)
   | TSDataType (TSData f)
+  | TSOption (TSIntermediate f)
+  | TSUnionRef Text [TSIntermediate f]
+
 
 newtype TSArray f = TSArray (TSIntermediate f)
 
@@ -51,10 +52,3 @@ data TSField f =
     }
 
 newtype FieldName = FieldName Text
-
-{-
-  Custom types that often have many representations
--}
-data TSCustom f =
-    TSOption (TSIntermediate f)
-  | TSUnionRef Text [TSIntermediate f]

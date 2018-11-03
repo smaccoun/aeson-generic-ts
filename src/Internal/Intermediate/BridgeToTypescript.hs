@@ -6,7 +6,7 @@ import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
 import           Internal.Output.Foreign.TSDefaults    ()
 
-instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
+instance (IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
   toForeign btype =
     case btype of
       BPrimitiveType bprim ->
@@ -16,7 +16,7 @@ instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBrid
           BArray btypeInArray ->
             TSCompositeType . TSCollection . TSArray <$> toForeign btypeInArray
       BOption btypeInOption ->
-        TSCustomizableType . TSOption <$> toForeign btypeInOption
+        TSCompositeType . TSOption <$> toForeign btypeInOption
       BConstructed typeName c -> bConstructedToTS toForeign typeName c
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
@@ -27,7 +27,7 @@ bprimToTSPrim bprim = case bprim of
 
 
 bConstructedToTS
-  :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
+  :: IsForeignType (TSComposite f)
   => (BType -> Maybe (TSIntermediate f))
   -> Text
   -> BConstructor
@@ -50,11 +50,11 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
         <$> mapM handleSingle fields
     _ -> Nothing
   (UnionConstructor _) ->
-    TSCustomizableType
+    TSCompositeType
       <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
  where
   handleSingle
-    :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
+    :: IsForeignType (TSComposite f)
     => BSingleConstructorArg
     -> Maybe (TSField f)
   handleSingle c = case c of
@@ -62,7 +62,7 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     OfUnTagged _ -> Nothing
 
 bfieldToTSField
-  :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
+  :: IsForeignType (TSComposite f)
   => BField
   -> Maybe (TSField f)
 bfieldToTSField (BField (BFieldName fName) fType) =
