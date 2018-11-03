@@ -39,14 +39,12 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
       OfRecord bfield ->
         TSCompositeType
           <$> TSDataType
-          <$> TSInterfaceRef
-          <$> TSInterface typeName
+          <$> TSData typeName
           <$> sequence [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
         <$> TSDataType
-        <$> TSInterfaceRef
-        <$> TSInterface typeName
+        <$> TSData typeName
         <$> mapM handleSingle fields
     _ -> Nothing
   (UnionConstructor _) ->

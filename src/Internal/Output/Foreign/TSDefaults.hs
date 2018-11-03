@@ -23,8 +23,8 @@ instance IsForeignType TSPrimitive where
   toForeignType TSNumber  = selfRefForeign "number"
   toForeignType TSBoolean = selfRefForeign "boolean"
 
-instance (IsForeignType (TSIntermediate f)) => IsForeignType (TSInterface f) where
-  toForeignType (TSInterface iName fields') =
+instance (IsForeignType (TSIntermediate f)) => IsForeignType (TSData f) where
+  toForeignType (TSData iName fields') =
     ForeignType
       {refName     = iName
       ,declaration =

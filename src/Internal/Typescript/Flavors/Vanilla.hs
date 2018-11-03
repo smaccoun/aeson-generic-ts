@@ -9,7 +9,7 @@ data Vanilla
 
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollection tar) = TSCollection <$> toForeignType tar
-  toForeignType (TSDataType (TSInterfaceRef tsInterface)) = TSDataType . TSInterfaceRef <$> toForeignType tsInterface
+  toForeignType (TSDataType tsData) = TSDataType <$> toForeignType tsData
   toForeignType (TSOption tsType') =
     selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
   toForeignType (TSUnionRef unionName tsTypes') =

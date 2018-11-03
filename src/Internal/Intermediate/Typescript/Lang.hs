@@ -35,15 +35,8 @@ newtype TSArray f = TSArray (TSIntermediate f)
 {-
   Typescript "Data types". Classes are an alternative rep to Interface
 -}
-newtype TSData f =
-    TSInterfaceRef (TSInterface f)
---  | TSClassRef f
-
-data TSInterface f =
-  TSInterface
-    {interfaceName :: Text
-    ,fields        :: [TSField f]
-    }
+data TSData f =
+    TSData Text [TSField f]
 
 data TSField f =
   TSField
