@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 212bab64157c5c1ae81f965c85251d50da4c82b35d423894be3b3a195e5a4771
+-- hash: 52ecd29553a9791644d55892599603d45252aada8392695107ca8e02d9b89014
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -23,6 +23,7 @@ library
       Internal.Intermediate.Bridge.Generics
       Internal.Intermediate.Bridge.Lang
       Internal.Intermediate.BridgeToTypescript
+      Internal.Intermediate.Typescript.Generic
       Internal.Intermediate.Typescript.Lang
       Internal.Output.Foreign.Class
       Internal.Output.Foreign.TSDefaults
@@ -65,6 +66,7 @@ test-suite aeson-generic-ts-test
       Internal.Intermediate.Bridge.Generics
       Internal.Intermediate.Bridge.Lang
       Internal.Intermediate.BridgeToTypescript
+      Internal.Intermediate.Typescript.Generic
       Internal.Intermediate.Typescript.Lang
       Internal.Output.Foreign.Class
       Internal.Output.Foreign.TSDefaults
