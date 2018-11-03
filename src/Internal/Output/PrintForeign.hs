@@ -10,7 +10,6 @@ import           Internal.Intermediate.BridgeToTypescript ()
 import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
 
-
 newtype TranslateException = TranslateException Text
   deriving (Typeable)
 
