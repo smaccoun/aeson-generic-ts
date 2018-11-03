@@ -5,7 +5,7 @@ import           Data.Text
 {-
    MASTER TYPE
 -}
-data TSType f =
+data TSIntermediate f =
     TSPrimitiveType TSPrimitive
   | TSCompositeType (TSComposite f)
   | TSCustomizableType (TSCustom f)
@@ -28,7 +28,7 @@ data TSComposite f =
     TSCollection (TSArray f)
   | TSDataType (TSData f)
 
-newtype TSArray f = TSArray (TSType f)
+newtype TSArray f = TSArray (TSIntermediate f)
 
 
 {-
@@ -47,7 +47,7 @@ data TSInterface f =
 data TSField f =
   TSField
     {fieldName :: FieldName
-    ,fieldType :: TSType f
+    ,fieldType :: TSIntermediate f
     }
 
 newtype FieldName = FieldName Text
@@ -56,5 +56,5 @@ newtype FieldName = FieldName Text
   Custom types that often have many representations
 -}
 data TSCustom f =
-    TSOption (TSType f)
-  | TSUnionRef Text [TSType f]
+    TSOption (TSIntermediate f)
+  | TSUnionRef Text [TSIntermediate f]

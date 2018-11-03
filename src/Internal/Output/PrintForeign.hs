@@ -20,16 +20,16 @@ instance Show TranslateException where
 
 {-TODO: Make this type safe so no exception needed -}
 asTS
-  :: (BridgeType a, MonadThrow m, FromBridge (TSType f))
+  :: (BridgeType a, MonadThrow m, FromBridge (TSIntermediate f))
   => Proxy f
   -> Proxy a
-  -> m (TSType f)
+  -> m (TSIntermediate f)
 asTS _ bType = case toForeign (toBridgeType bType) of
   Just tsType -> return tsType
   Nothing     -> throwM $ TranslateException "Could not translate type"
 
 printFromBridge
-  :: (BridgeType a, MonadThrow m, FromBridge (TSType f))
+  :: (BridgeType a, MonadThrow m, FromBridge (TSIntermediate f))
   => Proxy f
   -> Proxy a
   -> m Text

@@ -13,7 +13,7 @@ import           Internal.Output.Foreign.Class
   DEFAULT FOREIGN INSTANCES
 -}
 
-instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f))  => IsForeignType (TSType f) where
+instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f))  => IsForeignType (TSIntermediate f) where
   toForeignType (TSPrimitiveType prim) = TSPrimitiveType <$> toForeignType prim
   toForeignType (TSCompositeType composite) = TSCompositeType <$> toForeignType composite
   toForeignType (TSCustomizableType tsCustom) = TSCustomizableType <$> toForeignType tsCustom
@@ -24,7 +24,7 @@ instance IsForeignType TSPrimitive where
   toForeignType TSNumber  = selfRefForeign "number"
   toForeignType TSBoolean = selfRefForeign "boolean"
 
-instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
+instance (IsForeignType (TSIntermediate f)) => IsForeignType (TSInterface f) where
   toForeignType (TSInterface iName fields') =
     ForeignType
       {refName     = iName
@@ -35,14 +35,14 @@ instance (IsForeignType (TSType f)) => IsForeignType (TSInterface f) where
       }
 
 
-showField :: (IsForeignType (TSType f)) => TSField f -> Text
+showField :: (IsForeignType (TSIntermediate f)) => TSField f -> Text
 showField (TSField (FieldName fName) fType) =
   fName <> " : " <> (refName . toForeignType) fType
 
-showFields :: (IsForeignType (TSType f)) => [TSField f] -> Text
+showFields :: (IsForeignType (TSIntermediate f)) => [TSField f] -> Text
 showFields fields =
   T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
-defaultForeignArray :: (IsForeignType (TSType f)) => TSArray f -> Text
+defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSArray f -> Text
 defaultForeignArray (TSArray tsType') = "Array<" <> rep <> ">"
   where rep = refName . toForeignType $ tsType'
