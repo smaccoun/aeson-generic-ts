@@ -9,6 +9,8 @@ Convert Haskell to Typescript in a highly configurable way with Generics
   - [Full Example](#full-example)
   - [Flavors](#flavors)
     - [Built In](#built-in-flavors)
+      - [Vanilla](#vanilla)
+      - [Fp-Ts](#FpTs)
   - [Roadmap](#roadmap)
   
 ## Quick Start
@@ -74,19 +76,27 @@ A flavor is just another name for a type that represents how you want your Types
 
 ### Built In Flavors
 
+We will use the following example type to see how it varies across flavors
+
 ```haskell
 newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
+```
 
-printUser =
-    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+#### Vanilla
+
+```haskell
+printAnOption =
+    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
--- > type AnOption = null | string
+# > type AnOption = null | string
+```
 
-
-printUser =
-    ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy ComplexRecord)
+#### FpTs
+```haskell
+printAnOption =
+    ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
--- > type AnOption = Option<string>
+# type AnOption = Option<string>
 ```
 
 ### Defining your own flavors
@@ -122,9 +132,9 @@ data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
 Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
 
 ```
-printUser :: IO ()
-printUser =
-    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+printComplexRecord :: IO ()
+printComplexRecord =
+    printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types
@@ -138,7 +148,6 @@ interface ComplexRecord {
   aMaybeType : string | null
   aSimpleRecord : SimpleRecord
 }
-
 ```
 
 

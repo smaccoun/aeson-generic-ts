@@ -4,8 +4,6 @@ module Typescript
   )
 where
 
-
-
 import           Internal.Typescript.Flavors.Vanilla
 import           Internal.Intermediate.Bridge.Lang
 
