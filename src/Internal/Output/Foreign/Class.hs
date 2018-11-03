@@ -9,7 +9,7 @@ import GHC.Generics
   Instantiate this class for all types that will be printed out as Text.
 -}
 class IsForeignType t where
-  toForeignType :: t -> ForeignType t
+  toForeignType :: t -> ForeignType
 
 {-|
   A type that represents a reference and a declaration.
@@ -19,11 +19,11 @@ class IsForeignType t where
 > data R = R {sField :: S}
 > data S = S {a      :: Int}
 -}
-data ForeignType t =
+data ForeignType =
   ForeignType
     {refName     :: Text
     ,declaration :: Text
-    } deriving (Generic, Functor)
+    } deriving (Generic)
 
-selfRefForeign :: Text -> ForeignType t
+selfRefForeign :: Text -> ForeignType
 selfRefForeign ref = ForeignType ref ref

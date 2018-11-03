@@ -33,4 +33,4 @@ printFromBridge
   => Proxy f
   -> Proxy a
   -> m Text
-printFromBridge f t = declaration . toForeignType <$> asTS f t
+printFromBridge flavor tsType' = declaration . toForeignType <$> asTS flavor tsType'

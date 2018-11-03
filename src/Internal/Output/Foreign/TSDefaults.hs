@@ -14,8 +14,8 @@ import           Internal.Output.Foreign.Class
 -}
 
 instance IsForeignType (TSComposite f)  => IsForeignType (TSIntermediate f) where
-  toForeignType (TSPrimitiveType prim) = TSPrimitiveType <$> toForeignType prim
-  toForeignType (TSCompositeType composite) = TSCompositeType <$> toForeignType composite
+  toForeignType (TSPrimitiveType prim) = toForeignType prim
+  toForeignType (TSCompositeType composite) = toForeignType composite
 
 
 instance IsForeignType TSPrimitive where
@@ -42,7 +42,7 @@ showFields :: (IsForeignType (TSIntermediate f)) => [TSField f] -> Text
 showFields fields =
   T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
-defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSCollection f -> ForeignType (TSCollection f)
+defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSCollection f -> ForeignType
 defaultForeignArray (TSCollection tsType') =
   ForeignType
     {refName = rep
@@ -50,7 +50,7 @@ defaultForeignArray (TSCollection tsType') =
     }
     where rep = refName . toForeignType $ tsType'
 
-defaultForeignUnion :: (IsForeignType (TSIntermediate f)) => TSUnion f -> ForeignType (TSUnion f)
+defaultForeignUnion :: (IsForeignType (TSIntermediate f)) => TSUnion f -> ForeignType
 defaultForeignUnion (TSUnion unionName tsTypes') =
     ForeignType
       {refName = unionName

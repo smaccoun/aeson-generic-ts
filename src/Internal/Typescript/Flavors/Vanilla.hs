@@ -7,11 +7,12 @@ import           Internal.Output.Foreign.TSDefaults    (defaultForeignArray, def
 data Vanilla
 
 instance IsForeignType (TSComposite Vanilla) where
-  toForeignType (TSCollectionRef tsCollection) = TSCollectionRef <$> defaultForeignArray tsCollection
-  toForeignType (TSUnionRef tsUnion) = TSUnionRef <$> defaultForeignUnion tsUnion
-  toForeignType (TSOptionRef tsOption)  = TSOptionRef <$> toForeignType tsOption
-  toForeignType (TSDataType tsData) = TSDataType <$> toForeignType tsData
+  toForeignType (TSCollectionRef tsCollection) = defaultForeignArray tsCollection
+  toForeignType (TSUnionRef tsUnion) = defaultForeignUnion tsUnion
+  toForeignType (TSOptionRef tsOption)  = defaultOption tsOption
+  toForeignType (TSDataType tsData) = toForeignType tsData
 
-instance IsForeignType (TSOption Vanilla) where
-  toForeignType (TSOption tsType') =
-    selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
+
+defaultOption :: TSOption Vanilla -> ForeignType
+defaultOption (TSOption tsType') =
+  selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
