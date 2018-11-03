@@ -17,5 +17,3 @@ test:
 .PHONY: lint
 lint:
 	hlint .
-	weeder .
-
