@@ -10,12 +10,15 @@ import           Internal.Output.PrintForeign
 import           Test.Hspec
 import           Internal.Typescript.Flavors.FpTs
 
+spec :: Spec
+spec = describe "option_type" $ do
+  it "handles_a_simple_option" $ do
+    ts <- printFpTs (Proxy :: Proxy AnOption)
+    ts `shouldBe` knownSolution
+  where knownSolution = "Option<string>"
+
+
 newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 
-spec :: Spec
-spec =
-  describe "option_type" $ do
-    it "handles_a_simple_option" $ do
-      ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
-      ts `shouldBe` knownSolution
-  where knownSolution = "Option<string>"
+printFpTs :: Proxy AnOption -> IO Text
+printFpTs = printTypescript (Proxy :: Proxy FpTs)

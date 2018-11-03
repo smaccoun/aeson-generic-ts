@@ -25,5 +25,20 @@ data ForeignType =
     ,declaration :: Text
     } deriving (Generic)
 
+data TypescriptOutput =
+  TypescriptOutput
+    {typeOutput :: ForeignType
+    ,mbRequiresLib :: Maybe TSLibrary
+    }
+
+class (IsForeignType t) => OutputsTypescript t where
+  toTypescriptOutput :: t -> TypescriptOutput
+
+newtype TSLibrary = TSLibrary Text
+
+mkTypescriptOut :: (IsForeignType t) => Maybe TSLibrary -> t -> TypescriptOutput
+mkTypescriptOut mbLib foreignType =
+  TypescriptOutput (toForeignType foreignType) mbLib
+
 selfRefForeign :: Text -> ForeignType
 selfRefForeign ref = ForeignType ref ref

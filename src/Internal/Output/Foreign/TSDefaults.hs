@@ -31,36 +31,33 @@ showFields :: (IsForeignType (TSIntermediate f)) => [TSField f] -> Text
 showFields fields =
   T.intercalate "\n" $ fmap (\f -> "  " <> showField f) fields
 
-defaultForeignArray :: (IsForeignType (TSIntermediate f)) => TSCollection f -> ForeignType
-defaultForeignArray (TSCollection tsType') =
-  ForeignType
-    {refName = rep
-    ,declaration = "Array<" <> rep <> ">"
-    }
-    where rep = refName . toForeignType $ tsType'
+defaultForeignArray
+  :: (IsForeignType (TSIntermediate f)) => TSCollection f -> ForeignType
+defaultForeignArray (TSCollection tsType') = ForeignType
+  { refName     = rep
+  , declaration = "Array<" <> rep <> ">"
+  }
+  where rep = refName . toForeignType $ tsType'
 
-defaultForeignUnion :: (IsForeignType (TSIntermediate f)) => TSUnion f -> ForeignType
-defaultForeignUnion (TSUnion unionName tsTypes') =
-    ForeignType
-      {refName = unionName
-      ,declaration =  "type " <> unionName <> " = " <> ns
-      }
-    where
-      ns =
-          intercalate " | "
-        $ fmap (refName . toForeignType) tsTypes'
+defaultForeignUnion
+  :: (IsForeignType (TSIntermediate f)) => TSUnion f -> ForeignType
+defaultForeignUnion (TSUnion unionName tsTypes') = ForeignType
+  { refName     = unionName
+  , declaration = "type " <> unionName <> " = " <> ns
+  }
+  where ns = intercalate " | " $ fmap (refName . toForeignType) tsTypes'
 
 defaultOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
 defaultOption (TSOption tsType') =
   selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
 
 mkTSInterface :: (IsForeignType (TSIntermediate f)) => TSData f -> ForeignType
-mkTSInterface (TSData iName fields')=
-  ForeignType
-    {refName     = iName
-    ,declaration =
-            "interface " <> iName <> " { \n"
-        <> showFields fields'
-        <> "\n}"
-    }
+mkTSInterface (TSData iName fields') = ForeignType
+  { refName     = iName
+  , declaration = "interface "
+    <> iName
+    <> " { \n"
+    <> showFields fields'
+    <> "\n}"
+  }
 

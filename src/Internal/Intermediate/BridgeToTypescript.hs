@@ -37,10 +37,8 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     [x] -> case x of
       OfUnTagged btype -> bridgeTypeToTSIntermediate btype
       OfRecord bfield ->
-        TSCompositeType
-          <$> TSDataType
-          <$> TSData typeName
-          <$> sequence [bfieldToTSField bfield]
+        TSCompositeType <$> TSDataType <$> TSData typeName <$> sequence
+          [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
         <$> TSDataType
@@ -59,9 +57,6 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     OfRecord   f -> bfieldToTSField f
     OfUnTagged _ -> Nothing
 
-bfieldToTSField
-  :: IsForeignType (TSComposite f)
-  => BField
-  -> Maybe (TSField f)
+bfieldToTSField :: IsForeignType (TSComposite f) => BField -> Maybe (TSField f)
 bfieldToTSField (BField (BFieldName fName) fType) =
   TSField (FieldName fName) <$> toForeign fType

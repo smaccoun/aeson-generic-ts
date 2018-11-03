@@ -28,9 +28,10 @@ asTS _ bType = case toForeign (toBridgeType bType) of
   Just tsType -> return tsType
   Nothing     -> throwM $ TranslateException "Could not translate type"
 
-printFromBridge
+printTypescript
   :: (BridgeType a, MonadThrow m, FromBridge (TSIntermediate f))
   => Proxy f
   -> Proxy a
   -> m Text
-printFromBridge flavor tsType' = declaration . toForeignType <$> asTS flavor tsType'
+printTypescript flavor tsType' =
+  declaration . toForeignType <$> asTS flavor tsType'
