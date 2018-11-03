@@ -8,7 +8,7 @@ setup:
 
 .PHONY: build
 build:
-	stack build --pedantic --test --no-run-tests
+	stack build --test --no-run-tests
 
 .PHONY: test
 test:
