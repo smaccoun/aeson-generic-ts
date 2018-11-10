@@ -8,9 +8,9 @@ data FpTs
 
 instance IsForeignType (TSComposite FpTs) where
   toForeignType (TSCollectionRef tsCollection) = defaultForeignArray tsCollection
-  toForeignType (TSUnionRef tsUnion) = defaultForeignUnion tsUnion
   toForeignType (TSOptionRef tsOption) = mkFpTSOption tsOption
-  toForeignType (TSDataType tsData) = mkTSInterface tsData
+  toForeignType (TSUnionRef tsUnion) = defaultForeignUnion tsUnion
+  toForeignType (TSRecordType tsData) = mkTSInterface tsData
 
 mkFpTSOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
 mkFpTSOption (TSOption tsType') =
