@@ -42,7 +42,7 @@ data User =
 
 printUser :: IO ()
 printUser =
-    printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 This prints the following:
@@ -74,7 +74,7 @@ Achieving high configurability relies on using Generics to first translate Haske
 
 ## Flavors
 
-A flavor is just another name for a type that represents how you want your Typescript customized to. There are currently two supported flavors: **Vanilla** and **FpTS**. You can also write your own flavors (TODO...instructions for this)
+A flavor is just another name for a type that represents how you want your Typescript customized to. There are currently two supported flavors: **Vanilla** and **FpTS**. You can also write your own flavors
 
 ### Built In Flavors
 
@@ -88,7 +88,7 @@ newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 
 ```haskell
 printAnOption =
-    ts <- printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
+    ts <- printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
 --  type AnOption = null | string
 ```
@@ -96,7 +96,7 @@ printAnOption =
 #### FpTs
 ```haskell
 printAnOption =
-    ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
+    ts <- printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
 -- type AnOption = Option<string>
 ```
@@ -136,7 +136,7 @@ Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
 ```
 printComplexRecord :: IO ()
 printComplexRecord =
-    printFromBridge (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 52ecd29553a9791644d55892599603d45252aada8392695107ca8e02d9b89014
+-- hash: 08b83da17672d37fa2375acd6d9c4236ef704393784b5e6d2646c0ba2d9f7d49
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -46,19 +46,6 @@ library
 test-suite aeson-generic-ts-test
   type: exitcode-stdio-1.0
   main-is: Main.hs
-  hs-source-dirs:
-      test
-      src
-      data
-  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
-  ghc-options: -pgmL markdown-unlit
-  build-depends:
-      aeson
-    , base >=4.7 && <5
-    , exceptions
-    , hspec
-    , markdown-unlit
-    , text
   other-modules:
       FpTsSpec
       Spec
@@ -76,4 +63,34 @@ test-suite aeson-generic-ts-test
       Typescript
       BasicExamples
       Paths_aeson_generic_ts
+  hs-source-dirs:
+      test
+      src
+      data
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
+  ghc-options: -pgmL markdown-unlit
+  build-depends:
+      aeson
+    , base >=4.7 && <5
+    , exceptions
+    , hspec
+    , markdown-unlit
+    , text
+  default-language: Haskell2010
+
+test-suite doctest
+  type: exitcode-stdio-1.0
+  main-is: DocTest.hs
+  other-modules:
+      Paths_aeson_generic_ts
+  hs-source-dirs:
+      ./.
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
+  build-depends:
+      Glob
+    , aeson
+    , base >=4.7 && <5
+    , doctest
+    , exceptions
+    , text
   default-language: Haskell2010

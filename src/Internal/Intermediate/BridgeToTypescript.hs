@@ -6,7 +6,7 @@ import           Internal.Intermediate.Typescript.Lang
 import           Internal.Output.Foreign.Class
 import           Internal.Output.Foreign.TSDefaults    ()
 
-instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
+instance (IsForeignType (TSComposite f)) => FromBridge (TSIntermediate f) where
   toForeign btype =
     case btype of
       BPrimitiveType bprim ->
@@ -14,9 +14,9 @@ instance (IsForeignType (TSCustom f), IsForeignType (TSComposite f)) => FromBrid
       BCollectionType bcollection ->
         case bcollection of
           BArray btypeInArray ->
-            TSCompositeType . TSCollection . TSArray <$> toForeign btypeInArray
+            TSCompositeType . TSCollectionRef . TSCollection <$> toForeign btypeInArray
       BOption btypeInOption ->
-        TSCustomizableType . TSOption <$> toForeign btypeInOption
+        TSCompositeType . TSOptionRef . TSOption <$> toForeign btypeInOption
       BConstructed typeName c -> bConstructedToTS toForeign typeName c
 
 bprimToTSPrim :: BPrimitive -> TSPrimitive
@@ -27,7 +27,7 @@ bprimToTSPrim bprim = case bprim of
 
 
 bConstructedToTS
-  :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
+  :: IsForeignType (TSComposite f)
   => (BType -> Maybe (TSIntermediate f))
   -> Text
   -> BConstructor
@@ -37,33 +37,26 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     [x] -> case x of
       OfUnTagged btype -> bridgeTypeToTSIntermediate btype
       OfRecord bfield ->
-        TSCompositeType
-          <$> TSDataType
-          <$> TSInterfaceRef
-          <$> TSInterface typeName
-          <$> sequence [bfieldToTSField bfield]
+        TSCompositeType <$> TSDataType <$> TSData typeName <$> sequence
+          [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
         <$> TSDataType
-        <$> TSInterfaceRef
-        <$> TSInterface typeName
+        <$> TSData typeName
         <$> mapM handleSingle fields
     _ -> Nothing
   (UnionConstructor _) ->
-    TSCustomizableType
-      <$> (Just $ TSUnionRef typeName [TSPrimitiveType TSString]) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
+    TSCompositeType
+      <$> (Just $ TSUnionRef (TSUnion typeName [TSPrimitiveType TSString])) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
  where
   handleSingle
-    :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
+    :: IsForeignType (TSComposite f)
     => BSingleConstructorArg
     -> Maybe (TSField f)
   handleSingle c = case c of
     OfRecord   f -> bfieldToTSField f
     OfUnTagged _ -> Nothing
 
-bfieldToTSField
-  :: (IsForeignType (TSCustom f), IsForeignType (TSComposite f))
-  => BField
-  -> Maybe (TSField f)
+bfieldToTSField :: IsForeignType (TSComposite f) => BField -> Maybe (TSField f)
 bfieldToTSField (BField (BFieldName fName) fType) =
   TSField (FieldName fName) <$> toForeign fType

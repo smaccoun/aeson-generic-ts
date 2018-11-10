@@ -2,20 +2,22 @@
 
 module FpTsSpec where
 
-import           Internal.Intermediate.Bridge.Generics
 import           Data.Proxy
 import           Data.Text          (Text)
+import           Internal.Intermediate.Typescript.Generic
 import           GHC.Generics
 import           Internal.Output.PrintForeign
 import           Test.Hspec
 import           Internal.Typescript.Flavors.FpTs
 
-newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
-
 spec :: Spec
-spec =
-  describe "option_type" $ do
-    it "handles_a_simple_option" $ do
-      ts <- printFromBridge (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
-      ts `shouldBe` knownSolution
+spec = describe "option_type" $ do
+  it "handles_a_simple_option" $ do
+    printFpTs (Proxy :: Proxy AnOption) `shouldBe` knownSolution
   where knownSolution = "Option<string>"
+
+
+newtype AnOption = AnOption (Maybe Text) deriving (Generic, Typescript)
+
+printFpTs :: (Typescript a) => Proxy a -> Text
+printFpTs = mkTypescriptDeclaration (Proxy :: Proxy FpTs)
