@@ -5,22 +5,22 @@ import Test.DocTest
 
 main :: IO ()
 main = do
-    let options =
-            [ "-XOverloadedStrings"
-              ,"-XConstraintKinds"
-              ,"-XDataKinds"
-              ,"-XDeriveGeneric"
-              ,"-XFlexibleContexts"
-              ,"-XFlexibleInstances"
-              ,"-XKindSignatures"
-              ,"-XMultiParamTypeClasses"
-              ,"-XOverloadedStrings"
-              ,"-XRecordWildCards"
-              ,"-XScopedTypeVariables"
-              ,"-XStandaloneDeriving"
-              ,"-XTypeFamilies"
-              ,"-XUndecidableInstances"
-            ]
+  let options =
+        [ "-XOverloadedStrings"
+        , "-XConstraintKinds"
+        , "-XDataKinds"
+        , "-XDeriveGeneric"
+        , "-XFlexibleContexts"
+        , "-XFlexibleInstances"
+        , "-XKindSignatures"
+        , "-XMultiParamTypeClasses"
+        , "-XOverloadedStrings"
+        , "-XRecordWildCards"
+        , "-XScopedTypeVariables"
+        , "-XStandaloneDeriving"
+        , "-XTypeFamilies"
+        , "-XUndecidableInstances"
+        ]
 
-    paths <- globDir1 (compile "**/*.hs") "src"
-    doctest $ options ++ paths
+  paths <- globDir1 (compile "**/*.hs") "src"
+  doctest $ options ++ paths

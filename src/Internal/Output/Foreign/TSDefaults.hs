@@ -51,8 +51,8 @@ defaultOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
 defaultOption (TSOption tsType') =
   selfRefForeign ((refName . toForeignType $ tsType') <> " | null ")
 
-mkTSInterface :: (IsForeignType (TSIntermediate f)) => TSData f -> ForeignType
-mkTSInterface (TSData iName fields') = ForeignType
+mkTSInterface :: (IsForeignType (TSIntermediate f)) => TSRecord f -> ForeignType
+mkTSInterface (TSRecord iName fields') = ForeignType
   { refName     = iName
   , declaration = "interface "
     <> iName
