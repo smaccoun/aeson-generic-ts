@@ -37,19 +37,19 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     [x] -> case x of
       OfUnTagged btype -> bridgeTypeToTSIntermediate btype
       OfRecord bfield ->
-        TSCompositeType <$> TSStructuredType <$> TSRecordLike <$> TSRecord typeName <$> sequence
+        TSCompositeType <$> TSStructuredType typeName <$> TSRecordLike <$> TSRecord <$> sequence
           [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
-        <$> TSStructuredType
+        <$> TSStructuredType typeName
         <$> TSRecordLike
-        <$> TSRecord typeName
+        <$> TSRecord
         <$> mapM handleSingle fields
     _ -> Nothing
   (UnionConstructor _) ->
     TSCompositeType
-      <$> TSStructuredType
-      <$> (Just $ TSUnionLike (TSUnion typeName [TSPrimitiveType TSString])) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
+      <$> TSStructuredType typeName
+      <$> (Just $ TSUnionLike (TSUnion [TSPrimitiveType TSString])) -- <$> (sequence $ bridgeTypeToTSIntermediate typeName <$> cs)
  where
   handleSingle
     :: IsForeignType (TSComposite f)
