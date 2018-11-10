@@ -25,9 +25,8 @@ data TSPrimitive =
 
 data TSComposite f =
     TSCollectionRef (TSCollection f)
-  | TSRecordType (TSRecord f)
   | TSOptionRef (TSOption f)
-  | TSUnionRef (TSUnion  f)
+  | TSStructuredType (TSStructured f)
 
 newtype TSCollection f = TSCollection (TSIntermediate f)
 
@@ -38,6 +37,11 @@ data TSUnion f = TSUnion Text [TSIntermediate f]
 {-
   Typescript "Data types". Classes are an alternative rep to Interface
 -}
+
+data TSStructured f =
+    TSRecordLike (TSRecord f)
+  | TSUnionLike (TSUnion f)
+
 data TSRecord f =
     TSRecord Text [TSField f]
 
