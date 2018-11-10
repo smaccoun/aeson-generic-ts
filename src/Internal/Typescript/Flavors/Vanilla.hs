@@ -8,8 +8,10 @@ data Vanilla
 
 instance IsForeignType (TSComposite Vanilla) where
   toForeignType (TSCollectionRef tsCollection) = defaultForeignArray tsCollection
-  toForeignType (TSUnionRef tsUnion) = defaultForeignUnion tsUnion
   toForeignType (TSOptionRef tsOption)  = defaultOption tsOption
-  toForeignType (TSRecordType tsData) = mkTSInterface tsData
+  toForeignType (TSStructuredType tsStructure) =
+    case tsStructure of
+      TSUnionLike tsUnion -> defaultForeignUnion tsUnion
+      TSRecordLike tsData -> mkTSInterface tsData
 
 
