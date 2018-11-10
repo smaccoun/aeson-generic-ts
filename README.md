@@ -74,7 +74,7 @@ Achieving high configurability relies on using Generics to first translate Haske
 
 ## Flavors
 
-A flavor is just another name for a type that represents how you want your Typescript customized to. There are currently two supported flavors: **Vanilla** and **FpTS**. You can also write your own flavors (TODO...instructions for this)
+A flavor is just another name for a type that represents how you want your Typescript customized to. There are currently two supported flavors: **Vanilla** and **FpTS**. You can also write your own flavors
 
 ### Built In Flavors
 

@@ -48,3 +48,10 @@ tests:
       - markdown-unlit
     ghc-options: [-pgmL markdown-unlit]
 
+  doctest:
+    main: DocTest.hs
+    source-dirs: .
+    dependencies:
+      - doctest
+      - Glob
+

@@ -28,10 +28,20 @@ asTS _ bType = case toForeign (toBridgeType bType) of
   Just tsType -> return tsType
   Nothing     -> throwM $ TranslateException "Could not translate type"
 
+
+{-| Core function for outputting typescript
+
+Simple example using the `Vanilla` flavor
+
+-}
+-- |
+-- >>> import           Internal.Typescript.Flavors.Vanilla
+-- >>> printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy Int)
+-- "number"
 printTypescript
-  :: (BridgeType a, MonadThrow m, FromBridge (TSIntermediate f))
-  => Proxy f
-  -> Proxy a
+  :: (BridgeType hsType, MonadThrow m, FromBridge (TSIntermediate flavor))
+  => Proxy flavor
+  -> Proxy hsType
   -> m Text
 printTypescript flavor tsType' =
   declaration . toForeignType <$> asTS flavor tsType'

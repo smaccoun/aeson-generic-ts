@@ -16,11 +16,8 @@ mkFpTSOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
 mkFpTSOption (TSOption tsType') =
   selfRefForeign $ "Option<" <> (refName . toForeignType $ tsType') <> ">"
 
-instance IsForeignType (TSOption FpTs) where
-  toForeignType = mkFpTSOption
-
-instance OutputsTypescript (TSOption FpTs) where
-  toTypescriptOutput = mkTypescriptOut (Just (TSLibrary "fpts"))
+instance OutputsTypescript (TSIntermediate FpTs) where
+  toTypescriptOutput = mkTypescriptOut (Just (TSLibrary "fp-ts"))
 
 
 

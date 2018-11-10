@@ -13,11 +13,11 @@ class IsForeignType t where
 
 {-|
   A type that represents a reference and a declaration.
-  The reference is used in data structures referring to this type,
-  while the declaration represent the full declaration of the type. For example, here the data type R makes reference to another data type S. The second line is the declaration for S, and the type ref in R is the refName.
+  For example, the following two lines are __declarations__
+  The first declaration for 'Foo' uses teh __refName__ of 'Bar' to refer to it in the field `sField`
 
-> data R = R {sField :: S}
-> data S = S {a      :: Int}
+> data Foo = Foo {sField    :: Bar}
+> data Bar = Bar {someField :: Int}
 -}
 data ForeignType =
   ForeignType
