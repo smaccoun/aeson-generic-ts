@@ -3,6 +3,7 @@
 module BasicExamples where
 
 import           Internal.Intermediate.Bridge.Generics
+import           Internal.Intermediate.Typescript.Generic
 import           Data.Text       (Text)
 import           GHC.Generics
 
@@ -20,6 +21,6 @@ data ComplexRecord =
     ,aSimpleRecord :: SimpleRecord
     } deriving (Generic, BridgeType)
 
-newtype SimpleUnTagged = F Int deriving (Generic, BridgeType)
+data SimpleUnTagged = F Int deriving (Generic, BridgeType)
 
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
+data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType, Typescript)

@@ -35,7 +35,7 @@ newtype TSOption f = TSOption (TSIntermediate f)
 data TSUnion f = TSUnion [TSIntermediate f]
 
 {-
-  Typescript "Data types". Classes are an alternative rep to Interface
+  Typescript "Data types", which are largely structural but can also be transformed into classes.
 -}
 
 data TSStructured f =
