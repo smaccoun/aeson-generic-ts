@@ -10,12 +10,6 @@ setup:
 build:
 	stack build --test --no-run-tests
 
-.PHONY: buildAndFormat
-buildAndFormat:
-	stack build --test --no-run-tests
-  find src -name '*.hs' -print | xargs brittany --write-mode=inplace
-  find test -name '*.hs' -print | xargs brittany --write-mode=inplace
-
 .PHONY: test
 test:
 	stack test
@@ -23,3 +17,10 @@ test:
 .PHONY: lint
 lint:
 	hlint .
+
+.PHONY: buildAndFormat
+buildAndFormat:
+	stack build --test --no-run-tests
+	find src -name '*.hs' -print | xargs brittany --write-mode=inplace
+	find test -name '*.hs' -print | xargs brittany --write-mode=inplace
+
