@@ -18,7 +18,7 @@ spec = describe "vanilla_ts" $ do
 
   describe "it works for various sum types" $ do
     it "works for a simple sum of primitives" $ do
-      printVanilla (Proxy :: Proxy SampleUnion) `shouldBe` "type SampleUnion = number | string"
+      printVanilla (Proxy :: Proxy SampleUnion) `shouldBe` "type SampleUnion = number | string | boolean"
 
 
 printVanilla :: (Typescript a) => Proxy a -> Text

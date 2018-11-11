@@ -21,6 +21,6 @@ data ComplexRecord =
     ,aSimpleRecord :: SimpleRecord
     } deriving (Generic, BridgeType)
 
-data SimpleUnTagged = F Int deriving (Generic, BridgeType)
+data SimpleUnTagged = F Int Int deriving (Generic, BridgeType)
 
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType, Typescript)
+data SampleUnion = FirstCon Int | SecondCon Text | BoolCon Bool deriving (Generic, BridgeType, Typescript)

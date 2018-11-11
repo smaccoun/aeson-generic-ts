@@ -25,27 +25,53 @@ class GenericTSIntermediate hkf where
 class GenericTSStructured hkf where
   toTSStructured :: hkf a -> TSStructured flavor
 
+class GenericTSUnion hkf where
+  toTSUnion :: hkf a -> TSUnion flavor
+
 {-| Instances
 -}
 
+instance (GenericTSUnion f, GenericTSUnion g) => GenericTSUnion (f :+: g) where
+  toTSUnion _ = u1 <> u2
+    where
+      u1 = toTSUnion (undefined :: f p)
+      u2 = toTSUnion (undefined :: g p)
+
+instance (GenericTSIntermediate f1)
+  => GenericTSUnion (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1)) where
+  toTSUnion _ =
+    TSUnion
+       [genericToTS (undefined :: f1 p)
+       ]
+
+
+instance (Datatype d, GenericTSUnion u)
+  => GenericTSIntermediate (D1 d u) where
+  genericToTS datatype =
+    TSCompositeType
+    $ TSStructuredType typeName
+    $ TSUnionLike
+    $  toTSUnion (unM1 datatype)
+    where
+      typeName = pack (datatypeName datatype)
 
 instance (Datatype d, GenericTSIntermediate f1, GenericTSIntermediate f2)
   => GenericTSIntermediate
           (D1 d (
             (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1))
-        :+: (C1 c2 (S1 ('MetaSel 'Nothing a2 b2 'DecidedLazy) f2))
+        :*: (C1 c2 (S1 ('MetaSel 'Nothing a2 b2 'DecidedLazy) f2))
             )
           ) where
   genericToTS datatype =
     TSCompositeType
     $ TSStructuredType typeName
-    $ TSUnionLike
-    $ TSUnion
-       [genericToTS (undefined :: f1 p)
-       ,genericToTS (undefined :: f2 p)
-       ]
+    $ TSRecordLike
+    $ TSRecord $ [f1, f2]
     where
       typeName = pack (datatypeName datatype)
+      f1 = TSField (FieldName "meow") (genericToTS (undefined :: f1 p))
+      f2 = TSField (FieldName "f2") (genericToTS (undefined :: f2 p))
+
 
 instance Typescript t => GenericTSIntermediate (Rec0 t) where
   genericToTS _ = toTSIntermediate (Proxy :: Proxy t)
