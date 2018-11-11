@@ -37,8 +37,11 @@ bConstructedToTS bridgeTypeToTSIntermediate typeName bcon = case bcon of
     [x] -> case x of
       OfUnTagged btype -> bridgeTypeToTSIntermediate btype
       OfRecord bfield ->
-        TSCompositeType <$> TSStructuredType typeName <$> TSRecordLike <$> TSRecord <$> sequence
-          [bfieldToTSField bfield]
+        TSCompositeType
+          <$> TSStructuredType typeName
+          <$> TSRecordLike
+          <$> TSRecord
+          <$> sequence [bfieldToTSField bfield]
     _ : _ ->
       TSCompositeType
         <$> TSStructuredType typeName

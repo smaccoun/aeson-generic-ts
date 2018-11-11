@@ -32,7 +32,7 @@ newtype TSCollection f = TSCollection (TSIntermediate f)
 
 newtype TSOption f = TSOption (TSIntermediate f)
 
-data TSUnion f = TSUnion [TSIntermediate f]
+newtype TSUnion f = TSUnion [TSIntermediate f]
 
 {-
   Typescript "Data types". Classes are an alternative rep to Interface
@@ -42,7 +42,7 @@ data TSStructured f =
     TSRecordLike (TSRecord f)
   | TSUnionLike (TSUnion f)
 
-data TSRecord f =
+newtype TSRecord f =
     TSRecord [TSField f]
 
 data TSField f =
