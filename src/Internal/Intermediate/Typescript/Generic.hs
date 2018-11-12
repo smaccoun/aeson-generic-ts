@@ -143,5 +143,11 @@ instance Typescript Text where
 instance Typescript Int where
   toTSIntermediate _ = TSPrimitiveType TSNumber
 
+instance Typescript Double where
+  toTSIntermediate _ = TSPrimitiveType TSNumber
+
+instance Typescript Float where
+  toTSIntermediate _ = TSPrimitiveType TSNumber
+
 instance Typescript Bool where
   toTSIntermediate _ = TSPrimitiveType TSBoolean
