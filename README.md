@@ -156,6 +156,5 @@ interface ComplexRecord {
 
 1. More complete FP-TS functionality
 2. Unionize library flavor
-3. Remove intermediate bridge language
-4. Figure out a cleaner ADT interface for customizing TS
-5. I dunno, lots of stuff probably. Make it more production ready I guess
+3. Figure out a cleaner ADT interface for customizing TS
+4. I dunno, lots of stuff probably. Make it more production ready I guess

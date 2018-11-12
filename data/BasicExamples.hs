@@ -2,7 +2,6 @@
 
 module BasicExamples where
 
-import           Internal.Intermediate.Bridge.Generics
 import           Internal.Intermediate.Typescript.Generic
 import           Data.Text       (Text)
 import           GHC.Generics
@@ -11,12 +10,12 @@ data SimpleRecord =
   SimpleRecord
     {f1 :: Int
     ,f2 :: Text
-    } deriving (Generic, BridgeType, Typescript)
+    } deriving (Generic, Typescript)
 
 newtype OneFieldRecord =
  OneFieldRecord
     {onlyField :: Int
-    } deriving (Generic, BridgeType, Typescript)
+    } deriving (Generic, Typescript)
 
 data ComplexRecord =
   ComplexRecord
@@ -25,6 +24,6 @@ data ComplexRecord =
     ,aUnion        :: SampleUnion
     ,aMaybeType    :: Maybe Text
     ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, BridgeType, Typescript)
+    } deriving (Generic, Typescript)
 
-data SampleUnion = FirstCon Int | SecondCon Text | BoolCon Bool deriving (Generic, BridgeType, Typescript)
+data SampleUnion = FirstCon Int | SecondCon Text | BoolCon Bool deriving (Generic, Typescript)
