@@ -35,9 +35,14 @@ Simple example using the `Vanilla` flavor
 
 -}
 -- |
--- >>> import           Internal.Typescript.Flavors.Vanilla
--- >>> printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy Int)
--- "number"
+-- >>> import Internal.Typescript.Flavors.Vanilla
+-- >>> import Internal.Typescript.Flavors.FpTs
+
+-- >>> printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy (Maybe Text))
+-- "type AnOption = null | string"
+--
+-- >>> printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy (Maybe Text))
+-- "type AnOption = Option<string>"
 printTypescript
   :: (BridgeType hsType, MonadThrow m, FromBridge (TSIntermediate flavor))
   => Proxy flavor
