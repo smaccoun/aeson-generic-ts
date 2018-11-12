@@ -7,10 +7,11 @@ import           Internal.Intermediate.Typescript.Generic
 import           Data.Text       (Text)
 import           GHC.Generics
 
-newtype SimpleRecord =
+data SimpleRecord =
   SimpleRecord
     {f1 :: Int
-    } deriving (Generic, BridgeType)
+    ,f2 :: Text
+    } deriving (Generic, BridgeType, Typescript)
 
 data ComplexRecord =
   ComplexRecord

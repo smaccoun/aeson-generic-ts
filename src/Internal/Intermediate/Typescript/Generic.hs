@@ -8,7 +8,8 @@
 module Internal.Intermediate.Typescript.Generic where
 
 import           Data.Proxy
-import           Data.Text
+import           Data.Text                             (Text)
+import qualified Data.Text                             as T
 import           GHC.Generics
 import           Internal.Intermediate.Typescript.Lang
 
@@ -28,8 +29,41 @@ class GenericTSStructured hkf where
 class GenericTSUnion hkf where
   toTSUnion :: hkf a -> TSUnion flavor
 
+class GenericTSFields hkf where
+  toTSFields :: hkf a -> [TSField flavor]
+
 {-| Instances
 -}
+
+
+instance (GenericTSFields f, GenericTSFields g) => GenericTSFields (f :*: g) where
+  toTSFields _ = f1 <> f2
+    where
+      f1 = toTSFields (undefined :: f p)
+      f2 = toTSFields (undefined :: g p)
+
+instance (GenericTSIntermediate f, Selector s) => GenericTSFields (S1 s f) where
+  toTSFields s =
+    [TSField
+      {fieldName = FieldName $ T.pack $ selName s
+      ,fieldType = genericToTS $ unM1 s
+      }
+    ]
+
+instance (Datatype d, GenericTSFields f, GenericTSFields s) => GenericTSIntermediate (D1 d (C1 c (s :*: f))) where
+  genericToTS d =
+    TSCompositeType
+    $ TSStructuredType typeName
+    $ TSRecordLike
+    $ TSRecord $ toTSFields (unM1 . unM1 $ d)
+    where
+      typeName = T.pack (datatypeName d)
+
+instance (GenericTSIntermediate f1)
+  => GenericTSUnion (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1)) where
+  toTSUnion _ =
+    TSUnion
+       [genericToTS (undefined :: f1 p)]
 
 instance (GenericTSUnion f, GenericTSUnion g) => GenericTSUnion (f :+: g) where
   toTSUnion _ = u1 <> u2
@@ -37,23 +71,16 @@ instance (GenericTSUnion f, GenericTSUnion g) => GenericTSUnion (f :+: g) where
       u1 = toTSUnion (undefined :: f p)
       u2 = toTSUnion (undefined :: g p)
 
-instance (GenericTSIntermediate f1)
-  => GenericTSUnion (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1)) where
-  toTSUnion _ =
-    TSUnion
-       [genericToTS (undefined :: f1 p)
-       ]
 
-
-instance (Datatype d, GenericTSUnion u)
-  => GenericTSIntermediate (D1 d u) where
+instance (Datatype d, GenericTSUnion s, GenericTSUnion f)
+  => GenericTSIntermediate (D1 d (s :+: f)) where
   genericToTS datatype =
     TSCompositeType
     $ TSStructuredType typeName
     $ TSUnionLike
     $  toTSUnion (unM1 datatype)
     where
-      typeName = pack (datatypeName datatype)
+      typeName = T.pack (datatypeName datatype)
 
 instance (Datatype d, GenericTSIntermediate f1, GenericTSIntermediate f2)
   => GenericTSIntermediate
@@ -68,7 +95,7 @@ instance (Datatype d, GenericTSIntermediate f1, GenericTSIntermediate f2)
     $ TSRecordLike
     $ TSRecord [f1, f2]
     where
-      typeName = pack (datatypeName datatype)
+      typeName = T.pack (datatypeName datatype)
       f1 = TSField (FieldName "meow") (genericToTS (undefined :: f1 p))
       f2 = TSField (FieldName "f2") (genericToTS (undefined :: f2 p))
 

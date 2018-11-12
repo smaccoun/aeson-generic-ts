@@ -15,6 +15,10 @@ spec = describe "vanilla_ts" $ do
 
   it "works for number" $ do
     printVanilla (Proxy :: Proxy [Int]) `shouldBe` "Array<number>"
+  describe "it works for a simple record type" $ do
+    it "works for a simple record type" $ do
+      printVanilla (Proxy :: Proxy SimpleRecord)
+        `shouldBe` "interface SimpleRecord { \n  f1 : number\n  f2 : string\n}"
 
   describe "it works for various sum types" $ do
     it "works for a simple sum of primitives" $ do
