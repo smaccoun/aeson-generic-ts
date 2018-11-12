@@ -42,7 +42,7 @@ data User =
 
 printUser :: IO ()
 printUser =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy User)
 ```
 
 This prints the following:
@@ -56,7 +56,7 @@ interface User {
 
 ## About
 
-This project is under development and will be used in production once it's ready. I'd call it's current state alpha, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
+This project is under development and will be used in production once it's ready. I'd call it's current state beta, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
 
 ## Design Goals 
 
@@ -87,7 +87,7 @@ newtype AnOption = AnOption (Maybe Text) deriving (Generic, Typescript)
 
 ```haskell
 printVanillaOption =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
 --  type AnOption = null | string
 ```
@@ -95,7 +95,7 @@ printVanillaOption =
 #### FpTs
 ```haskell
 printAnOption =
-    printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
 -- type AnOption = Option<string>
 ```
@@ -135,7 +135,7 @@ Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
 ```
 printComplexRecord :: IO ()
 printComplexRecord =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types
@@ -154,7 +154,8 @@ interface ComplexRecord {
 
 ## Roadmap
 
-1. More complete FP-TS functionality
-2. Unionize library flavor
-3. Figure out a cleaner ADT interface for customizing TS
-4. I dunno, lots of stuff probably. Make it more production ready I guess
+1. Smart file generators (declarations + imports)
+2. More complete FP-TS functionality
+3. Unionize library flavor
+4. Figure out a cleaner ADT interface for customizing TS
+5. I dunno, lots of stuff probably. Make it more production ready I guess
