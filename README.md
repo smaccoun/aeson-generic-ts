@@ -30,7 +30,7 @@ data User =
   User 
     {name :: Text
     ,age  :: Int
-    } deriving (Generic, BridgeType)
+    } deriving (Generic, Typescript)
   
 ```
 
@@ -70,7 +70,6 @@ Typescript has many ways of doing the same thing, and there are lots of opinions
 
 4. A simple interface for providing your own custom translation
 
-Achieving high configurability relies on using Generics to first translate Haskell types to an intermediate bridge language. A configuration data structure can then be passed into a translation function to achieve nearly any typescript representation you desire.
 
 ## Flavors
 
@@ -81,7 +80,7 @@ A flavor is just another name for a type that represents how you want your Types
 We will use the following example type to see how it varies across flavors
 
 ```haskell
-newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
+newtype AnOption = AnOption (Maybe Text) deriving (Generic, Typescript)
 ```
 
 #### Vanilla
@@ -124,11 +123,11 @@ data ComplexRecord =
     ,aUnion        :: SampleUnion
     ,aMaybeType    :: Maybe Text
     ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, BridgeType)
+    } deriving (Generic, Typescript)
 
-data SimpleUnTagged = F Int deriving (Generic, BridgeType)
+data SimpleUnTagged = F Int deriving (Generic, Typescript)
 
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
+data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, Typescript)
 ```
 
 Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
