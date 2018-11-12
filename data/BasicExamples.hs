@@ -13,6 +13,11 @@ data SimpleRecord =
     ,f2 :: Text
     } deriving (Generic, BridgeType, Typescript)
 
+newtype OneFieldRecord =
+ OneFieldRecord
+    {onlyField :: Int
+    } deriving (Generic, BridgeType, Typescript)
+
 data ComplexRecord =
   ComplexRecord
     {anIntField    :: Int

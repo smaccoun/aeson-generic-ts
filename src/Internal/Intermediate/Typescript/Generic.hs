@@ -59,6 +59,15 @@ instance (Datatype d, GenericTSFields f, GenericTSFields s) => GenericTSIntermed
     where
       typeName = T.pack (datatypeName d)
 
+instance (Datatype d, GenericTSIntermediate f, Selector s) => GenericTSIntermediate (D1 d (C1 c (S1 s f))) where
+  genericToTS d =
+    TSCompositeType
+    $ TSStructuredType typeName
+    $ TSRecordLike
+    $ TSRecord $ toTSFields (unM1 . unM1 $ d)
+    where
+      typeName = T.pack (datatypeName d)
+
 instance (GenericTSIntermediate f1)
   => GenericTSUnion (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1)) where
   toTSUnion _ =
