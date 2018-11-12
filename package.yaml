@@ -38,13 +38,14 @@ library:
 
 tests:
   aeson-generic-ts-test:
-    main:                Main.hs
+    main: Spec.hs
     source-dirs:
       - test
       - src
       - data
     dependencies:
       - hspec
+      - hspec-discover
       - markdown-unlit
     ghc-options: [-pgmL markdown-unlit]
 

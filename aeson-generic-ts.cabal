@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: bad450c77c3a98585e7e61de55ffb816faf344012d245ca2714ae7451e2d452f
+-- hash: 774a8cd709bbbb09af74d2cc777fa4d663d03a522e4a96805f9bc87c3e231e15
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -44,7 +44,7 @@ library
 
 test-suite aeson-generic-ts-test
   type: exitcode-stdio-1.0
-  main-is: Main.hs
+  main-is: Spec.hs
   hs-source-dirs:
       test
       src
@@ -56,11 +56,11 @@ test-suite aeson-generic-ts-test
     , base >=4.7 && <5
     , exceptions
     , hspec
+    , hspec-discover
     , markdown-unlit
     , text
   other-modules:
       FpTsSpec
-      Spec
       VanillaSpec
       Internal.Intermediate.Bridge.Generics
       Internal.Intermediate.Bridge.Lang
