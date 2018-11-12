@@ -23,7 +23,7 @@ data ForeignType =
   ForeignType
     {refName     :: Text
     ,declaration :: Text
-    } deriving (Generic)
+    } deriving (Generic, Show)
 
 data TypescriptOutput =
   TypescriptOutput

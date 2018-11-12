@@ -2,39 +2,39 @@ module VanillaSpec where
 
 import           BasicExamples
 import           Data.Proxy
-import           Data.Text                             (Text)
-import qualified Data.Text                             as T
-import           Internal.Intermediate.Bridge.Generics
+import           Data.Text                                (Text)
+import           Internal.Intermediate.Typescript.Generic
 import           Internal.Output.PrintForeign
 import           Internal.Typescript.Flavors.Vanilla
 import           Test.Hspec
 
-printVanilla :: (BridgeType a) => Proxy a -> IO Text
-printVanilla = printTypescript (Proxy :: Proxy Vanilla)
-
 spec :: Spec
 spec = describe "vanilla_ts" $ do
   it "works for number" $ do
-    t <- printVanilla (Proxy :: Proxy Int)
-    t `shouldBe` "number"
+    printVanilla (Proxy :: Proxy Int) `shouldBe` "number"
 
   it "works for number" $ do
-    t <- printVanilla (Proxy :: Proxy [Int])
-    t `shouldBe` "Array<number>"
+    printVanilla (Proxy :: Proxy [Int]) `shouldBe` "Array<number>"
 
-  it "Should output the correct complex record" $ do
-    putStrLn $ T.unpack knownSolution
-    ts <- printVanilla (Proxy :: Proxy ComplexRecord)
-    putStrLn $ T.unpack ts
-    ts `shouldBe` knownSolution
- where
-  knownSolution = T.intercalate
-    ""
-    [ "interface ComplexRecord { \n"
-    , "  anIntField : number\n"
-    , "  aTextField : string\n"
-    , "  aUnion : SampleUnion\n"
-    , "  aMaybeType : string | null \n"
-    , "  aSimpleRecord : SimpleRecord"
-    , "\n}"
-    ]
+  describe "it works for records" $ do
+    it "works for a simple record type" $ do
+      printVanilla (Proxy :: Proxy SimpleRecord)
+        `shouldBe` "interface SimpleRecord { \n  f1 : number\n  f2 : string\n}"
+
+    it "works for a record with only one field (newtype)" $ do
+      printVanilla (Proxy :: Proxy OneFieldRecord)
+        `shouldBe` "interface OneFieldRecord { \n  onlyField : number\n}"
+
+    it "works for a complex record" $ do
+      printVanilla (Proxy :: Proxy ComplexRecord)
+        `shouldBe` "interface ComplexRecord { \n  anIntField : number\n  aTextField : string\n  aUnion : SampleUnion\n  aMaybeType : string | null \n  aSimpleRecord : SimpleRecord\n}"
+
+  describe "it works for various sum types" $ do
+    it "works for a simple sum of primitives" $ do
+      printVanilla (Proxy :: Proxy SampleUnion)
+        `shouldBe` "type SampleUnion = number | string | boolean"
+
+
+
+printVanilla :: (Typescript a) => Proxy a -> Text
+printVanilla = mkTypescriptDeclaration (Proxy :: Proxy Vanilla)

@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 774a8cd709bbbb09af74d2cc777fa4d663d03a522e4a96805f9bc87c3e231e15
+-- hash: d8d6852a94c2500adc8afb399db9ca40c8b20bbf030cf4e256da071f9c07cf02
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -20,9 +20,7 @@ extra-source-files:
 
 library
   exposed-modules:
-      Internal.Intermediate.Bridge.Generics
-      Internal.Intermediate.Bridge.Lang
-      Internal.Intermediate.BridgeToTypescript
+      Internal.Intermediate.Typescript.Generic
       Internal.Intermediate.Typescript.Lang
       Internal.Output.Foreign.Class
       Internal.Output.Foreign.TSDefaults
@@ -45,6 +43,19 @@ library
 test-suite aeson-generic-ts-test
   type: exitcode-stdio-1.0
   main-is: Spec.hs
+  other-modules:
+      FpTsSpec
+      VanillaSpec
+      Internal.Intermediate.Typescript.Generic
+      Internal.Intermediate.Typescript.Lang
+      Internal.Output.Foreign.Class
+      Internal.Output.Foreign.TSDefaults
+      Internal.Output.PrintForeign
+      Internal.Typescript.Flavors.FpTs
+      Internal.Typescript.Flavors.Vanilla
+      Typescript
+      BasicExamples
+      Paths_aeson_generic_ts
   hs-source-dirs:
       test
       src
@@ -59,21 +70,6 @@ test-suite aeson-generic-ts-test
     , hspec-discover
     , markdown-unlit
     , text
-  other-modules:
-      FpTsSpec
-      VanillaSpec
-      Internal.Intermediate.Bridge.Generics
-      Internal.Intermediate.Bridge.Lang
-      Internal.Intermediate.BridgeToTypescript
-      Internal.Intermediate.Typescript.Lang
-      Internal.Output.Foreign.Class
-      Internal.Output.Foreign.TSDefaults
-      Internal.Output.PrintForeign
-      Internal.Typescript.Flavors.FpTs
-      Internal.Typescript.Flavors.Vanilla
-      Typescript
-      BasicExamples
-      Paths_aeson_generic_ts
   default-language: Haskell2010
 
 test-suite doctest

@@ -30,7 +30,7 @@ data User =
   User 
     {name :: Text
     ,age  :: Int
-    } deriving (Generic, BridgeType)
+    } deriving (Generic, Typescript)
   
 ```
 
@@ -42,7 +42,7 @@ data User =
 
 printUser :: IO ()
 printUser =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy User)
 ```
 
 This prints the following:
@@ -56,7 +56,7 @@ interface User {
 
 ## About
 
-This project is under development and will be used in production once it's ready. I'd call it's current state alpha, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
+This project is under development and will be used in production once it's ready. I'd call it's current state beta, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
 
 ## Design Goals 
 
@@ -70,7 +70,6 @@ Typescript has many ways of doing the same thing, and there are lots of opinions
 
 4. A simple interface for providing your own custom translation
 
-Achieving high configurability relies on using Generics to first translate Haskell types to an intermediate bridge language. A configuration data structure can then be passed into a translation function to achieve nearly any typescript representation you desire.
 
 ## Flavors
 
@@ -81,14 +80,14 @@ A flavor is just another name for a type that represents how you want your Types
 We will use the following example type to see how it varies across flavors
 
 ```haskell
-newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
+newtype AnOption = AnOption (Maybe Text) deriving (Generic, Typescript)
 ```
 
 #### Vanilla
 
 ```haskell
 printVanillaOption =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
 --  type AnOption = null | string
 ```
@@ -96,7 +95,7 @@ printVanillaOption =
 #### FpTs
 ```haskell
 printAnOption =
-    printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
 -- type AnOption = Option<string>
 ```
@@ -124,11 +123,11 @@ data ComplexRecord =
     ,aUnion        :: SampleUnion
     ,aMaybeType    :: Maybe Text
     ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, BridgeType)
+    } deriving (Generic, Typescript)
 
-data SimpleUnTagged = F Int deriving (Generic, BridgeType)
+data SimpleUnTagged = F Int deriving (Generic, Typescript)
 
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, BridgeType)
+data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, Typescript)
 ```
 
 Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
@@ -136,7 +135,7 @@ Specify a flavor to print to TS. Here's an example using the Vanilla Flavor
 ```
 printComplexRecord :: IO ()
 printComplexRecord =
-    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
+    putStrLn $ mkTypescriptDeclaration (Proxy :: Proxy Vanilla) (Proxy :: Proxy ComplexRecord)
 ```
 
 Generates the following typescript types
@@ -155,8 +154,8 @@ interface ComplexRecord {
 
 ## Roadmap
 
-1. More complete FP-TS functionality
-2. Unionize library flavor
-3. Remove intermediate bridge language
+1. Smart file generators (declarations + imports)
+2. More complete FP-TS functionality
+3. Unionize library flavor
 4. Figure out a cleaner ADT interface for customizing TS
 5. I dunno, lots of stuff probably. Make it more production ready I guess

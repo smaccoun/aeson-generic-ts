@@ -1,9 +1,9 @@
 module Typescript
-  (module Internal.Intermediate.Bridge.Lang
-  ,module Internal.Typescript.Flavors.Vanilla
+  (module Internal.Typescript.Flavors.Vanilla
+  ,module Internal.Typescript.Flavors.FpTs
   )
 where
 
 import           Internal.Typescript.Flavors.Vanilla
-import           Internal.Intermediate.Bridge.Lang
+import           Internal.Typescript.Flavors.FpTs
 

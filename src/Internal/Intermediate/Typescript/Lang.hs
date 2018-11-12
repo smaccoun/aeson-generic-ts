@@ -34,8 +34,11 @@ newtype TSOption f = TSOption (TSIntermediate f)
 
 newtype TSUnion f = TSUnion [TSIntermediate f]
 
+instance Semigroup (TSUnion f) where
+  (TSUnion l1) <> (TSUnion l2) = TSUnion $ l1 <> l2
+
 {-
-  Typescript "Data types". Classes are an alternative rep to Interface
+  Typescript "Data types", which are largely structural but can also be transformed into classes.
 -}
 
 data TSStructured f =
