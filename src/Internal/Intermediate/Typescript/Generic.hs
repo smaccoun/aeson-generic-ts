@@ -58,15 +58,15 @@ instance (Datatype d, GenericTSUnion u)
 instance (Datatype d, GenericTSIntermediate f1, GenericTSIntermediate f2)
   => GenericTSIntermediate
           (D1 d (
-            (C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1))
-        :*: (C1 c2 (S1 ('MetaSel 'Nothing a2 b2 'DecidedLazy) f2))
+            C1 c1 (S1 ('MetaSel 'Nothing a b 'DecidedLazy) f1)
+        :*: C1 c2 (S1 ('MetaSel 'Nothing a2 b2 'DecidedLazy) f2)
             )
           ) where
   genericToTS datatype =
     TSCompositeType
     $ TSStructuredType typeName
     $ TSRecordLike
-    $ TSRecord $ [f1, f2]
+    $ TSRecord [f1, f2]
     where
       typeName = pack (datatypeName datatype)
       f1 = TSField (FieldName "meow") (genericToTS (undefined :: f1 p))

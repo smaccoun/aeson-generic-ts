@@ -87,8 +87,8 @@ newtype AnOption = AnOption (Maybe Text) deriving (Generic, BridgeType)
 #### Vanilla
 
 ```haskell
-printAnOption =
-    ts <- printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
+printVanillaOption =
+    printTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy AnOption)
     
 --  type AnOption = null | string
 ```
@@ -96,7 +96,7 @@ printAnOption =
 #### FpTs
 ```haskell
 printAnOption =
-    ts <- printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
+    printTypescript (Proxy :: Proxy FpTs) (Proxy :: Proxy AnOption)
     
 -- type AnOption = Option<string>
 ```
