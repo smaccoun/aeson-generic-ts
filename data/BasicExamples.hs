@@ -25,8 +25,6 @@ data ComplexRecord =
     ,aUnion        :: SampleUnion
     ,aMaybeType    :: Maybe Text
     ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, BridgeType)
-
-data SimpleUnTagged = F Int Int deriving (Generic, BridgeType)
+    } deriving (Generic, BridgeType, Typescript)
 
 data SampleUnion = FirstCon Int | SecondCon Text | BoolCon Bool deriving (Generic, BridgeType, Typescript)

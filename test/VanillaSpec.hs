@@ -25,6 +25,10 @@ spec = describe "vanilla_ts" $ do
       printVanilla (Proxy :: Proxy OneFieldRecord)
         `shouldBe` "interface OneFieldRecord { \n  onlyField : number\n}"
 
+    it "works for a complex record" $ do
+      printVanilla (Proxy :: Proxy ComplexRecord)
+        `shouldBe` "interface ComplexRecord { \n  anIntField : number\n  aTextField : string\n  aUnion : SampleUnion\n  aMaybeType : string | null \n  aSimpleRecord : SimpleRecord\n}"
+
   describe "it works for various sum types" $ do
     it "works for a simple sum of primitives" $ do
       printVanilla (Proxy :: Proxy SampleUnion)
