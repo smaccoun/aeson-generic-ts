@@ -30,7 +30,7 @@ data User =
   User 
     {name :: Text
     ,age  :: Int
-    } deriving (Generic, Typescript)
+    } deriving (Generic, TypescriptType)
   
 ```
 
@@ -80,7 +80,7 @@ A flavor is just another name for a type that represents how you want your Types
 We will use the following example type to see how it varies across flavors
 
 ```haskell
-newtype AnOption = AnOption (Maybe Text) deriving (Generic, Typescript)
+newtype AnOption = AnOption (Maybe Text) deriving (Generic, TypescriptType)
 ```
 
 #### Vanilla
@@ -123,11 +123,11 @@ data ComplexRecord =
     ,aUnion        :: SampleUnion
     ,aMaybeType    :: Maybe Text
     ,aSimpleRecord :: SimpleRecord
-    } deriving (Generic, Typescript)
+    } deriving (Generic, TypescriptType)
 
-data SimpleUnTagged = F Int deriving (Generic, Typescript)
+data SimpleUnTagged = F Int deriving (Generic, TypescriptType)
 
-data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, Typescript)
+data SampleUnion = FirstCon Int | SecondCon Text deriving (Generic, TypescriptType)
 ```
 
 Specify a flavor to print to TS. Here's an example using the Vanilla Flavor

@@ -36,5 +36,5 @@ spec = describe "vanilla_ts" $ do
 
 
 
-printVanilla :: (Typescript a) => Proxy a -> Text
+printVanilla :: (TypescriptType a) => Proxy a -> Text
 printVanilla = mkTypescriptDeclaration (Proxy :: Proxy Vanilla)

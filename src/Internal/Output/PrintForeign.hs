@@ -16,14 +16,14 @@ Simple example using the `Vanilla` flavor
 -- >>> declaration $ foreignTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy Int)
 -- "number"
 foreignTypescript
-  :: (Typescript hsType, IsForeignType (TSIntermediate flavor))
+  :: (TypescriptType hsType, IsForeignType (TSIntermediate flavor))
   => Proxy flavor
   -> Proxy hsType
   -> ForeignType
 foreignTypescript pFlavor tsType' = toForeignType $ toTSFlavor pFlavor tsType'
 
 mkTypescriptDeclaration
-  :: (Typescript hsType, IsForeignType (TSIntermediate flavor))
+  :: (TypescriptType hsType, IsForeignType (TSIntermediate flavor))
   => Proxy flavor
   -> Proxy hsType
   -> Text
@@ -31,7 +31,7 @@ mkTypescriptDeclaration pFlavor tsType' =
   declaration $ foreignTypescript pFlavor tsType'
 
 toTSFlavor
-  :: (Typescript hsType)
+  :: (TypescriptType hsType)
   => Proxy flavor
   -> Proxy hsType
   -> TSIntermediate flavor

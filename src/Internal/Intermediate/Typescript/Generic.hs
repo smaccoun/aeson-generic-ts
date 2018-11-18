@@ -13,7 +13,7 @@ import qualified Data.Text                             as T
 import           GHC.Generics
 import           Internal.Intermediate.Typescript.Lang
 
-class Typescript a where
+class TypescriptType a where
   toTSIntermediate :: a -> TSIntermediate flavor
   default toTSIntermediate :: (Generic a, GenericTSIntermediate (Rep a)) => a -> TSIntermediate flavor
   toTSIntermediate = genericToTS . from
@@ -109,7 +109,7 @@ instance (Datatype d, GenericTSIntermediate f1, GenericTSIntermediate f2)
       f2 = TSField (FieldName "f2") (genericToTS (undefined :: f2 p))
 
 
-instance Typescript t => GenericTSIntermediate (Rec0 t) where
+instance TypescriptType t => GenericTSIntermediate (Rec0 t) where
   genericToTS _ = toTSIntermediate (Proxy :: Proxy t)
 
 instance (GenericTSStructured f, Constructor c)  => GenericTSStructured (C1 c f) where
@@ -128,26 +128,26 @@ instance (GenericTSIntermediate f, GenericTSIntermediate g) => GenericTSStructur
       ,genericToTS (undefined :: g p)
       ]
 
-instance Typescript a => Typescript (Proxy a) where
+instance TypescriptType a => TypescriptType (Proxy a) where
   toTSIntermediate _ = toTSIntermediate (undefined :: a)
 
-instance Typescript t => Typescript (Maybe t) where
+instance TypescriptType t => TypescriptType (Maybe t) where
   toTSIntermediate _ = TSCompositeType $ TSOptionRef $ TSOption (toTSIntermediate (Proxy :: Proxy t))
 
-instance Typescript t => Typescript [t] where
+instance TypescriptType t => TypescriptType [t] where
   toTSIntermediate _ = TSCompositeType $ TSCollectionRef $ TSCollection (toTSIntermediate (Proxy :: Proxy t))
 
-instance Typescript Text where
+instance TypescriptType Text where
   toTSIntermediate _ = TSPrimitiveType TSString
 
-instance Typescript Int where
+instance TypescriptType Int where
   toTSIntermediate _ = TSPrimitiveType TSNumber
 
-instance Typescript Double where
+instance TypescriptType Double where
   toTSIntermediate _ = TSPrimitiveType TSNumber
 
-instance Typescript Float where
+instance TypescriptType Float where
   toTSIntermediate _ = TSPrimitiveType TSNumber
 
-instance Typescript Bool where
+instance TypescriptType Bool where
   toTSIntermediate _ = TSPrimitiveType TSBoolean
