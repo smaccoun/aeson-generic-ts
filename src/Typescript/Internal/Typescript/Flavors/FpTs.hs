@@ -1,8 +1,8 @@
-module Internal.Typescript.Flavors.FpTs where
+module Typescript.Internal.Typescript.Flavors.FpTs where
 
-import           Internal.Intermediate.Typescript.Lang
-import           Internal.Output.Foreign.Class
-import           Internal.Output.Foreign.TSDefaults
+import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Output.Foreign.Class
+import           Typescript.Internal.Output.Foreign.TSDefaults
 
 data FpTs
 

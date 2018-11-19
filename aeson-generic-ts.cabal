@@ -2,7 +2,7 @@
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: d8d6852a94c2500adc8afb399db9ca40c8b20bbf030cf4e256da071f9c07cf02
+-- hash: c2c8363ff37189920ff8bdcdd342eab6e741a55f89c9b08c737f099675dcb505
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -20,14 +20,14 @@ extra-source-files:
 
 library
   exposed-modules:
-      Internal.Intermediate.Typescript.Generic
-      Internal.Intermediate.Typescript.Lang
-      Internal.Output.Foreign.Class
-      Internal.Output.Foreign.TSDefaults
-      Internal.Output.PrintForeign
-      Internal.Typescript.Flavors.FpTs
-      Internal.Typescript.Flavors.Vanilla
       Typescript
+      Typescript.Internal.Intermediate.Typescript.Generic
+      Typescript.Internal.Intermediate.Typescript.Lang
+      Typescript.Internal.Output.Foreign.Class
+      Typescript.Internal.Output.Foreign.TSDefaults
+      Typescript.Internal.Output.PrintForeign
+      Typescript.Internal.Typescript.Flavors.FpTs
+      Typescript.Internal.Typescript.Flavors.Vanilla
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -46,14 +46,14 @@ test-suite aeson-generic-ts-test
   other-modules:
       FpTsSpec
       VanillaSpec
-      Internal.Intermediate.Typescript.Generic
-      Internal.Intermediate.Typescript.Lang
-      Internal.Output.Foreign.Class
-      Internal.Output.Foreign.TSDefaults
-      Internal.Output.PrintForeign
-      Internal.Typescript.Flavors.FpTs
-      Internal.Typescript.Flavors.Vanilla
       Typescript
+      Typescript.Internal.Intermediate.Typescript.Generic
+      Typescript.Internal.Intermediate.Typescript.Lang
+      Typescript.Internal.Output.Foreign.Class
+      Typescript.Internal.Output.Foreign.TSDefaults
+      Typescript.Internal.Output.PrintForeign
+      Typescript.Internal.Typescript.Flavors.FpTs
+      Typescript.Internal.Typescript.Flavors.Vanilla
       BasicExamples
       Paths_aeson_generic_ts
   hs-source-dirs:

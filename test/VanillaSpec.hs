@@ -2,11 +2,11 @@ module VanillaSpec where
 
 import           BasicExamples
 import           Data.Proxy
-import           Data.Text                                (Text)
-import           Internal.Intermediate.Typescript.Generic
-import           Internal.Output.PrintForeign
-import           Internal.Typescript.Flavors.Vanilla
+import           Data.Text                                           (Text)
 import           Test.Hspec
+import           Typescript.Internal.Intermediate.Typescript.Generic
+import           Typescript.Internal.Output.PrintForeign
+import           Typescript.Internal.Typescript.Flavors.Vanilla
 
 spec :: Spec
 spec = describe "vanilla_ts" $ do

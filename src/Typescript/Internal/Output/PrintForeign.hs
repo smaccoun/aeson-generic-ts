@@ -1,10 +1,10 @@
-module Internal.Output.PrintForeign where
+module Typescript.Internal.Output.PrintForeign where
 
 import           Data.Proxy
-import           Data.Text                                (Text)
-import           Internal.Intermediate.Typescript.Generic
-import           Internal.Intermediate.Typescript.Lang
-import           Internal.Output.Foreign.Class
+import           Data.Text                                           (Text)
+import           Typescript.Internal.Intermediate.Typescript.Generic
+import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Output.Foreign.Class
 
 {-| Core function for outputting typescript
 
@@ -12,7 +12,7 @@ Simple example using the `Vanilla` flavor
 
 -}
 -- |
--- >>> import Internal.Typescript.Flavors.Vanilla
+-- >>> import Typescript.Internal.Typescript.Flavors.Vanilla
 -- >>> declaration $ foreignTypescript (Proxy :: Proxy Vanilla) (Proxy :: Proxy Int)
 -- "number"
 foreignTypescript

@@ -2,9 +2,9 @@
 
 module BasicExamples where
 
-import           Data.Text                                (Text)
+import           Data.Text                                           (Text)
 import           GHC.Generics
-import           Internal.Intermediate.Typescript.Generic
+import           Typescript.Internal.Intermediate.Typescript.Generic
 
 data SimpleRecord =
   SimpleRecord

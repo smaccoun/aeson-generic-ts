@@ -1,4 +1,4 @@
-module Internal.Intermediate.Typescript.Lang where
+module Typescript.Internal.Intermediate.Typescript.Lang where
 
 import           Data.Text
 

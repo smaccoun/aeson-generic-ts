@@ -1,12 +1,12 @@
-{-# LANGUAGE FlexibleContexts #-}
+{-# LANGUAGE FlexibleContexts     #-}
 {-# LANGUAGE UndecidableInstances #-}
 
-module Internal.Output.Foreign.TSDefaults where
+module Typescript.Internal.Output.Foreign.TSDefaults where
 
 import           Data.Text
-import qualified Data.Text                             as T
-import           Internal.Intermediate.Typescript.Lang
-import           Internal.Output.Foreign.Class
+import qualified Data.Text                                        as T
+import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Output.Foreign.Class
 
 
 {-
@@ -14,7 +14,7 @@ import           Internal.Output.Foreign.Class
 -}
 
 instance IsForeignType (TSComposite f)  => IsForeignType (TSIntermediate f) where
-  toForeignType (TSPrimitiveType prim) = toForeignType prim
+  toForeignType (TSPrimitiveType prim)      = toForeignType prim
   toForeignType (TSCompositeType composite) = toForeignType composite
 
 

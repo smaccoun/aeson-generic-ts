@@ -1,9 +1,11 @@
-{-# LANGUAGE DeriveGeneric, DeriveFunctor, DeriveTraversable #-}
+{-# LANGUAGE DeriveFunctor     #-}
+{-# LANGUAGE DeriveGeneric     #-}
+{-# LANGUAGE DeriveTraversable #-}
 
-module Internal.Output.Foreign.Class where
+module Typescript.Internal.Output.Foreign.Class where
 
-import Data.Text
-import GHC.Generics
+import           Data.Text
+import           GHC.Generics
 
 {-|
   Instantiate this class for all types that will be printed out as Text.
@@ -27,7 +29,7 @@ data ForeignType =
 
 data TypescriptOutput =
   TypescriptOutput
-    {typeOutput :: ForeignType
+    {typeOutput    :: ForeignType
     ,mbRequiresLib :: Maybe TSLibrary
     }
 

@@ -3,12 +3,12 @@
 module FpTsSpec where
 
 import           Data.Proxy
-import           Data.Text                                (Text)
+import           Data.Text                                           (Text)
 import           GHC.Generics
-import           Internal.Intermediate.Typescript.Generic
-import           Internal.Output.PrintForeign
-import           Internal.Typescript.Flavors.FpTs
 import           Test.Hspec
+import           Typescript.Internal.Intermediate.Typescript.Generic
+import           Typescript.Internal.Output.PrintForeign
+import           Typescript.Internal.Typescript.Flavors.FpTs
 
 spec :: Spec
 spec = describe "option_type" $ do

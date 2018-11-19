@@ -1,12 +1,15 @@
 module Typescript
-  (module Internal.Intermediate.Typescript.Lang
-  ,module Internal.Typescript.Flavors.Vanilla
-  ,module Internal.Typescript.Flavors.FpTs
+  (module Typescript.Internal.Intermediate.Typescript.Lang
+  ,module Typescript.Internal.Typescript.Flavors.Vanilla
+  ,module Typescript.Internal.Typescript.Flavors.FpTs
+  ,foreignTypescript
+  ,mkTypescriptDeclaration
   ,TypescriptType
   )
 where
 
-import           Internal.Intermediate.Typescript.Generic (TypescriptType)
-import           Internal.Intermediate.Typescript.Lang
-import           Internal.Typescript.Flavors.FpTs
-import           Internal.Typescript.Flavors.Vanilla
+import           Typescript.Internal.Intermediate.Typescript.Generic (TypescriptType)
+import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Output.PrintForeign
+import           Typescript.Internal.Typescript.Flavors.FpTs
+import           Typescript.Internal.Typescript.Flavors.Vanilla
