@@ -5,13 +5,13 @@
 {-# LANGUAGE TypeOperators        #-}
 {-# LANGUAGE TypeSynonymInstances #-}
 
-module Typescript.Internal.Intermediate.Typescript.Generic where
+module Typescript.Internal.Intermediate.Generic where
 
 import           Data.Proxy
-import           Data.Text                                        (Text)
-import qualified Data.Text                                        as T
+import           Data.Text                             (Text)
+import qualified Data.Text                             as T
 import           GHC.Generics
-import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Intermediate.Lang
 
 class TypescriptType a where
   toTSIntermediate :: a -> TSIntermediate flavor

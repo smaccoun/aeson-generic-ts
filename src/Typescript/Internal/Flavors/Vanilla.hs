@@ -1,6 +1,6 @@
-module Typescript.Internal.Typescript.Flavors.Vanilla where
+module Typescript.Internal.Flavors.Vanilla where
 
-import           Typescript.Internal.Intermediate.Typescript.Lang
+import           Typescript.Internal.Intermediate.Lang
 import           Typescript.Internal.Output.Foreign.Class
 import           Typescript.Internal.Output.Foreign.TSDefaults
 

@@ -4,8 +4,8 @@
 module Typescript.Internal.Output.Foreign.TSDefaults where
 
 import           Data.Text
-import qualified Data.Text                                        as T
-import           Typescript.Internal.Intermediate.Typescript.Lang
+import qualified Data.Text                                as T
+import           Typescript.Internal.Intermediate.Lang
 import           Typescript.Internal.Output.Foreign.Class
 
 
