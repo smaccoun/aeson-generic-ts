@@ -34,10 +34,11 @@ showFields fields =
 defaultForeignArray
   :: (IsForeignType (TSIntermediate f)) => TSCollection f -> ForeignType
 defaultForeignArray (TSCollection tsType') = ForeignType
-  { refName     = rep
+  { refName     = "Array<" <> rep <> ">"
   , declaration = "Array<" <> rep <> ">"
   }
-  where rep = refName . toForeignType $ tsType'
+  where
+    rep = refName . toForeignType $ tsType'
 
 defaultForeignUnion
   :: (IsForeignType (TSIntermediate f)) => Text -> TSUnion f -> ForeignType
