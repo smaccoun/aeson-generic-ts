@@ -151,3 +151,6 @@ instance TypescriptType Float where
 
 instance TypescriptType Bool where
   toTSIntermediate _ = TSPrimitiveType TSBoolean
+
+instance TypescriptType () where
+  toTSIntermediate _ = TSPrimitiveType TSVoid

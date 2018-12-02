@@ -16,6 +16,7 @@ data TSPrimitive =
     TSNumber
   | TSString
   | TSBoolean
+  | TSVoid
     deriving (Eq, Show)
 
 

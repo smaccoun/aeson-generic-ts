@@ -22,6 +22,7 @@ instance IsForeignType TSPrimitive where
   toForeignType TSString  = selfRefForeign "string"
   toForeignType TSNumber  = selfRefForeign "number"
   toForeignType TSBoolean = selfRefForeign "boolean"
+  toForeignType TSVoid    = selfRefForeign "void"
 
 showField :: (IsForeignType (TSIntermediate f)) => TSField f -> Text
 showField (TSField (FieldName fName) fType) =
