@@ -7,19 +7,19 @@ import           Typescript.Internal.Output.Foreign.TSDefaults
 data FpTs
 
 instance IsForeignType (TSComposite FpTs) where
-  toForeignType (TSCollectionRef tsCollection) = defaultForeignArray tsCollection
-  toForeignType (TSOptionRef tsOption) = mkFpTSOption tsOption
-  toForeignType (TSStructuredType typeName tsStructure) =
-    case tsStructure of
-      TSUnionLike tsUnion -> defaultForeignUnion typeName tsUnion
-      TSRecordLike tsData -> mkTSInterface typeName tsData
+    toForeignType (TSCollectionRef tsCollection) =
+        defaultForeignArray tsCollection
+    toForeignType (TSOptionRef tsOption) = mkFpTSOption tsOption
+    toForeignType (TSStructuredType typeName tsStructure) = case tsStructure of
+        TSUnionLike tsUnion -> defaultForeignUnion typeName tsUnion
+        TSRecordLike tsData -> mkTSInterface typeName tsData
 
 mkFpTSOption :: (IsForeignType (TSIntermediate f)) => TSOption f -> ForeignType
-mkFpTSOption (TSOption tsType') =
-  selfRefForeign $ "Option<" <> (refName . toForeignType $ tsType') <> ">"
+mkFpTSOption (TSOption tsType') = selfRefForeign $ "Option<"
+    <> (refName . toForeignType $ tsType') <> ">"
 
 instance OutputsTypescript (TSIntermediate FpTs) where
-  toTypescriptOutput = mkTypescriptOut (Just (TSLibrary "fp-ts"))
+    toTypescriptOutput = mkTypescriptOut (Just (TSLibrary "fp-ts"))
 
 
 

@@ -18,6 +18,11 @@ test:
 lint:
 	hlint .
 
+.PHONY: fmt
+fmt:
+	find src -name '*.hs' -print | xargs floskell
+	find test -name '*.hs' -print | xargs floskell 
+
 .PHONY: buildAndFormat
 buildAndFormat:
 	stack build --test --no-run-tests
