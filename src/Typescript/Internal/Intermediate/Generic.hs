@@ -35,8 +35,8 @@ class GenericTSUnion hkf where
 class GenericTSFields hkf where
     toTSFields :: hkf a -> [TSField flavor]
 
-  {-| Instances
--}instance (GenericTSFields f, GenericTSFields g)
+{-| Instances-}
+instance (GenericTSFields f, GenericTSFields g)
     => GenericTSFields (f :*: g) where
     toTSFields _ = f1 <> f2
       where

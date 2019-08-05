@@ -9,9 +9,8 @@ import qualified Data.Text                                as T
 import           Typescript.Internal.Intermediate.Lang
 import           Typescript.Internal.Output.Foreign.Class
 
-  {-
-  DEFAULT FOREIGN INSTANCES
--}instance IsForeignType (TSComposite f)
+{- DEFAULT FOREIGN INSTANCES -}
+instance IsForeignType (TSComposite f)
     => IsForeignType (TSIntermediate f) where
     toForeignType (TSPrimitiveType prim) = toForeignType prim
     toForeignType (TSCompositeType composite) = toForeignType composite
