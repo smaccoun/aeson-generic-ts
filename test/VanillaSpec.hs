@@ -13,7 +13,7 @@ spec = describe "vanilla_ts" $ do
   it "works for number" $ do
     printVanilla (Proxy :: Proxy Int) `shouldBe` "number"
 
-  it "works for number" $ do
+  it "works for a list of numbers" $ do
     printVanilla (Proxy :: Proxy [Int]) `shouldBe` "Array<number>"
 
   describe "it works for records" $ do

@@ -1,4 +1,6 @@
 {-# LANGUAGE GeneralizedNewtypeDeriving #-}
+{-# LANGUAGE TemplateHaskell #-}
+{-# LANGUAGE DerivingStrategies #-}
 
 module FpTsSpec where
 
@@ -10,6 +12,8 @@ import           Typescript.Internal.Flavors.FpTs
 import           Typescript.Internal.Intermediate.Generic
 import           Typescript.Internal.Output.PrintForeign
 
+newtype AnOption = AnOption (Maybe Text) deriving (Generic, TypescriptType)
+
 spec :: Spec
 spec = describe "option_type" $ do
   it "handles_a_simple_option" $ do
@@ -17,7 +21,6 @@ spec = describe "option_type" $ do
   where knownSolution = "Option<string>"
 
 
-newtype AnOption = AnOption (Maybe Text) deriving (Generic, TypescriptType)
 
 printFpTs :: (TypescriptType a) => Proxy a -> Text
 printFpTs = mkTypescriptDeclaration (Proxy :: Proxy FpTs)

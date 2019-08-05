@@ -1,8 +1,10 @@
--- This file has been generated from package.yaml by hpack version 0.28.2.
+cabal-version: 1.12
+
+-- This file has been generated from package.yaml by hpack version 0.31.1.
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: 8681c6f4f85dd99f33f2f698c6972d452dd5b601dd338c8917572558b3d828b8
+-- hash: ef53fa0e71785ef2bd84e58061dfdea85982c863753fd72692c463f56bd12b07
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -14,7 +16,6 @@ copyright:      2018 Steven MacCoun
 license:        BSD3
 license-file:   LICENSE
 build-type:     Simple
-cabal-version:  >= 1.10
 extra-source-files:
     README.md
 
@@ -28,6 +29,7 @@ library
       Typescript.Internal.Output.Foreign.Class
       Typescript.Internal.Output.Foreign.TSDefaults
       Typescript.Internal.Output.PrintForeign
+      Typescript.TH.GenInstances
   other-modules:
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -37,7 +39,10 @@ library
       aeson
     , base >=4.7 && <5
     , exceptions
+    , template-haskell
     , text
+    , th-abstraction
+    , th-reify-many
   default-language: Haskell2010
 
 test-suite aeson-generic-ts-test
@@ -54,6 +59,7 @@ test-suite aeson-generic-ts-test
       Typescript.Internal.Output.Foreign.Class
       Typescript.Internal.Output.Foreign.TSDefaults
       Typescript.Internal.Output.PrintForeign
+      Typescript.TH.GenInstances
       BasicExamples
       Paths_aeson_generic_ts
   hs-source-dirs:
@@ -69,7 +75,10 @@ test-suite aeson-generic-ts-test
     , hspec
     , hspec-discover
     , markdown-unlit
+    , template-haskell
     , text
+    , th-abstraction
+    , th-reify-many
   default-language: Haskell2010
 
 test-suite doctest
@@ -86,5 +95,8 @@ test-suite doctest
     , base >=4.7 && <5
     , doctest
     , exceptions
+    , template-haskell
     , text
+    , th-abstraction
+    , th-reify-many
   default-language: Haskell2010

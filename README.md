@@ -56,7 +56,7 @@ interface User {
 
 ## About
 
-This project is under development and will be used in production once it's ready. I'd call it's current state beta, as there are a lot of design decisions still being made about this library. See Design Goals for what's going into the implementation of this library
+In beta. Gonna start working on this again soon.....but mostly using Purecript these days. Note there is also a library called [aeson-typescript](http://hackage.haskell.org/package/aeson-typescript) that is excellent and well maintained. The only reason I created this library was in case someone prefers using generics and - more importantly - wants a high level of customization (for example converting to FP-TS based libs)
 
 ## Design Goals 
 

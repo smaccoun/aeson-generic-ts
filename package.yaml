@@ -17,6 +17,9 @@ dependencies:
   - text
   - aeson
   - exceptions
+  - template-haskell
+  - th-reify-many
+  - th-abstraction
 
 default-extensions:
 - ConstraintKinds
