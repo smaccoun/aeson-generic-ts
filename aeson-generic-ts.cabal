@@ -4,7 +4,7 @@ cabal-version: 1.12
 --
 -- see: https://github.com/sol/hpack
 --
--- hash: ef53fa0e71785ef2bd84e58061dfdea85982c863753fd72692c463f56bd12b07
+-- hash: 3a83ba67f03edf6df43207a2e85d25800ccbc9f9661a1871ab5dc781f1d4d74d
 
 name:           aeson-generic-ts
 version:        0.1.0.0
@@ -34,7 +34,7 @@ library
       Paths_aeson_generic_ts
   hs-source-dirs:
       src
-  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances DeriveAnyClass
   build-depends:
       aeson
     , base >=4.7 && <5
@@ -66,7 +66,7 @@ test-suite aeson-generic-ts-test
       test
       src
       data
-  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances DeriveAnyClass
   ghc-options: -pgmL markdown-unlit
   build-depends:
       aeson
@@ -88,7 +88,7 @@ test-suite doctest
       Paths_aeson_generic_ts
   hs-source-dirs:
       ./.
-  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances
+  default-extensions: ConstraintKinds DataKinds DeriveGeneric FlexibleContexts FlexibleInstances KindSignatures MultiParamTypeClasses OverloadedStrings RecordWildCards ScopedTypeVariables StandaloneDeriving TypeFamilies UndecidableInstances DeriveAnyClass
   build-depends:
       Glob
     , aeson

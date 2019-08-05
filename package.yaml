@@ -35,6 +35,7 @@ default-extensions:
 - StandaloneDeriving
 - TypeFamilies
 - UndecidableInstances
+- DeriveAnyClass
 
 library:
   source-dirs: src
