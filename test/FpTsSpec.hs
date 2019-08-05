@@ -18,8 +18,8 @@ import           Typescript.TH.GenInstances
 newtype AnOption = AnOption (Maybe Text)
     deriving ( Generic )
 
-data F = F { f1 :: AnOption
-           }
+newtype F =
+  F { f1 :: AnOption }
     deriving ( Generic )
 
 $(deriveTypescriptTypesRecursively [ ''F ])
