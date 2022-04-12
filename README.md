@@ -2,6 +2,7 @@
 
  :warning: **Not actively maintained. Looking for a maintainer or to be incorporated into another project
 
+# NOT MAINTAINED: Looking for maintainer or to be incorporated
 # aeson-generic-ts
 
 Convert Haskell to Typescript in a highly configurable way with Generics 
