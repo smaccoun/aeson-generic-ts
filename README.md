@@ -1,5 +1,7 @@
 [![CircleCI](https://circleci.com/gh/smaccoun/aeson-generic-ts.svg?style=svg)](https://circleci.com/gh/smaccoun/aeson-generic-ts)
 
+ :warning: **Not actively maintained. Looking for a maintainer or to be incorporated into another project
+
 # aeson-generic-ts
 
 Convert Haskell to Typescript in a highly configurable way with Generics 
@@ -53,10 +55,6 @@ interface User {
   age  : number
 }
 ```
-
-## About
-
-In beta. Gonna start working on this again soon.....but mostly using Purecript these days. Note there is also a library called [aeson-typescript](http://hackage.haskell.org/package/aeson-typescript) that is excellent and well maintained. The only reason I created this library was in case someone prefers using generics and - more importantly - wants a high level of customization (for example converting to FP-TS based libs)
 
 ## Design Goals 
 
